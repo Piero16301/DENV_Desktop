@@ -1,7 +1,6 @@
-import 'package:deteccion_zonas_dengue_desktop/sources/pages/map_reports_page.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
-import 'package:deteccion_zonas_dengue_desktop/sources/pages/pages.dart';
+import 'package:deteccion_zonas_dengue_desktop/pages/pages.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

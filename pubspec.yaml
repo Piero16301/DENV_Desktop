@@ -37,6 +37,8 @@ dependencies:
 
   # Libraries for this project
   fluent_ui: ^3.11.0
+  shared_preferences: ^2.0.13
+  provider: ^6.0.2
   syncfusion_flutter_datagrid: ^20.1.50
 
 dev_dependencies:
