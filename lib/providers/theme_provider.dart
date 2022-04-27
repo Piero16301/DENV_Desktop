@@ -1,19 +1,21 @@
 import 'package:fluent_ui/fluent_ui.dart';
 
+import 'package:deteccion_zonas_dengue_desktop/theme/app_theme.dart';
+
 class ThemeProvider extends ChangeNotifier {
   ThemeData currentTheme;
 
   ThemeProvider({
     required bool isDarkMode,
-  }): currentTheme = isDarkMode ? ThemeData.dark() : ThemeData.light();
+  }): currentTheme = isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme;
 
   setLightMode() {
-    currentTheme = ThemeData.light();
+    currentTheme = AppTheme.lightTheme;
     notifyListeners();
   }
 
   setDarkMode() {
-    currentTheme = ThemeData.dark();
+    currentTheme = AppTheme.darkTheme;
     notifyListeners();
   }
 }

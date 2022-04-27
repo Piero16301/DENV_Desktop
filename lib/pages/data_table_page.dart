@@ -28,17 +28,18 @@ class _DataTablePageState extends State<DataTablePage> {
       editingGestureType: EditingGestureType.doubleTap,
       columnWidthMode: ColumnWidthMode.fill,
       columns: [
-        buildGridColumn('Dirección'),
-        buildGridColumn('Comentario'),
-        buildGridColumn('Fecha y Hora'),
-        buildGridColumn('Latitud'),
-        buildGridColumn('Longitud'),
-        buildGridColumn('Foto URL'),
+        buildGridColumn('address', 'Dirección'),
+        buildGridColumn('comment', 'Comentario'),
+        buildGridColumn('date', 'Fecha'),
+        buildGridColumn('time', 'Hora'),
+        buildGridColumn('latitude', 'Latitud'),
+        buildGridColumn('longitude', 'Longitud'),
+        buildGridColumn('photoUrl', 'Foto URL'),
       ],
     );
   }
 
-  GridColumn buildGridColumn(String columnName) {
+  GridColumn buildGridColumn(String columnName, String displayName) {
     return GridColumn(
         columnName: columnName,
         width: double.nan,
@@ -46,7 +47,7 @@ class _DataTablePageState extends State<DataTablePage> {
           padding: const EdgeInsets.all(8.0),
           alignment: Alignment.center,
           child: Text(
-            columnName,
+            displayName,
             overflow: TextOverflow.ellipsis,
           ),
         ),
