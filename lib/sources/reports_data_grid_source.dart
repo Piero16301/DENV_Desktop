@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart';
-import 'package:deteccion_zonas_dengue_desktop/theme/app_theme.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,8 +8,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'package:deteccion_zonas_dengue_desktop/shared_preferences/preferences.dart';
 import 'package:deteccion_zonas_dengue_desktop/models/point_model.dart';
-
-import '../providers/theme_provider.dart';
+import 'package:deteccion_zonas_dengue_desktop/theme/app_theme.dart';
+import 'package:deteccion_zonas_dengue_desktop/providers/theme_provider.dart';
 
 class ReportsDataGridSource extends DataGridSource {
   late TextStyle textStyle;
@@ -18,6 +17,7 @@ class ReportsDataGridSource extends DataGridSource {
   late List<PointModel> points;
 
   bool isDatePickerVisible = false;
+  bool isTimePickerVisible = false;
   dynamic newCellValue;
 
   TextEditingController editingController = TextEditingController();
@@ -34,11 +34,11 @@ class ReportsDataGridSource extends DataGridSource {
           color: Color.fromRGBO(255, 255, 255, 1));
 
     points = [
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: DateTime.parse('2021-01-10T09:56:02.000+00:00'), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: DateTime.parse('2021-01-10T09:56:02.000+00:00'), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: DateTime.parse('2021-01-10T09:56:02.000+00:00'), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: DateTime.parse('2021-01-10T09:56:02.000+00:00'), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: DateTime.parse('2021-01-10T09:56:02.000+00:00'), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
     ];
 
     buildDataGridRows();
@@ -61,7 +61,7 @@ class ReportsDataGridSource extends DataGridSource {
           value = DateFormat('dd-MM-yyyy').format(dataGridCell.value);
         }
         else if (dataGridCell.columnName == 'time') {
-          value = DateFormat('HH:mm:ss').format(dataGridCell.value);
+          value = '${dataGridCell.value.hour.toString().padLeft(2, '0')}:${dataGridCell.value.minute.toString().padLeft(2, '0')}';
         }
 
         return Container(
@@ -87,7 +87,9 @@ class ReportsDataGridSource extends DataGridSource {
     newCellValue = null;
 
     if (column.columnName == 'date') {
-      return _buildDateTimePicker(displayText, submitCell);
+      return _buildDatePicker(displayText, submitCell);
+    } else if (column.columnName == 'time') {
+      return _buildTimePicker(displayText, submitCell);
     } else {
       return _buildTextFieldWidget(displayText, column, submitCell);
     }
@@ -116,8 +118,8 @@ class ReportsDataGridSource extends DataGridSource {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] = DataGridCell<DateTime>(columnName: 'date', value: newCellValue);
       points[dataRowIndex].date = newCellValue as DateTime;
     } else if (column.columnName == 'time') {
-      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] = DataGridCell<DateTime>(columnName: 'time', value: newCellValue);
-      points[dataRowIndex].time = newCellValue as DateTime;
+      dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] = DataGridCell<TimeOfDay>(columnName: 'time', value: newCellValue);
+      points[dataRowIndex].time = newCellValue as TimeOfDay;
     } else if (column.columnName == 'latitude') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] = DataGridCell<double>(columnName: 'latitude', value: newCellValue);
       points[dataRowIndex].latitude = newCellValue as double;
@@ -172,7 +174,7 @@ class ReportsDataGridSource extends DataGridSource {
     );
   }
 
-  Widget _buildDateTimePicker(String displayText, CellSubmit submitCell) {
+  Widget _buildDatePicker(String displayText, CellSubmit submitCell) {
     final DateTime selectedDate = DateTime.parse(displayText);
     final DateTime firstDate = DateTime.parse('2020-01-01');
     final DateTime lastDate = DateTime.parse('2025-12-31');
@@ -209,6 +211,55 @@ class ReportsDataGridSource extends DataGridSource {
                     newCellValue = value;
                     submitCell();
                     isDatePickerVisible = false;
+                  });
+                }
+              }),
+            child: Text(
+              displayText,
+              textAlign: TextAlign.center,
+              style: textStyle,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTimePicker(String displayText, CellSubmit submitCell) {
+    final int hour = int.parse(displayText.replaceRange(0, 10, '').replaceRange(2, 6, ''));
+    final int minute = int.parse(displayText.replaceRange(0, 13, '').replaceRange(2, null, ''));
+    final TimeOfDay selectedTime = TimeOfDay(hour: hour, minute: minute);
+
+    displayText = '${selectedTime.hour.toString().padLeft(2, '0')}:${selectedTime.minute.toString().padLeft(2, '0')}';
+    return Builder(
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(8.0),
+          alignment: Alignment.center,
+          child: Focus(
+            autofocus: true,
+            focusNode: FocusNode()
+              ..addListener(() async {
+                if (!isTimePickerVisible) {
+                  isTimePickerVisible = true;
+                  await showTimePicker(
+                    context: context,
+                    initialTime: selectedTime,
+                    builder: (BuildContext context, Widget? child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                            colorScheme: Provider.of<ThemeProvider>(context).currentTheme == AppTheme.lightTheme
+                                ? ColorScheme.light(primary: AppTheme.background)
+                                : ColorScheme.dark(primary: AppTheme.background)
+                        ),
+                        child: child!,
+                      );
+                    },
+                    initialEntryMode: TimePickerEntryMode.input,
+                  ).then((TimeOfDay? value) {
+                    newCellValue = value;
+                    submitCell();
+                    isTimePickerVisible = false;
                   });
                 }
               }),

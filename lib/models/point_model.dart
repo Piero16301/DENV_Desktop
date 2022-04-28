@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class PointModel {
   String address;
   String comment;
   DateTime date;
-  DateTime time;
+  TimeOfDay time;
   double latitude;
   double longitude;
   String photoUrl;
@@ -25,7 +26,7 @@ class PointModel {
         DataGridCell<String>(columnName: 'address', value: address),
         DataGridCell<String>(columnName: 'comment', value: comment),
         DataGridCell<DateTime>(columnName: 'date', value: date),
-        DataGridCell<DateTime>(columnName: 'time', value: time),
+        DataGridCell<TimeOfDay>(columnName: 'time', value: time),
         DataGridCell<double>(columnName: 'latitude', value: latitude),
         DataGridCell<double>(columnName: 'longitude', value: longitude),
         DataGridCell<String>(columnName: 'photoUrl', value: photoUrl),
