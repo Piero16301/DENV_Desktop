@@ -14,7 +14,7 @@ import 'package:deteccion_zonas_dengue_desktop/providers/theme_provider.dart';
 class ReportsDataGridSource extends DataGridSource {
   late TextStyle textStyle;
   late List<DataGridRow> dataGridRows;
-  late List<PointModel> points;
+  List<PointModel> points = [];
 
   bool isDatePickerVisible = false;
   bool isTimePickerVisible = false;
@@ -27,19 +27,19 @@ class ReportsDataGridSource extends DataGridSource {
       ? const TextStyle(
           fontWeight: FontWeight.w400,
           fontSize: 14,
-          color: Color.fromRGBO(0, 0, 0, 1))
+          color: Color.fromRGBO(255, 255, 255, 1))
       : const TextStyle(
           fontWeight: FontWeight.w400,
           fontSize: 14,
-          color: Color.fromRGBO(255, 255, 255, 1));
+          color: Color.fromRGBO(0, 0, 0, 1));
 
-    points = [
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-      PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
-    ];
+    // points = [
+    //   PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+    //   PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+    //   PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+    //   PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+    //   PointModel(address: 'Address example', comment: 'Comment example', date: DateTime.parse('2021-01-10T09:56:02.000+00:00'), time: TimeOfDay.fromDateTime(DateTime.parse('2021-01-10T09:56:02.000+00:00')), latitude: 1.21412, longitude: 4.28492, photoUrl: 'URL example'),
+    // ];
 
     buildDataGridRows();
   }
@@ -66,7 +66,7 @@ class ReportsDataGridSource extends DataGridSource {
 
         return Container(
           padding: const EdgeInsets.all(8.0),
-          alignment: Alignment.center,
+          alignment: Alignment.centerLeft,
           child: Text(
             value,
             overflow: TextOverflow.ellipsis,

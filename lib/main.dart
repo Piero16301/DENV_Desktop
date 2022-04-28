@@ -10,18 +10,22 @@ void main() async {
 
   await Preferences.init();
 
-  runApp(
-    MultiProvider(
+  runApp(const AppState());
+}
+
+class AppState extends StatelessWidget {
+  const AppState({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: ( _ ) => ThemeProvider(
-            isDarkMode: Preferences.isDarkMode,
-          ),
-        ),
+        ChangeNotifierProvider(create: ( _ ) => ThemeProvider(isDarkMode: Preferences.isDarkMode)),
+        ChangeNotifierProvider(create: ( _ ) => PointsProvider()),
       ],
       child: const MyApp(),
-    ),
-  );
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -31,6 +35,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FluentApp(
       debugShowCheckedModeBanner: false,
+      builder: (context, child) => MediaQuery(data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true), child: child!),
       title: 'DENV',
       initialRoute: 'home',
       routes: {
