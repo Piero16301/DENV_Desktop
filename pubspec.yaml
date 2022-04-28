@@ -48,6 +48,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  msix: ^3.5.1
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -96,3 +98,27 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+msix_config:
+  display_name: DENV
+  publisher_display_name: Piero Morales
+  identity_name: com.piero.utec.denv
+  app_installer:
+    publish_folder_path: C:\Users\piero\Downloads
+    hours_between_update_checks: 0
+    automatic_background_task: true
+    update_blocks_activation: true
+    show_prompt: true
+    force_update_from_any_version: true
+  store: false
+  debug: false
+  publisher: C=PE, ST=Lima, L=Lima, O=UTEC, OU=UTEC, CN=Piero Morales, emailAddress=sanjuan.pama@gmail.com
+  certificate_path: C:\Users\piero\CERTIFICATE.pfx
+  certificate_password: SanJuan1603
+  sign_msix: true
+  install_certificate: true
+  msix_version: 1.0.0.0
+  logo_path: C:\Users\piero\StudioProjects\Deteccion_Zonas_Dengue_Desktop\assets\app_icon.png
+  languages: en-us, es-es
+  architecture: x64
+  capabilities: internetClient, location

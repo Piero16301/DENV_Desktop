@@ -1,0 +1,38 @@
+PS C:\Users\piero> openssl.exe genrsa -out deteccion_zonas_dengue_desktop.key 2048
+PS C:\Users\piero> openssl.exe req -new -key deteccion_zonas_dengue_desktop.key -out deteccion_zonas_dengue_desktop.csr
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:PE
+State or Province Name (full name) [Some-State]:Lima
+Locality Name (eg, city) []:Lima
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:UTEC
+Organizational Unit Name (eg, section) []:UTEC
+Common Name (e.g. server FQDN or YOUR name) []:Piero Morales
+Email Address []:sanjuan.pama@gmail.com
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:SanJuan1603
+An optional company name []:UTEC
+PS C:\Users\piero> openssl.exe x509 -in deteccion_zonas_dengue_desktop.csr -out deteccion_zonas_dengue_desktop.ctr -req -signkey deteccion_zonas_dengue_desktop.key -days 10000
+Certificate request self-signature ok
+subject=C = PE, ST = Lima, L = Lima, O = UTEC, OU = UTEC, CN = Piero Morales, emailAddress = sanjuan.pama@gmail.com
+PS C:\Users\piero> openssl.exe pkcs12 -export -out CERTIFICATE.pfx -inkey deteccion_zonas_dengue_desktop.key -in deteccion_zonas_dengue_desktop.crt
+Could not open file or uri for loading certs of certificates from -in file from deteccion_zonas_dengue_desktop.crt
+B0430000:error:16000069:STORE routines:ossl_store_get0_loader_int:unregistered scheme:crypto\store\store_register.c:237:scheme=file
+B0430000:error:80000002:system library:file_open:No such file or directory:providers\implementations\storemgmt\file_store.c:269:calling stat(deteccion_zonas_dengue_desktop.crt)
+PS C:\Users\piero> openssl.exe x509 -in deteccion_zonas_dengue_desktop.csr -out deteccion_zonas_dengue_desktop.crt -req -signkey deteccion_zonas_dengue_desktop.key -days 10000
+Certificate request self-signature ok
+subject=C = PE, ST = Lima, L = Lima, O = UTEC, OU = UTEC, CN = Piero Morales, emailAddress = sanjuan.pama@gmail.com
+PS C:\Users\piero> openssl.exe pkcs12 -export -out CERTIFICATE.pfx -inkey deteccion_zonas_dengue_desktop.key -in deteccion_zonas_dengue_desktop.crt
+Enter Export Password:
+Verifying - Enter Export Password:
+PS C:\Users\piero> openssl.exe pkcs12 -export -out CERTIFICATE.pfx -inkey deteccion_zonas_dengue_desktop.key -in deteccion_zonas_dengue_desktop.crt
+Enter Export Password:
+Verifying - Enter Export Password:
+PS C:\Users\piero>
