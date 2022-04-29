@@ -64,9 +64,17 @@ class ReportsDataGridSource extends DataGridSource {
           value = '${dataGridCell.value.hour.toString().padLeft(2, '0')}:${dataGridCell.value.minute.toString().padLeft(2, '0')}';
         }
 
+        AlignmentGeometry alignmentType = (
+          dataGridCell.columnName == 'date' ||
+          dataGridCell.columnName == 'time' ||
+          dataGridCell.columnName == 'latitude' ||
+          dataGridCell.columnName == 'longitude'
+        ) ? Alignment.center
+          : Alignment.centerLeft;
+
         return Container(
           padding: const EdgeInsets.all(8.0),
-          alignment: Alignment.centerLeft,
+          alignment: alignmentType,
           child: Text(
             value,
             overflow: TextOverflow.ellipsis,
@@ -144,12 +152,17 @@ class ReportsDataGridSource extends DataGridSource {
 
     final RegExp regExp = _getRegExp(isNumericKeyboard, column.columnName);
 
+    final TextAlign textAlignType = (
+      isNumericKeyboard
+    ) ? TextAlign.center
+      : TextAlign.left;
+
     return Container(
       padding: const EdgeInsets.all(8.0),
       child: TextBox(
         autofocus: true,
         controller: editingController..text = displayText,
-        textAlign: TextAlign.left,
+        textAlign: textAlignType,
         autocorrect: false,
         style: textStyle,
         inputFormatters: [
@@ -200,8 +213,8 @@ class ReportsDataGridSource extends DataGridSource {
                       return Theme(
                         data: Theme.of(context).copyWith(
                           colorScheme: Provider.of<ThemeProvider>(context).currentTheme == AppTheme.lightTheme
-                            ? ColorScheme.light(primary: AppTheme.background)
-                            : ColorScheme.dark(primary: AppTheme.background)
+                            ? const ColorScheme.light(primary: AppTheme.primary)
+                            : const ColorScheme.dark(primary: AppTheme.primary)
                         ),
                         child: child!,
                       );
@@ -249,8 +262,8 @@ class ReportsDataGridSource extends DataGridSource {
                       return Theme(
                         data: Theme.of(context).copyWith(
                             colorScheme: Provider.of<ThemeProvider>(context).currentTheme == AppTheme.lightTheme
-                                ? ColorScheme.light(primary: AppTheme.background)
-                                : ColorScheme.dark(primary: AppTheme.background)
+                                ? const ColorScheme.light(primary: AppTheme.primary)
+                                : const ColorScheme.dark(primary: AppTheme.primary)
                         ),
                         child: child!,
                       );
