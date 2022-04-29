@@ -88,20 +88,23 @@ class PointModel {
     'id': id,
     'address': address,
     'comment': comment,
-    'datetime': _mergeDateTime().toIso8601String(),
+    'datetime': _mergeDateTime(),
     'latitude': latitude,
     'longitude': longitude,
     'photourl': photoUrl,
   };
 
-  DateTime _mergeDateTime() {
-    DateTime result = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+  String _mergeDateTime() {
+    DateTime dateTime = DateTime(date.year, date.month, date.day, time.hour, time.minute);
+    String result = dateTime.toIso8601String();
+    result = '$result+00:00';
     return result;
   }
 
   DataGridRow getDataGridRow() {
     return DataGridRow(
       cells: <DataGridCell>[
+        DataGridCell<String>(columnName: 'id', value: id),
         DataGridCell<String>(columnName: 'address', value: address),
         DataGridCell<String>(columnName: 'comment', value: comment),
         DataGridCell<DateTime>(columnName: 'date', value: date),

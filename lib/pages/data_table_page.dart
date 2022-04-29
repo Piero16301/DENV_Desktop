@@ -41,6 +41,7 @@ class _DataTablePageState extends State<DataTablePage> {
 
     if (!pointsProvider.isLoading && !_isUpdated) {
       reportsDataGridSource.points = pointsProvider.points;
+      reportsDataGridSource.pointsProvider = pointsProvider;
       reportsDataGridSource.buildDataGridRows();
       _isUpdated = true;
     }
@@ -99,6 +100,7 @@ class _DataTablePageState extends State<DataTablePage> {
     rowsPerPage: _rowsPerPage,
     rowHeight: 60,
     columns: [
+      _buildGridColumn('id', 'ID'),
       _buildGridColumn('address', 'Dirección'),
       _buildGridColumn('comment', 'Comentario'),
       _buildGridColumn('date', 'Fecha'),
@@ -112,17 +114,18 @@ class _DataTablePageState extends State<DataTablePage> {
 
   GridColumn _buildGridColumn(String columnName, String displayName) {
     return GridColumn(
-        columnName: columnName,
-        width: double.nan,
-        label: Container(
-          padding: const EdgeInsets.all(8.0),
-          alignment: Alignment.center,
-          child: Text(
-            displayName,
-            overflow: TextOverflow.ellipsis,
-          ),
+      columnName: columnName,
+      width: double.nan,
+      label: Container(
+        padding: const EdgeInsets.all(8.0),
+        alignment: Alignment.center,
+        child: Text(
+          displayName,
+          overflow: TextOverflow.ellipsis,
         ),
+      ),
       allowSorting: (columnName == 'time') ? false : true,
-      );
+      visible: (columnName == 'id') ? false : true,
+    );
   }
 }

@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 import 'package:deteccion_zonas_dengue_desktop/shared_preferences/preferences.dart';
-import 'package:deteccion_zonas_dengue_desktop/models/point_model.dart';
+import 'package:deteccion_zonas_dengue_desktop/models/models.dart';
 import 'package:deteccion_zonas_dengue_desktop/theme/app_theme.dart';
-import 'package:deteccion_zonas_dengue_desktop/providers/theme_provider.dart';
+import 'package:deteccion_zonas_dengue_desktop/providers/providers.dart';
 
 class ReportsDataGridSource extends DataGridSource {
   late TextStyle textStyle;
@@ -19,6 +19,8 @@ class ReportsDataGridSource extends DataGridSource {
   bool isDatePickerVisible = false;
   bool isTimePickerVisible = false;
   dynamic newCellValue;
+
+  PointsProvider pointsProvider = PointsProvider();
 
   TextEditingController editingController = TextEditingController();
 
@@ -116,6 +118,9 @@ class ReportsDataGridSource extends DataGridSource {
       return;
     }
 
+    // Function to edit in Database (send a put request)
+    _updateRowInDatabase(dataRowIndex, rowColumnIndex);
+
     if (column.columnName == 'address') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] = DataGridCell<String>(columnName: 'address', value: newCellValue);
       points[dataRowIndex].address = newCellValue.toString();
@@ -140,10 +145,34 @@ class ReportsDataGridSource extends DataGridSource {
     }
   }
 
+  void _updateRowInDatabase(int dataRowIndex, RowColumnIndex rowColumnIndex) async {
+    dynamic currentId = dataGridRows[dataRowIndex].getCells()[0].value;
+    dynamic currentAddress = dataGridRows[dataRowIndex].getCells()[1].value;
+    dynamic currentComment = dataGridRows[dataRowIndex].getCells()[2].value;
+    dynamic currentDate = dataGridRows[dataRowIndex].getCells()[3].value;
+    dynamic currentTime = dataGridRows[dataRowIndex].getCells()[4].value;
+    dynamic currentLatitude = dataGridRows[dataRowIndex].getCells()[5].value;
+    dynamic currentLongitude = dataGridRows[dataRowIndex].getCells()[6].value;
+    dynamic currentPhotoUrl = dataGridRows[dataRowIndex].getCells()[7].value;
+
+    PointModel pointModel = PointModel(
+      id: currentId,
+      address: (rowColumnIndex.columnIndex == 1) ? newCellValue : currentAddress,
+      comment: (rowColumnIndex.columnIndex == 2) ? newCellValue : currentComment,
+      date: (rowColumnIndex.columnIndex == 3) ? newCellValue : currentDate,
+      time: (rowColumnIndex.columnIndex == 4) ? newCellValue : currentTime,
+      latitude: (rowColumnIndex.columnIndex == 5) ? newCellValue : currentLatitude,
+      longitude: (rowColumnIndex.columnIndex == 6) ? newCellValue : currentLongitude,
+      photoUrl: (rowColumnIndex.columnIndex == 7) ? newCellValue : currentPhotoUrl,
+    );
+
+    bool _ = await pointsProvider.updatePoint(pointModel);
+  }
+
   RegExp _getRegExp(bool isNumericKeyboard, String columnName) {
     return isNumericKeyboard
-      ? RegExp('[0-9.]')
-      : RegExp('[a-zA-Z ]');
+      ? RegExp('[0-9.-]')
+      : RegExp('[a-zA-Z0-9:/. ]');
   }
 
   Widget _buildTextFieldWidget(String displayText, GridColumn column, CellSubmit submitCell) {
