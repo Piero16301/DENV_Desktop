@@ -44,6 +44,7 @@ dependencies:
   http: ^0.13.4
   syncfusion_flutter_datagrid: ^20.1.50
   syncfusion_flutter_core: ^20.1.51
+  syncfusion_flutter_maps: ^20.1.51
 
 dev_dependencies:
   flutter_test:
