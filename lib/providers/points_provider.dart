@@ -10,6 +10,7 @@ class PointsProvider extends ChangeNotifier {
   List<PointModel> points = [];
   
   bool isLoading = false;
+  bool isUpdating = false;
   
   PointsProvider() {
     loadPoints();
@@ -23,8 +24,17 @@ class PointsProvider extends ChangeNotifier {
     final resp = await http.get(url);
     final Map<String, dynamic>? decodedData = json.decode(resp.body);
 
-    if (decodedData == null) return [];
-    if (decodedData['message'] != 'success') return [];
+    if (decodedData == null) {
+      isLoading = false;
+      notifyListeners();
+      return [];
+    }
+
+    if (decodedData['message'] != 'success') {
+      isLoading = false;
+      notifyListeners();
+      return [];
+    }
 
     final pointResponse = PointResponse.fromJson(decodedData);
     points = pointResponse.data.data;
@@ -36,10 +46,15 @@ class PointsProvider extends ChangeNotifier {
   }
 
   Future<bool> updatePoint(PointModel point) async {
+    isUpdating = true;
+    notifyListeners();
+
     final url = Uri.http(_baseUrl, 'point/${point.id}');
-    Map<String, dynamic> temp = point.toJson();
     final resp = await http.put(url, body: json.encode(point.toJson()));
     final Map<String, dynamic>? decodedData = json.decode(resp.body);
+
+    isUpdating = false;
+    notifyListeners();
 
     if (decodedData == null) return false;
     if (decodedData['message'] != 'success') return false;

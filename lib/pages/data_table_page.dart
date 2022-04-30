@@ -21,7 +21,7 @@ class _DataTablePageState extends State<DataTablePage> {
   bool _isUpdated = false;
 
   final double _dataPageHeight = 60;
-  int _rowsPerPage = 10;
+  int _rowsPerPage = 15;
 
   @override
   void initState() {
@@ -48,23 +48,50 @@ class _DataTablePageState extends State<DataTablePage> {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraint) {
-        return Column(
+        return Stack(
           children: [
-            SizedBox(
-              height: constraint.maxHeight - _dataPageHeight,
-              width: constraint.maxWidth,
-              child: _buildDataGrid(),
-            ),
-            SizedBox(
-              height: _dataPageHeight,
-              child: Align(
-                alignment: Alignment.center,
-                child: _buildDataPager(),
-              ),
-            ),
+            _buildMainLayout(constraint),
+            _buildLoadingWidget(pointsProvider, constraint),
           ],
         );
       },
+    );
+  }
+
+  Positioned _buildLoadingWidget(PointsProvider pointsProvider, BoxConstraints constraint) {
+    return Positioned(
+      child: Column(
+        children: [
+          (pointsProvider.isUpdating)
+            ? const Text('Cargando...', style: TextStyle(color: Color.fromRGBO(154, 154, 154, 1), fontWeight: FontWeight.w600))
+            : const SizedBox(),
+
+          (pointsProvider.isUpdating)
+            ? const ProgressBar(activeColor: AppTheme.primary, strokeWidth: 10)
+            : const SizedBox(),
+        ],
+      ),
+      bottom: 20,
+      left: constraint.maxWidth / 2,
+    );
+  }
+
+  Column _buildMainLayout(BoxConstraints constraint) {
+    return Column(
+      children: [
+        SizedBox(
+          height: constraint.maxHeight - _dataPageHeight,
+          width: constraint.maxWidth,
+          child: _buildDataGrid(),
+        ),
+        SizedBox(
+          height: _dataPageHeight,
+          child: Align(
+            alignment: Alignment.center,
+            child: _buildDataPager(),
+          ),
+        ),
+      ],
     );
   }
 
@@ -75,7 +102,7 @@ class _DataTablePageState extends State<DataTablePage> {
       ),
       child: SfDataPager(
         delegate: reportsDataGridSource,
-        availableRowsPerPage: const [10, 20, 30],
+        availableRowsPerPage: const [15, 20, 30],
         pageCount: reportsDataGridSource.points.length / _rowsPerPage,
         onRowsPerPageChanged: (int? rowsPerPage) {
           setState(() {
@@ -89,27 +116,27 @@ class _DataTablePageState extends State<DataTablePage> {
 
   SfDataGrid _buildDataGrid() {
     return SfDataGrid(
-    source: reportsDataGridSource,
-    allowEditing: true,
-    navigationMode: GridNavigationMode.cell,
-    selectionMode: SelectionMode.single,
-    editingGestureType: EditingGestureType.doubleTap,
-    columnWidthMode: ColumnWidthMode.fill,
-    allowSorting: true,
-    gridLinesVisibility: GridLinesVisibility.both,
-    rowsPerPage: _rowsPerPage,
-    rowHeight: 60,
-    columns: [
-      _buildGridColumn('id', 'ID'),
-      _buildGridColumn('address', 'Dirección'),
-      _buildGridColumn('comment', 'Comentario'),
-      _buildGridColumn('date', 'Fecha'),
-      _buildGridColumn('time', 'Hora'),
-      _buildGridColumn('latitude', 'Latitud'),
-      _buildGridColumn('longitude', 'Longitud'),
-      _buildGridColumn('photoUrl', 'Foto URL'),
-    ],
-  );
+      source: reportsDataGridSource,
+      allowEditing: true,
+      navigationMode: GridNavigationMode.cell,
+      selectionMode: SelectionMode.single,
+      editingGestureType: EditingGestureType.doubleTap,
+      columnWidthMode: ColumnWidthMode.fill,
+      allowSorting: true,
+      gridLinesVisibility: GridLinesVisibility.both,
+      rowsPerPage: _rowsPerPage,
+      rowHeight: 50,
+      columns: [
+        _buildGridColumn('id', 'ID'),
+        _buildGridColumn('address', 'Dirección'),
+        _buildGridColumn('comment', 'Comentario'),
+        _buildGridColumn('date', 'Fecha'),
+        _buildGridColumn('time', 'Hora'),
+        _buildGridColumn('latitude', 'Latitud'),
+        _buildGridColumn('longitude', 'Longitud'),
+        _buildGridColumn('photoUrl', 'Foto URL'),
+      ],
+    );
   }
 
   GridColumn _buildGridColumn(String columnName, String displayName) {
