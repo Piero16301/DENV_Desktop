@@ -63,7 +63,7 @@ class _DataTablePageState extends State<DataTablePage> {
       child: Column(
         children: [
           (pointsProvider.isUpdating)
-            ? const Text('Cargando...', style: TextStyle(color: Color.fromRGBO(154, 154, 154, 1), fontWeight: FontWeight.w600))
+            ? const Text('Actualizando...', style: TextStyle(color: Color.fromRGBO(154, 154, 154, 1), fontWeight: FontWeight.w600))
             : const SizedBox(),
 
           (pointsProvider.isUpdating)
