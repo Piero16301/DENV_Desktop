@@ -24,9 +24,11 @@ class _MapReportsPageState extends State<MapReportsPage> {
     const String mapType = 'Road';
 
     return FutureBuilder(
-      future: getBingUrlTemplate('https://dev.virtualearth.net/REST/V1/Imagery/Metadata/$mapType?output=json&uriScheme=https&include=ImageryProviders&key=gKFcszH8QtTWZm2GzcK5~yzuCkObRWRXGBYVgmFKSmg~Ap0qOUWHnFqU8zP5N2483-pbxSPK0mVvvqeYUi2t5EDf9Ao_QZEsh7eItuQ-fLdh'),
+      future: getBingUrlTemplate(
+          'https://dev.virtualearth.net/REST/V1/Imagery/Metadata/$mapType?output=json&uriScheme=https&include=ImageryProviders&key=gKFcszH8QtTWZm2GzcK5~yzuCkObRWRXGBYVgmFKSmg~Ap0qOUWHnFqU8zP5N2483-pbxSPK0mVvvqeYUi2t5EDf9Ao_QZEsh7eItuQ-fLdh'),
       builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-        if (snapshot.connectionState == ConnectionState.done && !pointsProvider.isLoading) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            !pointsProvider.isLoading) {
           return _buildMap(snapshot, context);
         } else {
           return const Center(
@@ -54,15 +56,17 @@ class _MapReportsPageState extends State<MapReportsPage> {
         Positioned.fill(
           child: Image.asset(
             (themeProvider.currentThemeName == 'light')
-              ? 'assets/light_grid.png'
-              : 'assets/dark_grid.png',
+                ? 'assets/light_grid.png'
+                : 'assets/dark_grid.png',
             repeat: ImageRepeat.repeat,
           ),
         ),
         SfMaps(
           layers: [
             MapTileLayer(
-              urlTemplate: snapshot.data!,
+              // urlTemplate: snapshot.data!,
+              urlTemplate:
+                  'http://api.tomtom.com/map/1/tile/basic/main/{z}/{x}/{y}.png?key=2n6NZq9biOKkls94z6upyCSGGSpS9PGI&language=es-ES',
               zoomPanBehavior: mapZoomPanBehavior,
               initialMarkersCount: pointsProvider.points.length,
               tooltipSettings: const MapTooltipSettings(
@@ -78,11 +82,14 @@ class _MapReportsPageState extends State<MapReportsPage> {
                         width: 150,
                         height: 112.5,
                         color: Colors.grey,
-                        child: (pointsProvider.points[index].photoUrl == 'Sin enlace')
-                          ? Image.asset('assets/no-image.png', fit: BoxFit.contain)
-                          : Image.network(pointsProvider.points[index].photoUrl, fit: BoxFit.contain),
+                        child: (pointsProvider.points[index].photoUrl ==
+                                'Sin enlace')
+                            ? Image.asset('assets/no-image.png',
+                                fit: BoxFit.contain)
+                            : Image.network(
+                                pointsProvider.points[index].photoUrl,
+                                fit: BoxFit.contain),
                       ),
-
                       Container(
                         padding: const EdgeInsets.only(
                           left: 10.0,
@@ -95,14 +102,13 @@ class _MapReportsPageState extends State<MapReportsPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Zona reportada ${index+1}',
+                              'Zona reportada ${index + 1}',
                               style: const TextStyle(
                                 fontSize: 14,
                                 color: Colors.black,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-
                             Padding(
                               padding: const EdgeInsets.only(top: 2.5),
                               child: Text(
@@ -114,7 +120,6 @@ class _MapReportsPageState extends State<MapReportsPage> {
                                 ),
                               ),
                             ),
-
                             Padding(
                               padding: const EdgeInsets.only(top: 5.0),
                               child: Text(
@@ -140,13 +145,13 @@ class _MapReportsPageState extends State<MapReportsPage> {
                   child: GestureDetector(
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 250),
-                      height: 25,
-                      width: 25,
+                      height: 30,
+                      width: 30,
                       child: FittedBox(
                         child: Icon(
                           FluentIcons.p_b_i_anomalies_marker,
                           color: Colors.red,
-                          size: 25,
+                          size: 30,
                         ),
                       ),
                     ),
