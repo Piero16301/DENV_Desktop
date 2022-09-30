@@ -27,7 +27,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
   Win32Window::Size size(1280, 720);
-  if (!window.CreateAndShow(L"deteccion_zonas_dengue_desktop", origin, size)) {
+  if (!window.CreateAndShow(L"Denv Desktop", origin, size)) {
     return EXIT_FAILURE;
   }
   window.SetQuitOnClose(true);

@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.piero.utec.denv" "\0"
-            VALUE "FileDescription", "deteccion_zonas_dengue_desktop" "\0"
+            VALUE "CompanyName", "com.denv.utec.denv.desktop.denv-desktop" "\0"
+            VALUE "FileDescription", "denv_desktop" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "deteccion_zonas_dengue_desktop" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.piero.utec.denv. All rights reserved." "\0"
-            VALUE "OriginalFilename", "deteccion_zonas_dengue_desktop.exe" "\0"
-            VALUE "ProductName", "deteccion_zonas_dengue_desktop" "\0"
+            VALUE "InternalName", "denv_desktop" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.denv.utec.denv.desktop.denv-desktop. All rights reserved." "\0"
+            VALUE "OriginalFilename", "denv_desktop.exe" "\0"
+            VALUE "ProductName", "Denv Desktop" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(deteccion_zonas_dengue_desktop LANGUAGES CXX)
+project(denv_desktop LANGUAGES CXX)
 
-set(BINARY_NAME "deteccion_zonas_dengue_desktop")
+set(BINARY_NAME "denv_desktop")
 
 cmake_policy(SET CMP0063 NEW)
 
