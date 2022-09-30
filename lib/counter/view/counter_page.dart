@@ -7,7 +7,7 @@
 
 import 'package:denv_desktop/counter/counter.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CounterPage extends StatelessWidget {
@@ -28,21 +28,26 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Scaffold(
-      appBar: AppBar(title: Text(l10n.counterAppBarTitle)),
-      body: const Center(child: CounterText()),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().increment(),
-            child: const Icon(Icons.add),
+    return NavigationView(
+      appBar: NavigationAppBar(title: Text(l10n.counterAppBarTitle)),
+      pane: NavigationPane(
+        selected: context.select((CounterCubit cubit) => cubit.state),
+        onChanged: context.read<CounterCubit>().changePane,
+        items: [
+          PaneItem(
+            icon: const Icon(FluentIcons.table),
+            title: const Text('Table'),
+            body: const CounterText(),
           ),
-          const SizedBox(height: 8),
-          FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().decrement(),
-            child: const Icon(Icons.remove),
+          PaneItem(
+            icon: const Icon(FluentIcons.chart),
+            title: const Text('Chart'),
+            body: const CounterText(),
+          ),
+          PaneItem(
+            icon: const Icon(FluentIcons.settings),
+            title: const Text('Settings'),
+            body: const CounterText(),
           ),
         ],
       ),
@@ -55,8 +60,7 @@ class CounterText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final count = context.select((CounterCubit cubit) => cubit.state);
-    return Text('$count', style: theme.textTheme.headline1);
+    final page = context.select((CounterCubit cubit) => cubit.state);
+    return Text('$page', style: const TextStyle(fontSize: 24));
   }
 }
