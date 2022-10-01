@@ -1,12 +1,6 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
-
 import 'package:denv_desktop/counter/counter.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
+import 'package:denv_desktop/settings/settings.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,6 +42,13 @@ class CounterView extends StatelessWidget {
             icon: const Icon(FluentIcons.settings),
             title: const Text('Settings'),
             body: const CounterText(),
+          ),
+        ],
+        footerItems: [
+          PaneItem(
+            icon: const Icon(FluentIcons.settings),
+            title: const Text('Settings'),
+            body: const SettingsPage(),
           ),
         ],
       ),
