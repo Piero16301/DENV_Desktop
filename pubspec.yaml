@@ -16,6 +16,12 @@ dependencies:
   flutter_bloc: ^8.1.1
   flutter_localizations:
     sdk: flutter
+  inspection_api:
+    path: packages/inspection_api
+  inspection_api_remote:
+    path: packages/inspection_api_remote
+  inspection_repository:
+    path: packages/inspection_repository
   intl: ^0.17.0
 
 dev_dependencies:

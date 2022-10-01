@@ -5,5 +5,7 @@
 // license that can be found in the LICENSE file or at
 // https://opensource.org/licenses/MIT.
 
-export 'cubit/counter_cubit.dart';
-export 'view/counter_page.dart';
+/// API de comunicación remota con backend de las inspecciones de viviendas
+library inspection_api_remote;
+
+export 'src/inspection_api_remote.dart';
