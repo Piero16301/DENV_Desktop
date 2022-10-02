@@ -17,7 +17,9 @@ class InspectionTableView extends StatelessWidget {
           if (state.homeInspections.isEmpty) {
             return const InspectionTableEmpty();
           }
-          return InspectionTableWidget(homeInspections: state.homeInspections);
+          return InspectionTableWidget(
+            homeInspections: state.homeInspections,
+          );
         } else if (state.status.isFailure) {
           return const InspectionTableError();
         }
