@@ -1,14 +1,69 @@
-// Copyright (c) 2022, Very Good Ventures
-// https://verygood.ventures
-//
-// Use of this source code is governed by an MIT-style
-// license that can be found in the LICENSE file or at
-// https://opensource.org/licenses/MIT.
+import 'package:dio/dio.dart';
+import 'package:inspection_api/inspection_api.dart';
 
 /// {@template inspection_api_remote}
 /// API de comunicación remota con backend de las inspecciones de viviendas
 /// {@endtemplate}
-class InspectionApiRemote {
+class InspectionApiRemote implements IInspectionApiRemote {
   /// {@macro inspection_api_remote}
-  const InspectionApiRemote();
+  const InspectionApiRemote({
+    required Dio httpClient,
+  }) : _httpClient = httpClient;
+
+  final Dio _httpClient;
+
+  @override
+  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed() async {
+    try {
+      final response = await _httpClient.get<Map<String, dynamic>>(
+        '/home-inspections-detailed',
+      );
+      if (response.statusCode != 200) throw Exception();
+      if (response.data == null) throw Exception();
+      final inspectionsJson = response.data?['data'] as List<dynamic>;
+      final inspections = inspectionsJson
+          .map(
+            (json) =>
+                HomeInspectionDetailed.fromJson(json as Map<String, dynamic>),
+          )
+          .toList();
+      return inspections;
+    } on DioError catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized() async {
+    try {
+      final response = await _httpClient.get<Map<String, dynamic>>(
+        '/home-inspections-summarized',
+      );
+      if (response.statusCode != 200) throw Exception();
+      if (response.data == null) throw Exception();
+      final inspectionsJson = response.data?['data'] as List<dynamic>;
+      final inspections = inspectionsJson
+          .map(
+            (json) =>
+                HomeInspectionSummarized.fromJson(json as Map<String, dynamic>),
+          )
+          .toList();
+      return inspections;
+    } on DioError catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<void> editHomeInspection(HomeInspectionDetailed homeInspection) async {
+    try {
+      final response = await _httpClient.put<Map<String, dynamic>>(
+        '/home-inspection/${homeInspection.id}',
+        // data: homeInspection.toJson(),
+      );
+      if (response.statusCode != 200) throw Exception();
+    } on DioError catch (e) {
+      throw Exception(e);
+    }
+  }
 }
