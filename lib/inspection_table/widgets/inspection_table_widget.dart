@@ -14,11 +14,10 @@ class InspectionTableWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SfDataGrid(
       source: InspectionTableDatagrid(homeInspections: homeInspections),
-      columnWidthMode: ColumnWidthMode.fitByCellValue,
       gridLinesVisibility: GridLinesVisibility.both,
       headerGridLinesVisibility: GridLinesVisibility.both,
-      // rowHeight: 40,
-      // headerRowHeight: 50,
+      rowHeight: 40,
+      headerRowHeight: 50,
       columns: _getColumns(context),
       stackedHeaderRows: _getStackedHeaderRows(context),
     );
@@ -29,40 +28,67 @@ class InspectionTableWidget extends StatelessWidget {
     String label,
     BuildContext context,
   ) {
-    // final rotatedColumns = <String>[
-    //   'numberInhabitants',
-    //   'inspectedHome',
-    //   'reluctantDwelling',
-    //   'closedHome',
-    //   'uninhabitedHouse',
-    //   'housingSpotlights',
-    //   'treatedHousing',
-    //   'inspectedContainers',
-    //   'containersSpotlights',
-    //   'treatedContainers',
-    //   'destroyedContainers',
-    //   'larvicide',
-    // ];
+    final longTitleColumns = <String>[
+      'numberInhabitants',
+      'inspectedHome',
+      'reluctantDwelling',
+      'closedHome',
+      'uninhabitedHouse',
+      'housingSpotlights',
+      'treatedHousing',
+      'inspectedContainers',
+      'containersSpotlights',
+      'treatedContainers',
+      'destroyedContainers',
+    ];
+    final mediumTitleColumns = <String>[
+      'larvae',
+      'pupae',
+      'adult',
+      'larvicide',
+    ];
+    final shortTitleColumns = <String>[
+      'elevatedTankI',
+      'elevatedTankP',
+      'elevatedTankT',
+      'lowTankI',
+      'lowTankP',
+      'lowTankT',
+      'cylinderBarrelI',
+      'cylinderBarrelP',
+      'cylinderBarrelT',
+      'bucketTubI',
+      'bucketTubP',
+      'bucketTubT',
+      'tireI',
+      'tireP',
+      'tireT',
+      'flowerI',
+      'flowerP',
+      'flowerT',
+      'uselessI',
+      'uselessP',
+      'uselessT',
+      'othersI',
+      'othersP',
+      'othersT',
+    ];
 
-    // if (rotatedColumns.contains(columnName)) {
-    //   return GridColumn(
-    //     columnName: columnName,
-    //     label: RotatedBox(
-    //       quarterTurns: -1,
-    //       child: Container(
-    //         alignment: Alignment.center,
-    //         child: Text(
-    //           label,
-    //           textAlign: TextAlign.center,
-    //           style: FluentTheme.of(context).typography.bodyStrong,
-    //           maxLines: 2,
-    //         ),
-    //       ),
-    //     ),
-    //   );
-    // }
+    var columnWidth = 0;
+
+    if (longTitleColumns.contains(columnName)) {
+      columnWidth = 120;
+    } else if (mediumTitleColumns.contains(columnName)) {
+      columnWidth = 90;
+    } else if (shortTitleColumns.contains(columnName)) {
+      columnWidth = 60;
+    } else {
+      columnWidth = 350;
+    }
+
     return GridColumn(
       columnName: columnName,
+      width: columnWidth.toDouble(),
       label: Container(
         padding: const EdgeInsets.all(5),
         alignment: Alignment.center,
@@ -460,8 +486,14 @@ class InspectionTableDatagrid extends DataGridSource {
       cells: row.getCells().map<Widget>((dataGridCell) {
         return Container(
           padding: const EdgeInsets.all(5),
-          alignment: Alignment.centerLeft,
-          child: Text(dataGridCell.value.toString()),
+          alignment: dataGridCell.columnName == 'address'
+              ? Alignment.centerLeft
+              : Alignment.center,
+          child: Text(
+            dataGridCell.value.toString(),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         );
       }).toList(),
     );
