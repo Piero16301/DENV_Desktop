@@ -20,6 +20,11 @@ class HomeInspectionDetailed extends Equatable {
     required this.longitude,
     required this.photoUrl,
     required this.numberInhabitants,
+    required this.homeCondition,
+    required this.typeContainers,
+    required this.totalContainer,
+    required this.aegyptiFocus,
+    required this.larvicide,
   });
 
   /// Crea una instancia de [HomeInspectionDetailed] a partir de un [json]
@@ -53,6 +58,36 @@ class HomeInspectionDetailed extends Equatable {
   /// Número de habitantes
   final int numberInhabitants;
 
+  /// Condición de la vivienda
+  final HomeCondition homeCondition;
+
+  /// Tipo de contenedores
+  final TypeContainers typeContainers;
+
+  /// Total de contenedores
+  final TotalContainer totalContainer;
+
+  /// Foco de Aegypti
+  final AegyptiFocus aegyptiFocus;
+
+  /// Larvicida
+  final double larvicide;
+
   @override
-  List<Object?> get props => [address];
+  List<Object?> get props => [
+        id,
+        address,
+        comment,
+        dateTime,
+        dni,
+        latitude,
+        longitude,
+        photoUrl,
+        numberInhabitants,
+        homeCondition,
+        typeContainers,
+        totalContainer,
+        aegyptiFocus,
+        larvicide,
+      ];
 }
