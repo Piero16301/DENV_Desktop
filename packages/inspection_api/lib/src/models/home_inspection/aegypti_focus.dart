@@ -19,6 +19,9 @@ class AegyptiFocus extends Equatable {
   factory AegyptiFocus.fromJson(Map<String, dynamic> json) =>
       _$AegyptiFocusFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [AegyptiFocus]
+  Map<String, dynamic> toJson() => _$AegyptiFocusToJson(this);
+
   /// Larvas de aegypti
   final int larvae;
 

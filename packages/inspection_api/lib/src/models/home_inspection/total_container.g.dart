@@ -14,3 +14,11 @@ TotalContainer _$TotalContainerFromJson(Map<String, dynamic> json) {
     destroyedContainers: json['destroyedcontainers'] as int,
   );
 }
+
+Map<String, dynamic> _$TotalContainerToJson(TotalContainer instance) =>
+    <String, dynamic>{
+      'inspectedcontainers': instance.inspectedContainers,
+      'containersspotlights': instance.containersSpotlights,
+      'treatedcontainers': instance.treatedContainers,
+      'destroyedcontainers': instance.destroyedContainers,
+    };

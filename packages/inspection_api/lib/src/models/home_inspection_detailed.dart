@@ -31,6 +31,9 @@ class HomeInspectionDetailed extends Equatable {
   factory HomeInspectionDetailed.fromJson(Map<String, dynamic> json) =>
       _$HomeInspectionDetailedFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [HomeInspectionDetailed]
+  Map<String, dynamic> toJson() => _$HomeInspectionDetailedToJson(this);
+
   /// Id de la inspección
   final String id;
 

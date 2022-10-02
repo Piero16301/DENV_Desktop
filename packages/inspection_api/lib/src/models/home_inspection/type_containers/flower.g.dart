@@ -13,3 +13,9 @@ Flower _$FlowerFromJson(Map<String, dynamic> json) {
     t: json['t'] as int,
   );
 }
+
+Map<String, dynamic> _$FlowerToJson(Flower instance) => <String, dynamic>{
+      'i': instance.i,
+      'p': instance.p,
+      't': instance.t,
+    };

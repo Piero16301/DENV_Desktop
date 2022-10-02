@@ -19,6 +19,9 @@ class ElevatedTank extends Equatable {
   factory ElevatedTank.fromJson(Map<String, dynamic> json) =>
       _$ElevatedTankFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [ElevatedTank]
+  Map<String, dynamic> toJson() => _$ElevatedTankToJson(this);
+
   /// i
   final int i;
 

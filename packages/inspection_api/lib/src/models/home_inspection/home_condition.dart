@@ -22,6 +22,9 @@ class HomeCondition extends Equatable {
   factory HomeCondition.fromJson(Map<String, dynamic> json) =>
       _$HomeConditionFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [HomeCondition]
+  Map<String, dynamic> toJson() => _$HomeConditionToJson(this);
+
   /// Vivienda inspeccionada
   final int inspectedHome;
 

@@ -9,11 +9,13 @@ environment:
 
 dependencies:
   bloc: ^8.1.0
+  dio: ^4.0.6
   equatable: ^2.0.5
   fluent_ui: ^4.0.1
   flutter:
-    sdk: flutter
+    sdk: flutter    
   flutter_bloc: ^8.1.1
+  flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
   inspection_api:
@@ -23,6 +25,8 @@ dependencies:
   inspection_repository:
     path: packages/inspection_repository
   intl: ^0.17.0
+  syncfusion_flutter_core: ^20.3.47
+  syncfusion_flutter_datagrid: ^20.3.47
 
 dev_dependencies:
   bloc_test: ^9.1.0
@@ -34,3 +38,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+   - .env

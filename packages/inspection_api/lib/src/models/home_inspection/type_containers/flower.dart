@@ -18,6 +18,9 @@ class Flower extends Equatable {
   /// Crea una instancia de [Flower] a partir de un [json]
   factory Flower.fromJson(Map<String, dynamic> json) => _$FlowerFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [Flower]
+  Map<String, dynamic> toJson() => _$FlowerToJson(this);
+
   /// i
   final int i;
 

@@ -19,6 +19,9 @@ class BucketTub extends Equatable {
   factory BucketTub.fromJson(Map<String, dynamic> json) =>
       _$BucketTubFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [BucketTub]
+  Map<String, dynamic> toJson() => _$BucketTubToJson(this);
+
   /// i
   final int i;
 

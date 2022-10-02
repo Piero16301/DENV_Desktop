@@ -13,3 +13,9 @@ LowTank _$LowTankFromJson(Map<String, dynamic> json) {
     t: json['t'] as int,
   );
 }
+
+Map<String, dynamic> _$LowTankToJson(LowTank instance) => <String, dynamic>{
+      'i': instance.i,
+      'p': instance.p,
+      't': instance.t,
+    };

@@ -20,3 +20,15 @@ TypeContainers _$TypeContainersFromJson(Map<String, dynamic> json) {
     others: Others.fromJson(json['others'] as Map<String, dynamic>),
   );
 }
+
+Map<String, dynamic> _$TypeContainersToJson(TypeContainers instance) =>
+    <String, dynamic>{
+      'elevatedtank': instance.elevatedTank.toJson(),
+      'lowtank': instance.lowTank.toJson(),
+      'cylinderbarrel': instance.cylinderBarrel.toJson(),
+      'buckettub': instance.bucketTub.toJson(),
+      'tire': instance.tire.toJson(),
+      'flower': instance.flower.toJson(),
+      'useless': instance.useless.toJson(),
+      'others': instance.others.toJson(),
+    };

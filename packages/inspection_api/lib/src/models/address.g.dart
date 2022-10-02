@@ -17,7 +17,21 @@ Address _$AddressFromJson(Map<String, dynamic> json) {
     urbanization: json['urbanization'] as String,
     street: json['street'] as String,
     block: json['block'] as String,
-    lot: json['lot'] as String,
-    streetNumber: json['streetnumber'] as String,
+    lot: json['lot'] as int,
+    streetNumber: json['streetnumber'] as int,
   );
 }
+
+Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
+      'formattedaddress': instance.formattedAddress,
+      'postalcode': instance.postalCode,
+      'country': instance.country,
+      'department': instance.department,
+      'province': instance.province,
+      'district': instance.district,
+      'urbanization': instance.urbanization,
+      'street': instance.street,
+      'block': instance.block,
+      'lot': instance.lot,
+      'streetnumber': instance.streetNumber,
+    };

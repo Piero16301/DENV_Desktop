@@ -13,28 +13,27 @@ enum InspectionTableStatus {
 }
 
 class InspectionTableState extends Equatable {
-  final InspectionTableStatus status;
-  final List<InspectionTable> inspectionTables;
-  final String? error;
-
   const InspectionTableState({
     this.status = InspectionTableStatus.initial,
-    this.inspectionTables = const [],
-    this.error,
+    this.homeInspections = const <HomeInspectionDetailed>[],
   });
+
+  final InspectionTableStatus status;
+  final List<HomeInspectionDetailed> homeInspections;
+
+  @override
+  List<Object?> get props => [
+        status,
+        homeInspections,
+      ];
 
   InspectionTableState copyWith({
     InspectionTableStatus? status,
-    List<InspectionTable>? inspectionTables,
-    String? error,
+    List<HomeInspectionDetailed>? homeInspections,
   }) {
     return InspectionTableState(
       status: status ?? this.status,
-      inspectionTables: inspectionTables ?? this.inspectionTables,
-      error: error,
+      homeInspections: homeInspections ?? this.homeInspections,
     );
   }
-
-  @override
-  List<Object?> get props => [status, inspectionTables, error];
 }

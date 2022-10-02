@@ -16,3 +16,13 @@ HomeCondition _$HomeConditionFromJson(Map<String, dynamic> json) {
     treatedHousing: json['treatedhousing'] as int,
   );
 }
+
+Map<String, dynamic> _$HomeConditionToJson(HomeCondition instance) =>
+    <String, dynamic>{
+      'inspectedhome': instance.inspectedHome,
+      'reluctantdwelling': instance.reluctantDwelling,
+      'closedhome': instance.closedHome,
+      'uninhabitedhouse': instance.uninhabitedHouse,
+      'housingspotlights': instance.housingSpotlights,
+      'treatedhousing': instance.treatedHousing,
+    };

@@ -27,6 +27,9 @@ class Address extends Equatable {
   factory Address.fromJson(Map<String, dynamic> json) =>
       _$AddressFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [Address]
+  Map<String, dynamic> toJson() => _$AddressToJson(this);
+
   /// Dirección formateada
   final String formattedAddress;
 
@@ -55,10 +58,10 @@ class Address extends Equatable {
   final String block;
 
   /// Lote
-  final String lot;
+  final int lot;
 
   /// Número
-  final String streetNumber;
+  final int streetNumber;
 
   @override
   List<Object?> get props => [

@@ -19,6 +19,9 @@ class Useless extends Equatable {
   factory Useless.fromJson(Map<String, dynamic> json) =>
       _$UselessFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [Useless]
+  Map<String, dynamic> toJson() => _$UselessToJson(this);
+
   /// i
   final int i;
 

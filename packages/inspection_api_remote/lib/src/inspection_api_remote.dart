@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:inspection_api/inspection_api.dart';
 
 /// {@template inspection_api_remote}
@@ -29,6 +30,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
           .toList();
       return inspections;
     } on DioError catch (e) {
+      debugPrint('debug: DioError: ${e.message}');
       throw Exception(e);
     }
   }
@@ -59,7 +61,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
     try {
       final response = await _httpClient.put<Map<String, dynamic>>(
         '/home-inspection/${homeInspection.id}',
-        // data: homeInspection.toJson(),
+        data: homeInspection.toJson(),
       );
       if (response.statusCode != 200) throw Exception();
     } on DioError catch (e) {

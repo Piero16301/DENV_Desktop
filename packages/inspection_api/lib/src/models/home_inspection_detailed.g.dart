@@ -7,17 +7,18 @@ part of 'home_inspection_detailed.dart';
 // **************************************************************************
 
 HomeInspectionDetailed _$HomeInspectionDetailedFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return HomeInspectionDetailed(
     id: json['id'] as String,
     address: Address.fromJson(json['address'] as Map<String, dynamic>),
     comment: json['comment'] as String,
-    dateTime: DateTime.parse(json['dateTime'] as String),
+    dateTime: DateTime.parse(json['datetime'] as String),
     dni: json['dni'] as String,
     latitude: (json['latitude'] as num).toDouble(),
     longitude: (json['longitude'] as num).toDouble(),
-    photoUrl: json['photoUrl'] as String,
-    numberInhabitants: json['numberInhabitants'] as int,
+    photoUrl: json['photourl'] as String,
+    numberInhabitants: json['numberinhabitants'] as int,
     homeCondition: HomeCondition.fromJson(
       json['homecondition'] as Map<String, dynamic>,
     ),
@@ -33,3 +34,23 @@ HomeInspectionDetailed _$HomeInspectionDetailedFromJson(
     larvicide: (json['larvicide'] as num).toDouble(),
   );
 }
+
+Map<String, dynamic> _$HomeInspectionDetailedToJson(
+  HomeInspectionDetailed instance,
+) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'address': instance.address.toJson(),
+      'comment': instance.comment,
+      'dateTime': instance.dateTime.toIso8601String(),
+      'dni': instance.dni,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'photoUrl': instance.photoUrl,
+      'numberInhabitants': instance.numberInhabitants,
+      'homecondition': instance.homeCondition.toJson(),
+      'typecontainers': instance.typeContainers.toJson(),
+      'totalcontainer': instance.totalContainer.toJson(),
+      'aegyptifocus': instance.aegyptiFocus.toJson(),
+      'larvicide': instance.larvicide,
+    };

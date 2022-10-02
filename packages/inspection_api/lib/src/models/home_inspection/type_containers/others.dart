@@ -18,6 +18,9 @@ class Others extends Equatable {
   /// Crea una instancia de [Others] a partir de un [json]
   factory Others.fromJson(Map<String, dynamic> json) => _$OthersFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [Others]
+  Map<String, dynamic> toJson() => _$OthersToJson(this);
+
   /// i
   final int i;
 

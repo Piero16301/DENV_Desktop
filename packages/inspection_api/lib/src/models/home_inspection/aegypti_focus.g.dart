@@ -13,3 +13,10 @@ AegyptiFocus _$AegyptiFocusFromJson(Map<String, dynamic> json) {
     adult: json['adult'] as int,
   );
 }
+
+Map<String, dynamic> _$AegyptiFocusToJson(AegyptiFocus instance) =>
+    <String, dynamic>{
+      'larvae': instance.larvae,
+      'pupae': instance.pupae,
+      'adult': instance.adult,
+    };

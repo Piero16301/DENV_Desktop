@@ -20,6 +20,9 @@ class TotalContainer extends Equatable {
   factory TotalContainer.fromJson(Map<String, dynamic> json) =>
       _$TotalContainerFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [TotalContainer]
+  Map<String, dynamic> toJson() => _$TotalContainerToJson(this);
+
   /// Contenedores inspecionados
   final int inspectedContainers;
 

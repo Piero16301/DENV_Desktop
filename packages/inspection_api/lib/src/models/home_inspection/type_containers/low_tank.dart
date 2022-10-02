@@ -19,6 +19,9 @@ class LowTank extends Equatable {
   factory LowTank.fromJson(Map<String, dynamic> json) =>
       _$LowTankFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [LowTank]
+  Map<String, dynamic> toJson() => _$LowTankToJson(this);
+
   /// i
   final int i;
 

@@ -25,6 +25,9 @@ class TypeContainers extends Equatable {
   factory TypeContainers.fromJson(Map<String, dynamic> json) =>
       _$TypeContainersFromJson(json);
 
+  /// Crea un [json] a partir de una instancia de [TypeContainers]
+  Map<String, dynamic> toJson() => _$TypeContainersToJson(this);
+
   /// Tanque elevado
   final ElevatedTank elevatedTank;
 
