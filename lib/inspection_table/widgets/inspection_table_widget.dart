@@ -171,7 +171,9 @@ class InspectionTableWidget extends StatelessWidget {
       child: Text(
         stackedColumnName,
         textAlign: TextAlign.center,
-        style: FluentTheme.of(context).typography.bodyStrong,
+        style: FluentTheme.of(context).typography.bodyStrong!.copyWith(
+              fontSize: 16,
+            ),
         maxLines: 2,
       ),
     );
@@ -377,8 +379,8 @@ class ExportButtons extends StatelessWidget {
       child: Row(
         children: [
           ExportExcelButton(dataGridKey: dataGridKey),
-          const SizedBox(width: 10),
-          ExportPdfButton(dataGridKey: dataGridKey),
+          // const SizedBox(width: 10),
+          // ExportPdfButton(dataGridKey: dataGridKey),
           Expanded(child: Container()),
           IconButton(
             icon: const Icon(
