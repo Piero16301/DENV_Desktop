@@ -1,25 +1,36 @@
+import 'package:denv_desktop/inspection_table/inspection_table.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inspection_api/inspection_api.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class InspectionTableWidget extends StatelessWidget {
-  const InspectionTableWidget({
+  InspectionTableWidget({
     super.key,
     required this.homeInspections,
   });
 
   final List<HomeInspectionDetailed> homeInspections;
+  final GlobalKey<SfDataGridState> _key = GlobalKey<SfDataGridState>();
 
   @override
   Widget build(BuildContext context) {
-    return SfDataGrid(
-      source: InspectionTableDatagrid(homeInspections: homeInspections),
-      gridLinesVisibility: GridLinesVisibility.both,
-      headerGridLinesVisibility: GridLinesVisibility.both,
-      rowHeight: 40,
-      headerRowHeight: 50,
-      columns: _getColumns(context),
-      stackedHeaderRows: _getStackedHeaderRows(context),
+    return Column(
+      children: [
+        Expanded(
+          child: SfDataGrid(
+            key: _key,
+            source: InspectionTableDatagrid(homeInspections: homeInspections),
+            gridLinesVisibility: GridLinesVisibility.both,
+            headerGridLinesVisibility: GridLinesVisibility.both,
+            rowHeight: 40,
+            headerRowHeight: 50,
+            columns: _getColumns(context),
+            stackedHeaderRows: _getStackedHeaderRows(context),
+          ),
+        ),
+        ExportButtons(dataGridKey: _key),
+      ],
     );
   }
 
@@ -298,6 +309,39 @@ class InspectionTableWidget extends StatelessWidget {
         ],
       ),
     ];
+  }
+}
+
+class ExportButtons extends StatelessWidget {
+  const ExportButtons({
+    super.key,
+    required this.dataGridKey,
+  });
+
+  final GlobalKey<SfDataGridState> dataGridKey;
+
+  @override
+  Widget build(BuildContext context) {
+    final inspectionCubit = context.read<InspectionTableCubit>();
+
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: Row(
+        children: [
+          ExportExcelButton(dataGridKey: dataGridKey),
+          const SizedBox(width: 10),
+          const ExportPdfButton(),
+          Expanded(child: Container()),
+          IconButton(
+            icon: const Icon(
+              FluentIcons.refresh,
+              size: 30,
+            ),
+            onPressed: inspectionCubit.getHomeInspections,
+          ),
+        ],
+      ),
+    );
   }
 }
 

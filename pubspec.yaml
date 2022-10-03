@@ -11,6 +11,7 @@ dependencies:
   bloc: ^8.1.0
   dio: ^4.0.6
   equatable: ^2.0.5
+  file_saver: ^0.1.1
   fluent_ui: ^4.0.1
   flutter:
     sdk: flutter    
@@ -27,6 +28,9 @@ dependencies:
   intl: ^0.17.0
   syncfusion_flutter_core: ^20.3.47
   syncfusion_flutter_datagrid: ^20.3.47
+  syncfusion_flutter_datagrid_export: ^20.3.47-beta
+  syncfusion_flutter_pdf: ^20.3.47
+  syncfusion_flutter_xlsio: ^20.3.47-beta
 
 dev_dependencies:
   bloc_test: ^9.1.0

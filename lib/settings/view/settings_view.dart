@@ -21,8 +21,8 @@ class SettingsView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: RadioButton(
-            checked: context.select(
-              (SettingsCubit cubit) => cubit.state.isLightThemeOn,
+            checked: !context.select(
+              (AppCubit cubit) => cubit.state.isDarkThemeOn,
             ),
             onChanged: (value) {
               if (value) {
@@ -40,7 +40,7 @@ class SettingsView extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10),
           child: RadioButton(
             checked: context.select(
-              (SettingsCubit cubit) => cubit.state.isDarkThemeOn,
+              (AppCubit cubit) => cubit.state.isDarkThemeOn,
             ),
             onChanged: (value) {
               if (value) {
