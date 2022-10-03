@@ -88,7 +88,7 @@ class InspectionTableWidget extends StatelessWidget {
     var columnWidth = 0;
 
     if (longTitleColumns.contains(columnName)) {
-      columnWidth = 120;
+      columnWidth = 160;
     } else if (mediumTitleColumns.contains(columnName)) {
       columnWidth = 90;
     } else if (shortTitleColumns.contains(columnName)) {
@@ -182,6 +182,44 @@ class InspectionTableWidget extends StatelessWidget {
       StackedHeaderRow(
         cells: [
           StackedHeaderCell(
+            text: 'Tipo de recipientes',
+            columnNames: [
+              'elevatedTankI',
+              'elevatedTankP',
+              'elevatedTankT',
+              'lowTankI',
+              'lowTankP',
+              'lowTankT',
+              'cylinderBarrelI',
+              'cylinderBarrelP',
+              'cylinderBarrelT',
+              'bucketTubI',
+              'bucketTubP',
+              'bucketTubT',
+              'tireI',
+              'tireP',
+              'tireT',
+              'flowerI',
+              'flowerP',
+              'flowerT',
+              'uselessI',
+              'uselessP',
+              'uselessT',
+              'othersI',
+              'othersP',
+              'othersT',
+            ],
+            child: _getWidgetForStackedHeaderCell(
+              'Tipo de recipientes',
+              context,
+            ),
+          ),
+        ],
+      ),
+      StackedHeaderRow(
+        cells: [
+          StackedHeaderCell(
+            text: 'Condición de viviendas',
             columnNames: [
               'inspectedHome',
               'reluctantDwelling',
@@ -196,6 +234,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Tanque elevado',
             columnNames: [
               'elevatedTankI',
               'elevatedTankP',
@@ -207,6 +246,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Tanque bajo, pozos',
             columnNames: [
               'lowTankI',
               'lowTankP',
@@ -218,6 +258,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Barril, cilindro sanson',
             columnNames: [
               'cylinderBarrelI',
               'cylinderBarrelP',
@@ -229,6 +270,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Balde, abtea, tina',
             columnNames: [
               'bucketTubI',
               'bucketTubP',
@@ -240,6 +282,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Llanta',
             columnNames: [
               'tireI',
               'tireP',
@@ -251,6 +294,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Florero, maceta',
             columnNames: [
               'flowerI',
               'flowerP',
@@ -262,6 +306,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Inservibles',
             columnNames: [
               'uselessI',
               'uselessP',
@@ -273,6 +318,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Otros',
             columnNames: [
               'othersI',
               'othersP',
@@ -284,6 +330,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Total de recipiente',
             columnNames: [
               'inspectedContainers',
               'containersSpotlights',
@@ -296,6 +343,7 @@ class InspectionTableWidget extends StatelessWidget {
             ),
           ),
           StackedHeaderCell(
+            text: 'Foco de A. Aegypti',
             columnNames: [
               'larvae',
               'pupae',
@@ -330,7 +378,7 @@ class ExportButtons extends StatelessWidget {
         children: [
           ExportExcelButton(dataGridKey: dataGridKey),
           const SizedBox(width: 10),
-          const ExportPdfButton(),
+          ExportPdfButton(dataGridKey: dataGridKey),
           Expanded(child: Container()),
           IconButton(
             icon: const Icon(
