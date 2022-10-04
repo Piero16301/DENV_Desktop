@@ -15,6 +15,9 @@ class InspectionTableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<InspectionTableCubit>().setDataGridKey(_key);
+    context.read<InspectionTableCubit>().changeKeyUpdated(isKeyUpdated: true);
+
     return Column(
       children: [
         Expanded(
@@ -387,7 +390,11 @@ class ExportButtons extends StatelessWidget {
               FluentIcons.refresh,
               size: 30,
             ),
-            onPressed: inspectionCubit.getHomeInspections,
+            onPressed: () {
+              inspectionCubit
+                ..getHomeInspections()
+                ..changeKeyUpdated(isKeyUpdated: true);
+            },
           ),
         ],
       ),

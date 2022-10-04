@@ -9,7 +9,16 @@ class InspectionTableView extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<InspectionTableCubit>().getHomeInspections();
 
-    return BlocBuilder<InspectionTableCubit, InspectionTableState>(
+    return BlocConsumer<InspectionTableCubit, InspectionTableState>(
+      listener: (context, state) {
+        if (state.exportStatus == InspectionExportStatus.success) {
+          context.read<InspectionTableCubit>().resetExportStatus();
+          showExportDialog(context: context, isSuccess: true);
+        } else if (state.exportStatus == InspectionExportStatus.failure) {
+          context.read<InspectionTableCubit>().resetExportStatus();
+          showExportDialog(context: context, isSuccess: false);
+        }
+      },
       builder: (context, state) {
         if (state.status.isLoading) {
           return const InspectionTableLoading();
@@ -24,6 +33,22 @@ class InspectionTableView extends StatelessWidget {
           return const InspectionTableError();
         }
         return const SizedBox.shrink();
+      },
+    );
+  }
+
+  Future<void> showExportDialog({
+    required BuildContext context,
+    required bool isSuccess,
+  }) async {
+    await showDialog<void>(
+      context: context,
+      builder: (context) {
+        if (isSuccess) {
+          return const SuccessDialog();
+        } else {
+          return const FailureDialog();
+        }
       },
     );
   }
