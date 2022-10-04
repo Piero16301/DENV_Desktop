@@ -112,8 +112,11 @@ class ExportPdfButton extends StatelessWidget {
         );
         header.graphics.drawString(
           'Reporte de inspecciones',
-          PdfStandardFont(PdfFontFamily.helvetica, 13,
-              style: PdfFontStyle.bold),
+          PdfStandardFont(
+            PdfFontFamily.helvetica,
+            13,
+            style: PdfFontStyle.bold,
+          ),
           bounds: const Rect.fromLTWH(0, 25, 200, 60),
         );
         details.pdfDocumentTemplate.top = header;

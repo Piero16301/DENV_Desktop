@@ -1,6 +1,5 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:inspection_api/src/models/models.dart';
 
 part 'home_inspection_summarized.g.dart';
 

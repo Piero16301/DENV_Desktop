@@ -7,7 +7,8 @@ part of 'home_inspection_summarized.dart';
 // **************************************************************************
 
 HomeInspectionSummarized _$HomeInspectionSummarizedFromJson(
-    Map<String, dynamic> json) {
+  Map<String, dynamic> json,
+) {
   return HomeInspectionSummarized(
     id: json['id'] as String,
     latitude: (json['latitude'] as num).toDouble(),

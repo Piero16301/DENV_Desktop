@@ -37,6 +37,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
+  msix: ^3.6.3
   very_good_analysis: ^3.1.0
 
 flutter:
@@ -46,3 +47,12 @@ flutter:
   assets:
    - assets/icon/
    - .env
+
+msix_config:
+  display_name: DENV Desktop
+  publisher_display_name: Piero Angelo Morales Alcalde
+  identity_name: 29622PieroAngeloMoralesAl.DENVDesktop
+  publisher: 85546d3e-b895-4be4-ad16-0130c4bf7af8
+  msix_version: 1.0.0.0
+  logo_path: assets/icon/denv_icon_windows.png
+  store: true
