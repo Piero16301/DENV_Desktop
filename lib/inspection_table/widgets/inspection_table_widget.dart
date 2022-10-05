@@ -18,23 +18,33 @@ class InspectionTableWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<InspectionTableCubit>().setDataGridKey(_key);
     context.read<InspectionTableCubit>().changeKeyUpdated(isKeyUpdated: true);
+    final l10n = context.l10n;
 
-    return Column(
-      children: [
-        Expanded(
-          child: SfDataGrid(
-            key: _key,
-            source: InspectionTableDatagrid(homeInspections: homeInspections),
-            gridLinesVisibility: GridLinesVisibility.both,
-            headerGridLinesVisibility: GridLinesVisibility.both,
-            rowHeight: 40,
-            headerRowHeight: 50,
-            columns: _getColumns(context),
-            stackedHeaderRows: _getStackedHeaderRows(context),
+    return ScaffoldPage(
+      header: PageHeader(
+        title: Text(l10n.inspectionTableAppBarTitle),
+      ),
+      content: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: SfDataGrid(
+                key: _key,
+                source:
+                    InspectionTableDatagrid(homeInspections: homeInspections),
+                gridLinesVisibility: GridLinesVisibility.both,
+                headerGridLinesVisibility: GridLinesVisibility.both,
+                rowHeight: 40,
+                headerRowHeight: 50,
+                columns: _getColumns(context),
+                stackedHeaderRows: _getStackedHeaderRows(context),
+              ),
+            ),
           ),
-        ),
-        ExportButtons(dataGridKey: _key),
-      ],
+        ],
+      ),
+      bottomBar: ExportButtons(dataGridKey: _key),
     );
   }
 
@@ -92,7 +102,7 @@ class InspectionTableWidget extends StatelessWidget {
     var columnWidth = 0;
 
     if (longTitleColumns.contains(columnName)) {
-      columnWidth = 160;
+      columnWidth = 110;
     } else if (mediumTitleColumns.contains(columnName)) {
       columnWidth = 90;
     } else if (shortTitleColumns.contains(columnName)) {
@@ -423,12 +433,10 @@ class ExportButtons extends StatelessWidget {
     final inspectionCubit = context.read<InspectionTableCubit>();
 
     return Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       child: Row(
         children: [
           ExportExcelButton(dataGridKey: dataGridKey),
-          // const SizedBox(width: 10),
-          // ExportPdfButton(dataGridKey: dataGridKey),
           Expanded(child: Container()),
           IconButton(
             icon: const Icon(

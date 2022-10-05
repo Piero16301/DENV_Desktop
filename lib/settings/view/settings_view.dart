@@ -90,11 +90,11 @@ class AppLocaleRadioButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSpanishLocale = context.select<AppCubit, Locale>(
-          (cubit) => cubit.state.locale ?? const Locale('es'),
+          (cubit) => cubit.state.locale,
         ) ==
         const Locale('es');
     final isEnglishLocale = context.select<AppCubit, Locale>(
-          (cubit) => cubit.state.locale ?? const Locale('es'),
+          (cubit) => cubit.state.locale,
         ) ==
         const Locale('en');
     final appCubit = context.read<AppCubit>();

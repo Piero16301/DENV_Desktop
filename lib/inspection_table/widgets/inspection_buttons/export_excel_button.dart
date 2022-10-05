@@ -28,9 +28,11 @@ class ExportExcelButton extends StatelessWidget {
     return SizedBox(
       width: 175,
       child: FilledButton(
-        onPressed: () => context
-            .read<InspectionTableCubit>()
-            .exportHomeInspectionsExcel(dataGridKey),
+        onPressed: () =>
+            context.read<InspectionTableCubit>().exportHomeInspectionsExcel(
+                  dataGridKey: dataGridKey,
+                  context: context,
+                ),
         child: Padding(
           padding: const EdgeInsets.all(5),
           child: Row(

@@ -1,3 +1,4 @@
+import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
 class SuccessDialog extends StatelessWidget {
@@ -5,14 +6,15 @@ class SuccessDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return ContentDialog(
-      title: const Text('Exportación exitosa'),
-      content: const Text('El archivo se exportó correctamente y se guardó en '
-          'la carpeta de Descargas'),
+      title: Text(l10n.inspectionTableExportSuccessTitleDialog),
+      content: Text(l10n.inspectionTableExportSuccessContentDialog),
       actions: [
         FilledButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Aceptar'),
+          child: Text(l10n.inspectionTableExportSuccessAcceptButton),
         ),
       ],
     );

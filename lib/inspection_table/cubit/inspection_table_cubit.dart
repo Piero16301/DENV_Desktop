@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_saver/file_saver.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -43,20 +44,22 @@ class InspectionTableCubit extends Cubit<InspectionTableState> {
     emit(state.copyWith(isKeyUpdated: isKeyUpdated));
   }
 
-  Future<void> exportHomeInspectionsExcel(
-    GlobalKey<SfDataGridState> dataGridKey,
-  ) async {
+  Future<void> exportHomeInspectionsExcel({
+    required GlobalKey<SfDataGridState> dataGridKey,
+    required BuildContext context,
+  }) async {
     emit(state.copyWith(exportStatus: InspectionExportStatus.loading));
     try {
+      final l10n = context.l10n;
       final replaceColumnNames = {
-        'address': 'Dirección',
-        'numberInhabitants': 'N° de habitantes',
-        'inspectedHome': 'Vivienda inspecionada',
-        'reluctantDwelling': 'Vivienda renuente',
-        'closedHome': 'Vivienda cerrada',
-        'uninhabitedHouse': 'Vivienda deshabitada',
-        'housingSpotlights': 'Vivienda focos',
-        'treatedHousing': 'Vivienda tratada con abte',
+        'address': l10n.inspectionTableColumnAddress,
+        'numberInhabitants': l10n.inspectionTableColumnNumberInhabitants,
+        'inspectedHome': l10n.inspectionTableColumnInspectedHome,
+        'reluctantDwelling': l10n.inspectionTableColumnReluctantDwelling,
+        'closedHome': l10n.inspectionTableColumnClosedHome,
+        'uninhabitedHouse': l10n.inspectionTableColumnUninhabitedHouse,
+        'housingSpotlights': l10n.inspectionTableColumnHousingSpotlights,
+        'treatedHousing': l10n.inspectionTableColumnTreatedHousing,
         'elevatedTankI': 'I',
         'elevatedTankP': 'P',
         'elevatedTankT': 'T',
@@ -81,14 +84,14 @@ class InspectionTableCubit extends Cubit<InspectionTableState> {
         'othersI': 'I',
         'othersP': 'P',
         'othersT': 'T',
-        'inspectedContainers': 'Recipientes inspeccionados',
-        'containersSpotlights': 'Recipientes focos',
-        'treatedContainers': 'Recipientes tratados',
-        'destroyedContainers': 'Recipientes destruidos',
-        'larvae': 'Larvas',
-        'pupae': 'Pupas',
-        'adult': 'Adulto',
-        'larvicide': 'Larvicida',
+        'inspectedContainers': l10n.inspectionTableColumnInspectedContainers,
+        'containersSpotlights': l10n.inspectionTableColumnContainersSpotlights,
+        'treatedContainers': l10n.inspectionTableColumnTreatedContainers,
+        'destroyedContainers': l10n.inspectionTableColumnDestroyedContainers,
+        'larvae': l10n.inspectionTableColumnLarvae,
+        'pupae': l10n.inspectionTableColumnPupae,
+        'adult': l10n.inspectionTableColumnAdult,
+        'larvicide': l10n.inspectionTableColumnLarvicide,
       };
       final workbook = dataGridKey.currentState!.exportToExcelWorkbook(
         cellExport: (DataGridCellExcelExportDetails details) {
@@ -110,7 +113,6 @@ class InspectionTableCubit extends Cubit<InspectionTableState> {
         'xlsx',
         mimeType: mimeType,
       );
-      await Future<void>.delayed(const Duration(seconds: 1));
       debugPrint('File saved to $path');
       emit(state.copyWith(exportStatus: InspectionExportStatus.success));
     } catch (e) {
