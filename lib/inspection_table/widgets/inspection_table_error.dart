@@ -1,5 +1,6 @@
 import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/inspection_table/inspection_table.dart';
+import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,12 +14,13 @@ class InspectionTableError extends StatelessWidget {
         ) ==
         ThemeData.dark();
     final inspectionCubit = context.read<InspectionTableCubit>();
+    final l10n = context.l10n;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Error al cargar las inspecciones de viviendas',
+          l10n.inspectionTableErrorText,
           style: FluentTheme.of(context).typography.subtitle,
         ),
         const SizedBox(height: 10),
@@ -40,7 +42,7 @@ class InspectionTableError extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Actualizar',
+                    l10n.inspectionTableErrorUpdate,
                     style:
                         FluentTheme.of(context).typography.bodyStrong!.copyWith(
                               color: isDarkThemeOn

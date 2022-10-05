@@ -3,5 +3,61 @@
     "homePageAppBarTitle": "DENV Desktop",
     "@homePageAppBarTitle": {
         "description": "Text shown in the AppBar of the Home Page"
-    }
+    },
+
+    "inspectionTableAppBarTitle": "Home inspections",
+    "@inspectionTableAppBarTitle": {
+        "description": "Text shown in the AppBar of the Inspection Table Page"
+    },
+    "inspectionTableColumnAddress": "Address",
+    "inspectionTableColumnNumberInhabitants": "Nº of inhabitants",
+    "inspectionTableColumnHomeCondition": "Home condition",
+    "inspectionTableColumnInspectedHome": "Inspected home",
+    "inspectionTableColumnReluctantDwelling": "Reluctant dwelling",
+    "inspectionTableColumnClosedHome": "Closed home",
+    "inspectionTableColumnUninhabitedHouse": "Uninhabited house",
+    "inspectionTableColumnHousingSpotlights": "Housing spotlights",
+    "inspectionTableColumnTreatedHousing": "Abte treated house",
+    "inspectionTableColumnTypeContainers": "Type of recipients",
+    "inspectionTableColumnElevatedTank": "Elevated tank",
+    "inspectionTableColumnLowTank": "Low tank, wells",
+    "inspectionTableColumnCylinderBarrel": "Barrel, sanson cylinder",
+    "inspectionTableColumnBucketTub": "Bucket, abtea, tub",
+    "inspectionTableColumnTire": "Tire",
+    "inspectionTableColumnFlower": "Vase, flowerpot",
+    "inspectionTableColumnUseless": "Useless",
+    "inspectionTableColumnOthers": "Others",
+    "inspectionTableColumnTotalContainer": "Total container",
+    "inspectionTableColumnInspectedContainers": "Inspected containers",
+    "inspectionTableColumnContainersSpotlights": "Containers spotlights",
+    "inspectionTableColumnTreatedContainers": "Treated containers",
+    "inspectionTableColumnDestroyedContainers": "Destroyed containers",
+    "inspectionTableColumnAegyptiFocus": "A. Aegypti outbreak",
+    "inspectionTableColumnLarvae": "Larvae",
+    "inspectionTableColumnPupae": "Pupae",
+    "inspectionTableColumnAdult": "Adult",
+    "inspectionTableColumnLarvicide": "Larvicide",
+    "inspectionTableExportToExcel": "Export to Excel",
+    "inspectionTableExportToExcelLoading": "Exporting...",
+    "inspectionTableErrorText": "Error loading home inspections",
+    "inspectionTableErrorUpdate": "Update",
+    "inspectionTableNoDataText": "No home inspections registered",
+    "inspectionTableExportFailureTitleDialog": "Error exporting",
+    "inspectionTableExportFailureContentDialog": "An error occurred while exporting the data to Excel. Please try again.",
+    "inspectionTableExportFailureCancelButton": "Cancel",
+    "inspectionTableExportFailureRetryButton": "Retry",
+    "inspectionTableExportSuccessTitleDialog": "Export successful",
+    "inspectionTableExportSuccessContentDialog": "The data was successfully exported to Excel and saved in the Downloads folder.",
+    "inspectionTableExportSuccessAcceptButton": "Accept",
+
+    "settingsPageAppBarTitle": "Settings",
+    "@settingsPageAppBarTitle": {
+        "description": "Text shown in the AppBar of the Settings Page"
+    },
+    "settingsPageAppThemeTitle": "App theme",
+    "settingsPageAppThemeLight": "Light theme",
+    "settingsPageAppThemeDark": "Dark theme",
+    "settingsPageAppLanguageTitle": "App language",
+    "settingsPageAppLanguageSpanish": "Spanish",
+    "settingsPageAppLanguageEnglish": "English"
 }

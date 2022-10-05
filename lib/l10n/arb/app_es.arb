@@ -2,6 +2,62 @@
     "@@locale": "es",
     "homePageAppBarTitle": "DENV Desktop",
     "@homePageAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página principal"
-    }
+        "description": "Texto mostrado en la barra de navegación de la página de inicio"
+    },
+
+    "inspectionTableAppBarTitle": "Inspecciones de viviendas",
+    "@inspectionTableAppBarTitle": {
+        "description": "Texto mostrado en la barra de navegación de la tabla de inspecciones"
+    },
+    "inspectionTableColumnAddress": "Dirección",
+    "inspectionTableColumnNumberInhabitants": "Nº de habitantes",
+    "inspectionTableColumnHomeCondition": "Condición de la vivienda",
+    "inspectionTableColumnInspectedHome": "Vivienda inspeccionada",
+    "inspectionTableColumnReluctantDwelling": "Vivienda renuente",
+    "inspectionTableColumnClosedHome": "Vivienda cerrada",
+    "inspectionTableColumnUninhabitedHouse": "Vivienda deshabitada",
+    "inspectionTableColumnHousingSpotlights": "Vivienda focos",
+    "inspectionTableColumnTreatedHousing": "Vivienda tratada con abte",
+    "inspectionTableColumnTypeContainers": "Tipo de recipientes",
+    "inspectionTableColumnElevatedTank": "Tanque elevado",
+    "inspectionTableColumnLowTank": "Tanque bajo, pozos",
+    "inspectionTableColumnCylinderBarrel": "Barril, cilindro sanson",
+    "inspectionTableColumnBucketTub": "Balde, abtea, tina",
+    "inspectionTableColumnTire": "Llanta",
+    "inspectionTableColumnFlower": "Florero, maceta",
+    "inspectionTableColumnUseless": "Inservibles",
+    "inspectionTableColumnOthers": "Otros",
+    "inspectionTableColumnTotalContainer": "Total de recipiente",
+    "inspectionTableColumnInspectedContainers": "Recipientes inspeccionados",
+    "inspectionTableColumnContainersSpotlights": "Recipientes focos",
+    "inspectionTableColumnTreatedContainers": "Recipientes tratados",
+    "inspectionTableColumnDestroyedContainers": "Recipientes destruidos",
+    "inspectionTableColumnAegyptiFocus": "Foco de A. Aegypti",
+    "inspectionTableColumnLarvae": "Larvas",
+    "inspectionTableColumnPupae": "Pupas",
+    "inspectionTableColumnAdult": "Adulto",
+    "inspectionTableColumnLarvicide": "Larvicida",
+    "inspectionTableExportToExcel": "Exportar a Excel",
+    "inspectionTableExportToExcelLoading": "Exportando...",
+    "inspectionTableErrorText": "Error al cargar las inspecciones de viviendas",
+    "inspectionTableErrorUpdate": "Actualizar",
+    "inspectionTableNoDataText": "No hay inspecciones de viviendas registradas",
+    "inspectionTableExportFailureTitleDialog": "Error al exportar",
+    "inspectionTableExportFailureContentDialog": "Ocurrió un error al exportar los datos a Excel. Por favor, inténtelo de nuevo.",
+    "inspectionTableExportFailureCancelButton": "Cancelar",
+    "inspectionTableExportFailureRetryButton": "Reintentar",
+    "inspectionTableExportSuccessTitleDialog": "Exportación exitosa",
+    "inspectionTableExportSuccessContentDialog": "Los datos se exportaron correctamente a Excel y se guardaron en la carpeta de Descargas.",
+    "inspectionTableExportSuccessAcceptButton": "Aceptar",
+
+    "settingsPageAppBarTitle": "Configuración",
+    "@settingsPageAppBarTitle": {
+        "description": "Texto mostrado en la barra de navegación de la página de configuración"
+    },
+    "settingsPageAppThemeTitle": "Tema de la aplicación",
+    "settingsPageAppThemeLight": "Tema claro",
+    "settingsPageAppThemeDark": "Tema oscuro",
+    "settingsPageAppLanguageTitle": "Idioma de la aplicación",
+    "settingsPageAppLanguageSpanish": "Español",
+    "settingsPageAppLanguageEnglish": "Inglés"
 }

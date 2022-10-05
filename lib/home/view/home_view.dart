@@ -45,7 +45,7 @@ class HomeView extends StatelessWidget {
         items: [
           PaneItem(
             icon: const Icon(FluentIcons.table),
-            title: const Text('Inspecciones de vivienda'),
+            title: Text(l10n.inspectionTableAppBarTitle),
             body: const InspectionTablePage(),
           ),
           // PaneItem(
@@ -62,7 +62,7 @@ class HomeView extends StatelessWidget {
         footerItems: [
           PaneItem(
             icon: const Icon(FluentIcons.settings),
-            title: const Text('Settings'),
+            title: Text(l10n.settingsPageAppBarTitle),
             body: const SettingsPage(),
           ),
         ],

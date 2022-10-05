@@ -1,4 +1,5 @@
 import 'package:denv_desktop/inspection_table/inspection_table.dart';
+import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inspection_api/inspection_api.dart';
@@ -117,15 +118,45 @@ class InspectionTableWidget extends StatelessWidget {
   }
 
   List<GridColumn> _getColumns(BuildContext context) {
+    final l10n = context.l10n;
+
     return [
-      _getGridColumn('address', 'Dirección', context),
-      _getGridColumn('numberInhabitants', 'N° de habitantes', context),
-      _getGridColumn('inspectedHome', 'Vivienda inspecionada', context),
-      _getGridColumn('reluctantDwelling', 'Vivienda renuente', context),
-      _getGridColumn('closedHome', 'Vivienda cerrada', context),
-      _getGridColumn('uninhabitedHouse', 'Vivienda deshabitada', context),
-      _getGridColumn('housingSpotlights', 'Vivienda focos', context),
-      _getGridColumn('treatedHousing', 'Vivienda tratada con abte', context),
+      _getGridColumn('address', l10n.inspectionTableColumnAddress, context),
+      _getGridColumn(
+        'numberInhabitants',
+        l10n.inspectionTableColumnNumberInhabitants,
+        context,
+      ),
+      _getGridColumn(
+        'inspectedHome',
+        l10n.inspectionTableColumnInspectedHome,
+        context,
+      ),
+      _getGridColumn(
+        'reluctantDwelling',
+        l10n.inspectionTableColumnReluctantDwelling,
+        context,
+      ),
+      _getGridColumn(
+        'closedHome',
+        l10n.inspectionTableColumnClosedHome,
+        context,
+      ),
+      _getGridColumn(
+        'uninhabitedHouse',
+        l10n.inspectionTableColumnUninhabitedHouse,
+        context,
+      ),
+      _getGridColumn(
+        'housingSpotlights',
+        l10n.inspectionTableColumnHousingSpotlights,
+        context,
+      ),
+      _getGridColumn(
+        'treatedHousing',
+        l10n.inspectionTableColumnTreatedHousing,
+        context,
+      ),
       _getGridColumn('elevatedTankI', 'I', context),
       _getGridColumn('elevatedTankP', 'P', context),
       _getGridColumn('elevatedTankT', 'T', context),
@@ -152,16 +183,28 @@ class InspectionTableWidget extends StatelessWidget {
       _getGridColumn('othersT', 'T', context),
       _getGridColumn(
         'inspectedContainers',
-        'Recipientes inspeccionados',
+        l10n.inspectionTableColumnInspectedContainers,
         context,
       ),
-      _getGridColumn('containersSpotlights', 'Recipientes focos', context),
-      _getGridColumn('treatedContainers', 'Recipientes tratados', context),
-      _getGridColumn('destroyedContainers', 'Recipientes destruidos', context),
-      _getGridColumn('larvae', 'Larvas', context),
-      _getGridColumn('pupae', 'Pupas', context),
-      _getGridColumn('adult', 'Adulto', context),
-      _getGridColumn('larvicide', 'Larvicida', context),
+      _getGridColumn(
+        'containersSpotlights',
+        l10n.inspectionTableColumnContainersSpotlights,
+        context,
+      ),
+      _getGridColumn(
+        'treatedContainers',
+        l10n.inspectionTableColumnTreatedContainers,
+        context,
+      ),
+      _getGridColumn(
+        'destroyedContainers',
+        l10n.inspectionTableColumnDestroyedContainers,
+        context,
+      ),
+      _getGridColumn('larvae', l10n.inspectionTableColumnLarvae, context),
+      _getGridColumn('pupae', l10n.inspectionTableColumnPupae, context),
+      _getGridColumn('adult', l10n.inspectionTableColumnAdult, context),
+      _getGridColumn('larvicide', l10n.inspectionTableColumnLarvicide, context),
     ];
   }
 
@@ -183,11 +226,13 @@ class InspectionTableWidget extends StatelessWidget {
   }
 
   List<StackedHeaderRow> _getStackedHeaderRows(BuildContext context) {
+    final l10n = context.l10n;
+
     return [
       StackedHeaderRow(
         cells: [
           StackedHeaderCell(
-            text: 'Tipo de recipientes',
+            text: l10n.inspectionTableColumnTypeContainers,
             columnNames: [
               'elevatedTankI',
               'elevatedTankP',
@@ -215,7 +260,7 @@ class InspectionTableWidget extends StatelessWidget {
               'othersT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Tipo de recipientes',
+              l10n.inspectionTableColumnTypeContainers,
               context,
             ),
           ),
@@ -224,7 +269,7 @@ class InspectionTableWidget extends StatelessWidget {
       StackedHeaderRow(
         cells: [
           StackedHeaderCell(
-            text: 'Condición de viviendas',
+            text: l10n.inspectionTableColumnHomeCondition,
             columnNames: [
               'inspectedHome',
               'reluctantDwelling',
@@ -234,108 +279,108 @@ class InspectionTableWidget extends StatelessWidget {
               'treatedHousing',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Condición de viviendas',
+              l10n.inspectionTableColumnHomeCondition,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Tanque elevado',
+            text: l10n.inspectionTableColumnElevatedTank,
             columnNames: [
               'elevatedTankI',
               'elevatedTankP',
               'elevatedTankT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Tanque elevado',
+              l10n.inspectionTableColumnElevatedTank,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Tanque bajo, pozos',
+            text: l10n.inspectionTableColumnLowTank,
             columnNames: [
               'lowTankI',
               'lowTankP',
               'lowTankT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Tanque bajo, pozos',
+              l10n.inspectionTableColumnLowTank,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Barril, cilindro sanson',
+            text: l10n.inspectionTableColumnCylinderBarrel,
             columnNames: [
               'cylinderBarrelI',
               'cylinderBarrelP',
               'cylinderBarrelT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Barril, cilindro sanson',
+              l10n.inspectionTableColumnCylinderBarrel,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Balde, abtea, tina',
+            text: l10n.inspectionTableColumnBucketTub,
             columnNames: [
               'bucketTubI',
               'bucketTubP',
               'bucketTubT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Balde, abtea, tina',
+              l10n.inspectionTableColumnBucketTub,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Llanta',
+            text: l10n.inspectionTableColumnTire,
             columnNames: [
               'tireI',
               'tireP',
               'tireT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Llanta',
+              l10n.inspectionTableColumnTire,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Florero, maceta',
+            text: l10n.inspectionTableColumnFlower,
             columnNames: [
               'flowerI',
               'flowerP',
               'flowerT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Florero, maceta',
+              l10n.inspectionTableColumnFlower,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Inservibles',
+            text: l10n.inspectionTableColumnUseless,
             columnNames: [
               'uselessI',
               'uselessP',
               'uselessT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Inservibles',
+              l10n.inspectionTableColumnUseless,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Otros',
+            text: l10n.inspectionTableColumnOthers,
             columnNames: [
               'othersI',
               'othersP',
               'othersT',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Otros',
+              l10n.inspectionTableColumnOthers,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Total de recipiente',
+            text: l10n.inspectionTableColumnTotalContainer,
             columnNames: [
               'inspectedContainers',
               'containersSpotlights',
@@ -343,19 +388,19 @@ class InspectionTableWidget extends StatelessWidget {
               'destroyedContainers',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Total de recipiente',
+              l10n.inspectionTableColumnTotalContainer,
               context,
             ),
           ),
           StackedHeaderCell(
-            text: 'Foco de A. Aegypti',
+            text: l10n.inspectionTableColumnAegyptiFocus,
             columnNames: [
               'larvae',
               'pupae',
               'adult',
             ],
             child: _getWidgetForStackedHeaderCell(
-              'Foco de A. Aegypti',
+              l10n.inspectionTableColumnAegyptiFocus,
               context,
             ),
           ),

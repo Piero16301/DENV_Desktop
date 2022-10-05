@@ -1,4 +1,5 @@
 import 'package:denv_desktop/app/app.dart';
+import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:denv_desktop/settings/settings.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,9 +9,11 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return ScaffoldPage.scrollable(
-      header: const PageHeader(
-        title: Text('Ajustes'),
+      header: PageHeader(
+        title: Text(l10n.settingsPageAppBarTitle),
       ),
       children: const [
         AppThemeRadioButtons(),
@@ -32,6 +35,7 @@ class AppThemeRadioButtons extends StatelessWidget {
       (cubit) => cubit.state.isDarkThemeOn,
     );
     final appCubit = context.read<AppCubit>();
+    final l10n = context.l10n;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -39,7 +43,7 @@ class AppThemeRadioButtons extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: Text(
-            'Tema de la aplicación',
+            l10n.settingsPageAppThemeTitle,
             style: FluentTheme.of(context).typography.subtitle,
           ),
         ),
@@ -56,7 +60,7 @@ class AppThemeRadioButtons extends StatelessWidget {
                 appCubit.changeTheme(ThemeData.light());
               }
             },
-            content: const Text('Tema claro'),
+            content: Text(l10n.settingsPageAppThemeLight),
           ),
         ),
         Padding(
@@ -72,7 +76,7 @@ class AppThemeRadioButtons extends StatelessWidget {
                 appCubit.changeTheme(ThemeData.dark());
               }
             },
-            content: const Text('Tema oscuro'),
+            content: Text(l10n.settingsPageAppThemeDark),
           ),
         ),
       ],
@@ -94,6 +98,7 @@ class AppLocaleRadioButtons extends StatelessWidget {
         ) ==
         const Locale('en');
     final appCubit = context.read<AppCubit>();
+    final l10n = context.l10n;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +106,7 @@ class AppLocaleRadioButtons extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: Text(
-            'Idioma de la aplicación',
+            l10n.settingsPageAppLanguageTitle,
             style: FluentTheme.of(context).typography.subtitle,
           ),
         ),
@@ -118,7 +123,7 @@ class AppLocaleRadioButtons extends StatelessWidget {
                 appCubit.changeLocale(const Locale('es'));
               }
             },
-            content: const Text('Español'),
+            content: Text(l10n.settingsPageAppLanguageSpanish),
           ),
         ),
         Padding(
@@ -134,7 +139,7 @@ class AppLocaleRadioButtons extends StatelessWidget {
                 appCubit.changeLocale(const Locale('en'));
               }
             },
-            content: const Text('Inglés'),
+            content: Text(l10n.settingsPageAppLanguageEnglish),
           ),
         ),
       ],

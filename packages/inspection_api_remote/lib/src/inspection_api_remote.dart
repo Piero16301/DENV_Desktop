@@ -21,6 +21,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
       );
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
+      if (response.data?['data'] == null) return [];
       final inspectionsJson = response.data?['data'] as List<dynamic>;
       final inspections = inspectionsJson
           .map(
