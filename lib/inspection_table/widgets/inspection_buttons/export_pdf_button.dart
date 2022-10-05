@@ -18,8 +18,9 @@ class ExportPdfButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkThemeOn = context.select(
-      (AppCubit cubit) => cubit.state.isDarkThemeOn,
-    );
+          (AppCubit cubit) => cubit.state.appTheme,
+        ) ==
+        ThemeData.dark();
 
     return FilledButton(
       onPressed: _exportDataGridToPdf,

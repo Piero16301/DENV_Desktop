@@ -1,20 +1,21 @@
 part of 'app_cubit.dart';
 
-class AppState {
-  AppState({required this.isDarkThemeOn}) {
-    if (isDarkThemeOn) {
-      appTheme = ThemeData.dark();
-    } else {
-      appTheme = ThemeData.light();
-    }
-  }
+class AppState extends Equatable {
+  const AppState({
+    this.appTheme,
+    this.locale,
+  });
 
-  final bool isDarkThemeOn;
-  ThemeData? appTheme;
+  final ThemeData? appTheme;
+  final Locale? locale;
 
-  AppState copyWith({bool? isDarkThemeOn}) {
+  @override
+  List<Object?> get props => [appTheme, locale];
+
+  AppState copyWith({ThemeData? appTheme, Locale? locale}) {
     return AppState(
-      isDarkThemeOn: isDarkThemeOn ?? this.isDarkThemeOn,
+      appTheme: appTheme ?? this.appTheme,
+      locale: locale ?? this.locale,
     );
   }
 }

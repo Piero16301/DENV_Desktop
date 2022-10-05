@@ -20,6 +20,7 @@ class AppView extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
+          locale: state.locale,
           home: const HomePage(),
         );
       },

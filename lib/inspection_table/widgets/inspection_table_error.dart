@@ -9,8 +9,9 @@ class InspectionTableError extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkThemeOn = context.select(
-      (AppCubit cubit) => cubit.state.isDarkThemeOn,
-    );
+          (AppCubit cubit) => cubit.state.appTheme,
+        ) ==
+        ThemeData.dark();
     final inspectionCubit = context.read<InspectionTableCubit>();
 
     return Column(

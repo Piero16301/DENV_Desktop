@@ -15,8 +15,9 @@ class ExportExcelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDarkThemeOn = context.select(
-      (AppCubit cubit) => cubit.state.isDarkThemeOn,
-    );
+          (AppCubit cubit) => cubit.state.appTheme,
+        ) ==
+        ThemeData.dark();
     final exportStatus =
         context.select<InspectionTableCubit, InspectionExportStatus>(
       (cubit) => cubit.state.exportStatus,

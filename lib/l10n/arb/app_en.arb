@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+    "homePageAppBarTitle": "DENV Desktop",
+    "@homePageAppBarTitle": {
+        "description": "Text shown in the AppBar of the Home Page"
     }
 }

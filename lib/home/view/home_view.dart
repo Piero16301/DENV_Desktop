@@ -1,3 +1,4 @@
+import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/home/home.dart';
 import 'package:denv_desktop/inspection_table/inspection_table.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
@@ -10,9 +11,34 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLightTheme = context.select<AppCubit, ThemeData>(
+          (cubit) => cubit.state.appTheme ?? ThemeData.dark(),
+        ) ==
+        ThemeData.light();
     final l10n = context.l10n;
+
     return NavigationView(
-      appBar: NavigationAppBar(title: Text(l10n.counterAppBarTitle)),
+      appBar: NavigationAppBar(
+        title: DefaultTextStyle(
+          style: FluentTheme.of(context).typography.subtitle!,
+          child: Text(l10n.homePageAppBarTitle),
+        ),
+        leading: isLightTheme
+            ? const Padding(
+                padding: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
+                child: Image(
+                  image: AssetImage('assets/icon/denv_letters_black.png'),
+                  fit: BoxFit.fill,
+                ),
+              )
+            : const Padding(
+                padding: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 10),
+                child: Image(
+                  image: AssetImage('assets/icon/denv_letters_white.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+      ),
       pane: NavigationPane(
         selected: context.select((HomeCubit cubit) => cubit.state.paneIndex),
         onChanged: context.read<HomeCubit>().changePane,
