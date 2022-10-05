@@ -52,7 +52,8 @@ msix_config:
   display_name: DENV Desktop
   publisher_display_name: Piero Angelo Morales Alcalde
   identity_name: 29622PieroAngeloMoralesAl.DENVDesktop
-  publisher: 85546d3e-b895-4be4-ad16-0130c4bf7af8
+  publisher: CN=91BE0923-E8F6-4F62-AE9E-2A123C9AC1AF
   msix_version: 1.0.0.0
+  languages: es-es, en-us
   logo_path: assets/icon/denv_icon_windows.png
   store: true
