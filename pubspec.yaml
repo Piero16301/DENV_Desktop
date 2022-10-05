@@ -26,6 +26,13 @@ dependencies:
   inspection_repository:
     path: packages/inspection_repository
   intl: ^0.17.0
+  local_api:
+    path: packages/local_api
+  local_api_remote:
+    path: packages/local_api_remote
+  local_repository:
+    path: packages/local_repository
+  shared_preferences: ^2.0.15
   syncfusion_flutter_core: ^20.3.47
   syncfusion_flutter_datagrid: ^20.3.47
   syncfusion_flutter_datagrid_export: ^20.3.47-beta

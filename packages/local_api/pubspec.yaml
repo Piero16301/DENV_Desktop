@@ -1,0 +1,20 @@
+name: local_api
+description: API de almacenamiento local de datos globales
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  equatable: ^2.0.5
+  flutter:
+    sdk: flutter
+  json_annotation: ^4.7.0
+
+dev_dependencies:
+  build_runner: ^2.2.1
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^6.4.1
+  very_good_analysis: ^3.1.0
