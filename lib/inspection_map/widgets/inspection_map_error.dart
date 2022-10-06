@@ -1,32 +1,32 @@
 import 'package:denv_desktop/app/app.dart';
-import 'package:denv_desktop/inspection_table/inspection_table.dart';
-import 'package:denv_desktop/l10n/l10n.dart';
+import 'package:denv_desktop/inspection_map/inspection_map.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class InspectionTableError extends StatelessWidget {
-  const InspectionTableError({super.key});
+class InspectionMapError extends StatelessWidget {
+  const InspectionMapError({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final isDarkThemeOn = context.select(
+    final isDarkMode = context.select(
       (AppCubit cubit) => cubit.state.isDarkMode,
     );
-    final inspectionCubit = context.read<InspectionTableCubit>();
-    final l10n = context.l10n;
+    final inspectionCubit = context.read<InspectionMapCubit>();
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          l10n.inspectionTableErrorText,
+          'Failed to load inspections',
           style: FluentTheme.of(context).typography.subtitle,
         ),
         const SizedBox(height: 10),
         SizedBox(
           width: 150,
           child: FilledButton(
-            onPressed: inspectionCubit.getHomeInspections,
+            onPressed: () => inspectionCubit.getHomeInspections(
+              isDarkMode: isDarkMode,
+            ),
             child: Padding(
               padding: const EdgeInsets.all(5),
               child: Row(
@@ -35,16 +35,16 @@ class InspectionTableError extends StatelessWidget {
                   Icon(
                     FluentIcons.refresh,
                     size: 25,
-                    color: isDarkThemeOn
+                    color: isDarkMode
                         ? const Color.fromARGB(255, 39, 39, 39)
                         : Colors.white,
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    l10n.inspectionTableErrorUpdate,
+                    'Retry',
                     style:
                         FluentTheme.of(context).typography.bodyStrong!.copyWith(
-                              color: isDarkThemeOn
+                              color: isDarkMode
                                   ? const Color.fromARGB(255, 39, 39, 39)
                                   : Colors.white,
                             ),

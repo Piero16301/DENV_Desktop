@@ -5,7 +5,7 @@
         "description": "Texto mostrado en la barra de navegación de la página de inicio"
     },
 
-    "inspectionTableAppBarTitle": "Inspecciones de viviendas",
+    "inspectionTableAppBarTitle": "Tabla de inspecciones",
     "@inspectionTableAppBarTitle": {
         "description": "Texto mostrado en la barra de navegación de la tabla de inspecciones"
     },
@@ -42,6 +42,7 @@
     "inspectionTableErrorText": "Error al cargar las inspecciones de viviendas",
     "inspectionTableErrorUpdate": "Actualizar",
     "inspectionTableNoDataText": "No hay inspecciones de viviendas registradas",
+    "inspectionTableUpdateText": "Actualizar tabla",
     "inspectionTableExportFailureTitleDialog": "Error al exportar",
     "inspectionTableExportFailureContentDialog": "Ocurrió un error al exportar los datos a Excel. Por favor, inténtelo de nuevo.",
     "inspectionTableExportFailureCancelButton": "Cancelar",
@@ -49,6 +50,11 @@
     "inspectionTableExportSuccessTitleDialog": "Exportación exitosa",
     "inspectionTableExportSuccessContentDialog": "Los datos se exportaron correctamente a Excel y se guardaron en la carpeta de Descargas.",
     "inspectionTableExportSuccessAcceptButton": "Aceptar",
+
+    "inspectionMapAppBarTitle": "Mapa de inspecciones",
+    "@inspectionMapAppBarTitle": {
+        "description": "Texto mostrado en la barra de navegación del mapa de inspecciones"
+    },
 
     "settingsPageAppBarTitle": "Configuración",
     "@settingsPageAppBarTitle": {

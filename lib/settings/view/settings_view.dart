@@ -10,6 +10,15 @@ class SettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final isDarkMode = context.select<AppCubit, bool>(
+      (cubit) => cubit.state.isDarkMode,
+    );
+    final locale = context.select<AppCubit, String>(
+      (cubit) => cubit.state.locale,
+    );
+
+    context.read<SettingsCubit>().changeTheme(isDarkMode: isDarkMode);
+    context.read<SettingsCubit>().changeLocale(locale: locale);
 
     return ScaffoldPage.scrollable(
       header: PageHeader(
@@ -28,11 +37,8 @@ class AppThemeRadioButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isLightTheme = context.select<SettingsCubit, bool>(
-      (cubit) => cubit.state.isLightThemeOn,
-    );
     final isDarkTheme = context.select<SettingsCubit, bool>(
-      (cubit) => cubit.state.isDarkThemeOn,
+      (cubit) => cubit.state.isDarkMode,
     );
     final appCubit = context.read<AppCubit>();
     final l10n = context.l10n;
@@ -50,14 +56,11 @@ class AppThemeRadioButtons extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 15),
           child: RadioButton(
-            checked: isLightTheme,
+            checked: !isDarkTheme,
             onChanged: (value) {
               if (value) {
-                context.read<SettingsCubit>().changeTheme(
-                      lightValue: value,
-                      darkValue: !value,
-                    );
-                appCubit.changeTheme(ThemeData.light());
+                context.read<SettingsCubit>().changeTheme(isDarkMode: false);
+                appCubit.changeTheme(isDarkMode: false);
               }
             },
             content: Text(l10n.settingsPageAppThemeLight),
@@ -69,11 +72,8 @@ class AppThemeRadioButtons extends StatelessWidget {
             checked: isDarkTheme,
             onChanged: (value) {
               if (value) {
-                context.read<SettingsCubit>().changeTheme(
-                      lightValue: !value,
-                      darkValue: value,
-                    );
-                appCubit.changeTheme(ThemeData.dark());
+                context.read<SettingsCubit>().changeTheme(isDarkMode: true);
+                appCubit.changeTheme(isDarkMode: true);
               }
             },
             content: Text(l10n.settingsPageAppThemeDark),
@@ -89,14 +89,14 @@ class AppLocaleRadioButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isSpanishLocale = context.select<AppCubit, Locale>(
+    final isSpanishLocale = context.select<AppCubit, String>(
           (cubit) => cubit.state.locale,
         ) ==
-        const Locale('es');
-    final isEnglishLocale = context.select<AppCubit, Locale>(
+        'es';
+    final isEnglishLocale = context.select<AppCubit, String>(
           (cubit) => cubit.state.locale,
         ) ==
-        const Locale('en');
+        'en';
     final appCubit = context.read<AppCubit>();
     final l10n = context.l10n;
 
@@ -116,11 +116,8 @@ class AppLocaleRadioButtons extends StatelessWidget {
             checked: isSpanishLocale,
             onChanged: (value) {
               if (value) {
-                context.read<SettingsCubit>().changeLocale(
-                      spanishValue: value,
-                      englishValue: !value,
-                    );
-                appCubit.changeLocale(const Locale('es'));
+                context.read<SettingsCubit>().changeLocale(locale: 'es');
+                appCubit.changeLocale('es');
               }
             },
             content: Text(l10n.settingsPageAppLanguageSpanish),
@@ -132,11 +129,8 @@ class AppLocaleRadioButtons extends StatelessWidget {
             checked: isEnglishLocale,
             onChanged: (value) {
               if (value) {
-                context.read<SettingsCubit>().changeLocale(
-                      spanishValue: !value,
-                      englishValue: value,
-                    );
-                appCubit.changeLocale(const Locale('en'));
+                context.read<SettingsCubit>().changeLocale(locale: 'en');
+                appCubit.changeLocale('en');
               }
             },
             content: Text(l10n.settingsPageAppLanguageEnglish),

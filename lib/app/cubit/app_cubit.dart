@@ -1,34 +1,33 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fluent_ui/fluent_ui.dart';
 import 'package:local_repository/local_repository.dart';
 
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
   AppCubit({
-    required ThemeData appTheme,
-    required Locale locale,
+    required bool isDarkMode,
+    required String locale,
     required this.localRepository,
   }) : super(
           AppState(
-            appTheme: appTheme,
+            isDarkMode: isDarkMode,
             locale: locale,
           ),
         );
 
   final LocalRepository localRepository;
 
-  Future<void> changeTheme(ThemeData appTheme) async {
+  Future<void> changeTheme({required bool isDarkMode}) async {
     await localRepository.setDarkMode(
-      isDarkMode: appTheme.brightness == Brightness.dark,
+      isDarkMode: isDarkMode,
     );
-    emit(state.copyWith(appTheme: appTheme));
+    emit(state.copyWith(isDarkMode: isDarkMode));
   }
 
-  Future<void> changeLocale(Locale locale) async {
+  Future<void> changeLocale(String locale) async {
     await localRepository.setLanguage(
-      language: locale.languageCode,
+      language: locale,
     );
     emit(state.copyWith(locale: locale));
   }

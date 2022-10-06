@@ -7,23 +7,18 @@ class SettingsCubit extends Cubit<SettingsState> {
   SettingsCubit()
       : super(
           const SettingsState(
-            isLightThemeOn: true,
-            isDarkThemeOn: false,
-            isSpanishLocale: true,
-            isEnglishLocale: false,
+            isDarkMode: false,
+            locale: 'es',
           ),
         );
 
-  void changeTheme({required bool lightValue, required bool darkValue}) {
-    emit(state.copyWith(isLightThemeOn: lightValue, isDarkThemeOn: darkValue));
+  void changeTheme({required bool isDarkMode}) {
+    emit(state.copyWith(isDarkMode: isDarkMode));
   }
 
-  void changeLocale({required bool spanishValue, required bool englishValue}) {
+  void changeLocale({required String locale}) {
     emit(
-      state.copyWith(
-        isSpanishLocale: spanishValue,
-        isEnglishLocale: englishValue,
-      ),
+      state.copyWith(locale: locale),
     );
   }
 }

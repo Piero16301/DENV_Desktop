@@ -14,13 +14,13 @@ class AppView extends StatelessWidget {
       builder: (context, state) {
         return FluentApp(
           debugShowCheckedModeBanner: false,
-          theme: state.appTheme,
+          theme: state.isDarkMode ? ThemeData.dark() : ThemeData.light(),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
           ],
           supportedLocales: AppLocalizations.supportedLocales,
-          locale: state.locale,
+          locale: Locale(state.locale),
           home: const HomePage(),
         );
       },

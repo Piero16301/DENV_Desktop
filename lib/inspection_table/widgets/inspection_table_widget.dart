@@ -431,6 +431,7 @@ class ExportButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inspectionCubit = context.read<InspectionTableCubit>();
+    final l10n = context.l10n;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
@@ -438,16 +439,21 @@ class ExportButtons extends StatelessWidget {
         children: [
           ExportExcelButton(dataGridKey: dataGridKey),
           Expanded(child: Container()),
-          IconButton(
-            icon: const Icon(
-              FluentIcons.refresh,
-              size: 30,
+          Tooltip(
+            message: l10n.inspectionTableUpdateText,
+            displayHorizontally: true,
+            useMousePosition: false,
+            child: IconButton(
+              icon: const Icon(
+                FluentIcons.refresh,
+                size: 30,
+              ),
+              onPressed: () {
+                inspectionCubit
+                  ..getHomeInspections()
+                  ..changeKeyUpdated(isKeyUpdated: true);
+              },
             ),
-            onPressed: () {
-              inspectionCubit
-                ..getHomeInspections()
-                ..changeKeyUpdated(isKeyUpdated: true);
-            },
           ),
         ],
       ),

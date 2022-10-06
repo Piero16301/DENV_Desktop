@@ -1,5 +1,5 @@
-import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/home/home.dart';
+import 'package:denv_desktop/inspection_map/inspection_map.dart';
 import 'package:denv_desktop/inspection_table/inspection_table.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:denv_desktop/settings/settings.dart';
@@ -19,6 +19,7 @@ class HomeView extends StatelessWidget {
           style: FluentTheme.of(context).typography.subtitle!,
           child: Text(l10n.homePageAppBarTitle),
         ),
+        automaticallyImplyLeading: false,
       ),
       pane: NavigationPane(
         selected: context.select((HomeCubit cubit) => cubit.state.paneIndex),
@@ -29,16 +30,11 @@ class HomeView extends StatelessWidget {
             title: Text(l10n.inspectionTableAppBarTitle),
             body: const InspectionTablePage(),
           ),
-          // PaneItem(
-          //   icon: const Icon(FluentIcons.chart),
-          //   title: const Text('Chart'),
-          //   body: const CounterText(),
-          // ),
-          // PaneItem(
-          //   icon: const Icon(FluentIcons.settings),
-          //   title: const Text('Settings'),
-          //   body: const CounterText(),
-          // ),
+          PaneItem(
+            icon: const Icon(FluentIcons.nav2_d_map_view),
+            title: Text(l10n.inspectionMapAppBarTitle),
+            body: const InspectionMapPage(),
+          ),
         ],
         footerItems: [
           PaneItem(

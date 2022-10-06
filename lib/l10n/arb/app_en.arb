@@ -5,7 +5,7 @@
         "description": "Text shown in the AppBar of the Home Page"
     },
 
-    "inspectionTableAppBarTitle": "Home inspections",
+    "inspectionTableAppBarTitle": "Inspections table",
     "@inspectionTableAppBarTitle": {
         "description": "Text shown in the AppBar of the Inspection Table Page"
     },
@@ -42,6 +42,7 @@
     "inspectionTableErrorText": "Error loading home inspections",
     "inspectionTableErrorUpdate": "Update",
     "inspectionTableNoDataText": "No home inspections registered",
+    "inspectionTableUpdateText": "Update table",
     "inspectionTableExportFailureTitleDialog": "Error exporting",
     "inspectionTableExportFailureContentDialog": "An error occurred while exporting the data to Excel. Please try again.",
     "inspectionTableExportFailureCancelButton": "Cancel",
@@ -49,6 +50,11 @@
     "inspectionTableExportSuccessTitleDialog": "Export successful",
     "inspectionTableExportSuccessContentDialog": "The data was successfully exported to Excel and saved in the Downloads folder.",
     "inspectionTableExportSuccessAcceptButton": "Accept",
+
+    "inspectionMapAppBarTitle": "Inspections map",
+    "@inspectionMapAppBarTitle": {
+        "description": "Text shown in the AppBar of the Inspection Map Page"
+    },
 
     "settingsPageAppBarTitle": "Settings",
     "@settingsPageAppBarTitle": {

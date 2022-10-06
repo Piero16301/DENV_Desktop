@@ -2,37 +2,23 @@ part of 'settings_cubit.dart';
 
 class SettingsState extends Equatable {
   const SettingsState({
-    required this.isLightThemeOn,
-    required this.isDarkThemeOn,
-    required this.isSpanishLocale,
-    required this.isEnglishLocale,
+    required this.isDarkMode,
+    required this.locale,
   });
 
-  final bool isLightThemeOn;
-  final bool isDarkThemeOn;
-
-  final bool isSpanishLocale;
-  final bool isEnglishLocale;
+  final bool isDarkMode;
+  final String locale;
 
   @override
-  List<Object?> get props => [
-        isLightThemeOn,
-        isDarkThemeOn,
-        isSpanishLocale,
-        isEnglishLocale,
-      ];
+  List<Object> get props => [isDarkMode, locale];
 
   SettingsState copyWith({
-    bool? isLightThemeOn,
-    bool? isDarkThemeOn,
-    bool? isSpanishLocale,
-    bool? isEnglishLocale,
+    bool? isDarkMode,
+    String? locale,
   }) {
     return SettingsState(
-      isLightThemeOn: isLightThemeOn ?? this.isLightThemeOn,
-      isDarkThemeOn: isDarkThemeOn ?? this.isDarkThemeOn,
-      isSpanishLocale: isSpanishLocale ?? this.isSpanishLocale,
-      isEnglishLocale: isEnglishLocale ?? this.isEnglishLocale,
+      isDarkMode: isDarkMode ?? this.isDarkMode,
+      locale: locale ?? this.locale,
     );
   }
 }

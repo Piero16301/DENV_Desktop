@@ -26,10 +26,8 @@ class AppPage extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (_) => AppCubit(
-              appTheme: _localRepository.isDarkMode()
-                  ? ThemeData.dark()
-                  : ThemeData.light(),
-              locale: Locale(_localRepository.getLanguage()),
+              isDarkMode: _localRepository.isDarkMode(),
+              locale: _localRepository.getLanguage(),
               localRepository: _localRepository,
             ),
           ),
