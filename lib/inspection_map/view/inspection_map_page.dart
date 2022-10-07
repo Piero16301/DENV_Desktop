@@ -1,3 +1,4 @@
+import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/inspection_map/inspection_map.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

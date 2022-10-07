@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/inspection_map/inspection_map.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
@@ -6,13 +8,50 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inspection_api/inspection_api.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
 
-class InspectionMapWidget extends StatelessWidget {
+class InspectionMapWidget extends StatefulWidget {
   const InspectionMapWidget({
     super.key,
     required this.homeInspections,
+    required this.isDarkMode,
   });
 
   final List<HomeInspectionSummarized> homeInspections;
+  final bool isDarkMode;
+
+  @override
+  State<InspectionMapWidget> createState() => _InspectionMapWidgetState();
+}
+
+class _InspectionMapWidgetState extends State<InspectionMapWidget>
+    with WidgetsBindingObserver {
+  late StreamSubscription<void> _subscription;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _subscription = Stream<void>.periodic(const Duration(seconds: 5)).listen(
+      (_) => context.read<InspectionMapCubit>().getHomeInspections(
+            isDarkMode: widget.isDarkMode,
+          ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _subscription.cancel();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _subscription.resume();
+    } else {
+      if (!_subscription.isPaused) _subscription.pause();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,12 +93,13 @@ class InspectionMapWidget extends StatelessWidget {
                             -77.02183252682232,
                           ),
                           showToolbar: false,
+                          enableMouseWheelZooming: true,
                         ),
-                        initialMarkersCount: homeInspections.length,
+                        initialMarkersCount: widget.homeInspections.length,
                         markerBuilder: (context, index) {
                           return MapMarker(
-                            latitude: homeInspections[index].latitude,
-                            longitude: homeInspections[index].longitude,
+                            latitude: widget.homeInspections[index].latitude,
+                            longitude: widget.homeInspections[index].longitude,
                             alignment: Alignment.bottomCenter,
                             child: GestureDetector(
                               child: AnimatedContainer(

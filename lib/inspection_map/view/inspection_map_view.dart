@@ -18,13 +18,21 @@ class InspectionMapView extends StatelessWidget {
     return BlocBuilder<InspectionMapCubit, InspectionMapState>(
       builder: (context, state) {
         if (state.status.isLoading) {
-          return const InspectionMapLoading();
+          if (state.isFirstLoad) {
+            return const InspectionMapLoading();
+          } else {
+            return InspectionMapWidget(
+              homeInspections: state.homeInspections,
+              isDarkMode: isDarkMode,
+            );
+          }
         } else if (state.status.isSuccess) {
           if (state.homeInspections.isEmpty) {
             return const InspectionMapEmpty();
           }
           return InspectionMapWidget(
             homeInspections: state.homeInspections,
+            isDarkMode: isDarkMode,
           );
         } else if (state.status.isFailure) {
           return const InspectionMapError();

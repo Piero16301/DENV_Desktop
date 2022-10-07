@@ -24,6 +24,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
         state.copyWith(
           status: InspectionMapStatus.success,
           homeInspections: homeInspections,
+          isFirstLoad: false,
           bingUrlTemplate: bingUrlTemplate,
         ),
       );
