@@ -17,14 +17,24 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
     try {
       final homeInspections =
           await _inspectionRepository.getHomeInspectionSummarized();
+      final centerLatitude = homeInspections
+              .map((e) => e.latitude)
+              .reduce((value, element) => value + element) /
+          homeInspections.length;
+      final centerLongitude = homeInspections
+              .map((e) => e.longitude)
+              .reduce((value, element) => value + element) /
+          homeInspections.length;
       final mapType = isDarkMode ? 'CanvasDark' : 'CanvasLight';
       final bingUrlTemplate = await getBingUrlTemplate(
-          'https://dev.virtualearth.net/REST/V1/Imagery/Metadata/$mapType?output=json&uriScheme=https&include=ImageryProviders&key=gKFcszH8QtTWZm2GzcK5~yzuCkObRWRXGBYVgmFKSmg~Ap0qOUWHnFqU8zP5N2483-pbxSPK0mVvvqeYUi2t5EDf9Ao_QZEsh7eItuQ-fLdh');
+        'https://dev.virtualearth.net/REST/V1/Imagery/Metadata/$mapType?output=json&uriScheme=https&include=ImageryProviders&key=gKFcszH8QtTWZm2GzcK5~yzuCkObRWRXGBYVgmFKSmg~Ap0qOUWHnFqU8zP5N2483-pbxSPK0mVvvqeYUi2t5EDf9Ao_QZEsh7eItuQ-fLdh',
+      );
       emit(
         state.copyWith(
           status: InspectionMapStatus.success,
           homeInspections: homeInspections,
-          isFirstLoad: false,
+          centerLatitude: centerLatitude,
+          centerLongitude: centerLongitude,
           bingUrlTemplate: bingUrlTemplate,
         ),
       );
