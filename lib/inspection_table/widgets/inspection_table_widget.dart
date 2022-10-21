@@ -29,16 +29,19 @@ class InspectionTableWidget extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: SfDataGrid(
-                key: _key,
-                source:
-                    InspectionTableDatagrid(homeInspections: homeInspections),
-                gridLinesVisibility: GridLinesVisibility.both,
-                headerGridLinesVisibility: GridLinesVisibility.both,
-                rowHeight: 40,
-                headerRowHeight: 50,
-                columns: _getColumns(context),
-                stackedHeaderRows: _getStackedHeaderRows(context),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: SfDataGrid(
+                  key: _key,
+                  source:
+                      InspectionTableDatagrid(homeInspections: homeInspections),
+                  gridLinesVisibility: GridLinesVisibility.both,
+                  headerGridLinesVisibility: GridLinesVisibility.both,
+                  rowHeight: 40,
+                  headerRowHeight: 50,
+                  columns: _getColumns(context),
+                  stackedHeaderRows: _getStackedHeaderRows(context),
+                ),
               ),
             ),
           ),

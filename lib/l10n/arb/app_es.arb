@@ -55,6 +55,9 @@
     "@inspectionMapAppBarTitle": {
         "description": "Texto mostrado en la barra de navegación del mapa de inspecciones"
     },
+    "inspectionMapErrorText": "Error al cargar las inspecciones de viviendas",
+    "inspectionMapErrorUpdate": "Actualizar",
+    "inspectionMapNoDataText": "No hay inspecciones de viviendas registradas",
 
     "settingsPageAppBarTitle": "Configuración",
     "@settingsPageAppBarTitle": {

@@ -55,6 +55,9 @@
     "@inspectionMapAppBarTitle": {
         "description": "Text shown in the AppBar of the Inspection Map Page"
     },
+    "inspectionMapErrorText": "Error loading home inspections",
+    "inspectionMapErrorUpdate": "Update",
+    "inspectionMapNoDataText": "No home inspections registered",
 
     "settingsPageAppBarTitle": "Settings",
     "@settingsPageAppBarTitle": {
