@@ -4,6 +4,8 @@ import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inspection_api/inspection_api.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
 
 class InspectionMapWidget extends StatelessWidget {
@@ -22,6 +24,7 @@ class InspectionMapWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeDateFormatting('es');
     final isDarkMode = context.select(
       (AppCubit cubit) => cubit.state.isDarkMode,
     );
@@ -65,10 +68,125 @@ class InspectionMapWidget extends StatelessWidget {
                             enableMouseWheelZooming: true,
                           ),
                           initialMarkersCount: homeInspections.length,
-                          tooltipSettings: MapTooltipSettings(
-                            color: Colors.red,
+                          tooltipSettings: const MapTooltipSettings(
+                            color: Colors.transparent,
                           ),
-                          
+                          markerTooltipBuilder: (context, index) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 150,
+                                  height: 112.5,
+                                  decoration: BoxDecoration(
+                                    color: isDarkMode
+                                        ? Colors.black
+                                        : Colors.white,
+                                    border: Border.all(
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Image.network(
+                                    homeInspections[index].photoUrl,
+                                    fit: BoxFit.contain,
+                                    loadingBuilder: (
+                                      context,
+                                      child,
+                                      loadingProgress,
+                                    ) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      }
+                                      return Center(
+                                        child: ProgressRing(
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                    errorBuilder: (
+                                      context,
+                                      error,
+                                      stackTrace,
+                                    ) {
+                                      return Image.asset(
+                                        'assets/images/no-image.png',
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(height: 5),
+                                Container(
+                                  width: 150,
+                                  padding: const EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    color: isDarkMode
+                                        ? Colors.black
+                                        : Colors.white,
+                                    border: Border.all(
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Fecha:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            homeInspections[index]
+                                                .dateTime
+                                                .date,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          const Text(
+                                            'Hora:',
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          Text(
+                                            homeInspections[index]
+                                                .dateTime
+                                                .time,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                           markerBuilder: (context, index) {
                             return MapMarker(
                               latitude: homeInspections[index].latitude,
@@ -101,5 +219,19 @@ class InspectionMapWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+extension on DateTime {
+  String get date {
+    final month = DateFormat('MMM', 'es_ES')
+        .format(this)
+        .replaceFirst('.', '')
+        .toUpperCase();
+    return '$day-$month-$year';
+  }
+
+  String get time {
+    return DateFormat('hh:mm a').format(this);
   }
 }

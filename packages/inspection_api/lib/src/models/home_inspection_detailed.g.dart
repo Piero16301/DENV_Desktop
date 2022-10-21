@@ -13,7 +13,7 @@ HomeInspectionDetailed _$HomeInspectionDetailedFromJson(
     id: json['id'] as String,
     address: Address.fromJson(json['address'] as Map<String, dynamic>),
     comment: json['comment'] as String,
-    dateTime: DateTime.parse(json['datetime'] as String),
+    dateTime: DateTime.parse(json['datetime'] as String).toLocal(),
     dni: json['dni'] as String,
     latitude: (json['latitude'] as num).toDouble(),
     longitude: (json['longitude'] as num).toDouble(),

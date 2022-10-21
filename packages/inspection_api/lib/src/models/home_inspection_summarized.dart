@@ -13,6 +13,8 @@ class HomeInspectionSummarized extends Equatable {
     required this.id,
     required this.latitude,
     required this.longitude,
+    required this.dateTime,
+    required this.photoUrl,
   });
 
   /// Crea una instancia de [HomeInspectionSummarized] a partir de un [json]
@@ -27,6 +29,12 @@ class HomeInspectionSummarized extends Equatable {
 
   /// Longitud de la inspección
   final double longitude;
+
+  /// Fecha de la inspección
+  final DateTime dateTime;
+
+  /// Url de la imagen de la inspección
+  final String photoUrl;
 
   @override
   List<Object?> get props => [id, latitude, longitude];
