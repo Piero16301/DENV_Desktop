@@ -28,7 +28,7 @@ class InspectionMapState extends Equatable {
   final String bingUrlTemplate;
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         status,
         homeInspections,
         centerLatitude,

@@ -4,11 +4,10 @@ import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inspection_api/inspection_api.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
 
-class InspectionMapWidget extends StatelessWidget {
+class InspectionMapWidget extends StatefulWidget {
   const InspectionMapWidget({
     super.key,
     required this.homeInspections,
@@ -23,8 +22,38 @@ class InspectionMapWidget extends StatelessWidget {
   final bool isDarkMode;
 
   @override
+  State<InspectionMapWidget> createState() => _InspectionMapWidgetState();
+}
+
+class _InspectionMapWidgetState extends State<InspectionMapWidget> {
+  late MapZoomPanBehavior _zoomPanBehavior;
+  late MapTileLayerController _mapController;
+
+  @override
+  void initState() {
+    super.initState();
+    _zoomPanBehavior = MapZoomPanBehavior(
+      minZoomLevel: 3,
+      maxZoomLevel: 20,
+      zoomLevel: 12,
+      focalLatLng: MapLatLng(
+        widget.centerLatitude,
+        widget.centerLongitude,
+      ),
+      showToolbar: false,
+      enableMouseWheelZooming: true,
+    );
+    _mapController = MapTileLayerController();
+  }
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    initializeDateFormatting('es');
     final isDarkMode = context.select(
       (AppCubit cubit) => cubit.state.isDarkMode,
     );
@@ -55,19 +84,10 @@ class InspectionMapWidget extends StatelessWidget {
                     SfMaps(
                       layers: [
                         MapTileLayer(
+                          controller: _mapController,
                           urlTemplate: inspectionCubit.state.bingUrlTemplate,
-                          zoomPanBehavior: MapZoomPanBehavior(
-                            minZoomLevel: 3,
-                            maxZoomLevel: 20,
-                            zoomLevel: 12,
-                            focalLatLng: MapLatLng(
-                              centerLatitude,
-                              centerLongitude,
-                            ),
-                            showToolbar: false,
-                            enableMouseWheelZooming: true,
-                          ),
-                          initialMarkersCount: homeInspections.length,
+                          zoomPanBehavior: _zoomPanBehavior,
+                          initialMarkersCount: widget.homeInspections.length,
                           tooltipSettings: const MapTooltipSettings(
                             color: Colors.transparent,
                           ),
@@ -91,7 +111,7 @@ class InspectionMapWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Image.network(
-                                    homeInspections[index].photoUrl,
+                                    widget.homeInspections[index].photoUrl,
                                     fit: BoxFit.contain,
                                     loadingBuilder: (
                                       context,
@@ -101,17 +121,8 @@ class InspectionMapWidget extends StatelessWidget {
                                       if (loadingProgress == null) {
                                         return child;
                                       }
-                                      return Center(
-                                        child: ProgressRing(
-                                          value: loadingProgress
-                                                      .expectedTotalBytes !=
-                                                  null
-                                              ? loadingProgress
-                                                      .cumulativeBytesLoaded /
-                                                  loadingProgress
-                                                      .expectedTotalBytes!
-                                              : null,
-                                        ),
+                                      return const Center(
+                                        child: ProgressRing(),
                                       );
                                     },
                                     errorBuilder: (
@@ -156,9 +167,8 @@ class InspectionMapWidget extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            homeInspections[index]
-                                                .dateTime
-                                                .date,
+                                            widget.homeInspections[index]
+                                                .dateTime.date,
                                             textAlign: TextAlign.center,
                                           ),
                                         ],
@@ -174,9 +184,8 @@ class InspectionMapWidget extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            homeInspections[index]
-                                                .dateTime
-                                                .time,
+                                            widget.homeInspections[index]
+                                                .dateTime.time,
                                             textAlign: TextAlign.center,
                                           ),
                                         ],
@@ -189,10 +198,20 @@ class InspectionMapWidget extends StatelessWidget {
                           },
                           markerBuilder: (context, index) {
                             return MapMarker(
-                              latitude: homeInspections[index].latitude,
-                              longitude: homeInspections[index].longitude,
+                              latitude: widget.homeInspections[index].latitude,
+                              longitude:
+                                  widget.homeInspections[index].longitude,
                               // alignment: Alignment.center,
                               child: GestureDetector(
+                                onTap: () {
+                                  _zoomPanBehavior
+                                    ..focalLatLng = MapLatLng(
+                                      widget.homeInspections[index].latitude,
+                                      widget.homeInspections[index].longitude,
+                                    )
+                                    ..zoomLevel = 17.5;
+                                  // _mapController.updateMarkers([1, 5]);
+                                },
                                 child: AnimatedContainer(
                                   duration: const Duration(milliseconds: 250),
                                   height: 20,
@@ -232,6 +251,6 @@ extension on DateTime {
   }
 
   String get time {
-    return DateFormat('hh:mm a').format(this);
+    return DateFormat('hh:mm a', 'es_ES').format(this);
   }
 }
