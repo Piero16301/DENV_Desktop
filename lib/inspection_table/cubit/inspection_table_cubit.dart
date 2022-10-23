@@ -22,7 +22,7 @@ class InspectionTableCubit extends Cubit<InspectionTableState> {
     emit(state.copyWith(status: InspectionTableStatus.loading));
     try {
       final homeInspections =
-          await _inspectionRepository.getHomeInspectionDetailed();
+          await _inspectionRepository.getHomeInspectionDetailed(0);
       emit(
         state.copyWith(
           status: InspectionTableStatus.success,

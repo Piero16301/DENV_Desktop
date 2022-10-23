@@ -16,7 +16,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
     emit(state.copyWith(status: InspectionMapStatus.loading));
     try {
       final homeInspections =
-          await _inspectionRepository.getHomeInspectionSummarized();
+          await _inspectionRepository.getHomeInspectionSummarized(0);
       final centerLatitude = homeInspections
               .map((e) => e.latitude)
               .reduce((value, element) => value + element) /
@@ -41,5 +41,30 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
     } catch (e) {
       emit(state.copyWith(status: InspectionMapStatus.failure));
     }
+  }
+
+  Future<List<HomeInspectionSummarized>> updateHomeInspections() async {
+    try {
+      final bufferHomeInspections =
+          await _inspectionRepository.getHomeInspectionSummarized(
+        state.homeInspections.length,
+      );
+      emit(
+        state.copyWith(
+          bufferHomeInspections: bufferHomeInspections,
+        ),
+      );
+      return bufferHomeInspections;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  void mergeHomeInspections() {
+    emit(
+      state.copyWith(
+        bufferHomeInspections: [],
+      ),
+    );
   }
 }

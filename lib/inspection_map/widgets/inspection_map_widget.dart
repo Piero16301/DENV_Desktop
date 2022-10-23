@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/inspection_map/inspection_map.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
@@ -25,13 +27,37 @@ class InspectionMapWidget extends StatefulWidget {
   State<InspectionMapWidget> createState() => _InspectionMapWidgetState();
 }
 
-class _InspectionMapWidgetState extends State<InspectionMapWidget> {
+class _InspectionMapWidgetState extends State<InspectionMapWidget>
+    with WidgetsBindingObserver {
+  late StreamSubscription<void> _subscription;
+
   late MapZoomPanBehavior _zoomPanBehavior;
   late MapTileLayerController _mapController;
 
   @override
   void initState() {
     super.initState();
+
+    _subscription = Stream<void>.periodic(const Duration(seconds: 5)).listen(
+      (_) async {
+        debugPrint('Actualizando marcadores del mapa');
+        final bufferHomeInspections =
+            await context.read<InspectionMapCubit>().updateHomeInspections();
+        var counter = 0;
+        final currentLength = widget.homeInspections.length;
+        for (var i = currentLength;
+            i < currentLength + bufferHomeInspections.length;
+            i++) {
+          widget.homeInspections.add(bufferHomeInspections[counter]);
+          _mapController.insertMarker(i);
+          counter++;
+        }
+        // ignore: use_build_context_synchronously
+        context.read<InspectionMapCubit>().mergeHomeInspections();
+      },
+    );
+
+    _mapController = MapTileLayerController();
     _zoomPanBehavior = MapZoomPanBehavior(
       minZoomLevel: 3,
       maxZoomLevel: 20,
@@ -43,13 +69,22 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget> {
       showToolbar: false,
       enableMouseWheelZooming: true,
     );
-    _mapController = MapTileLayerController();
   }
 
   @override
   void dispose() {
+    _subscription.cancel();
     _mapController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      _subscription.resume();
+    } else {
+      if (!_subscription.isPaused) _subscription.pause();
+    }
   }
 
   @override

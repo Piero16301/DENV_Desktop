@@ -16,6 +16,7 @@ class InspectionMapState extends Equatable {
   const InspectionMapState({
     this.status = InspectionMapStatus.initial,
     this.homeInspections = const <HomeInspectionSummarized>[],
+    this.bufferHomeInspections = const <HomeInspectionSummarized>[],
     this.centerLatitude = 0,
     this.centerLongitude = 0,
     this.bingUrlTemplate = '',
@@ -23,6 +24,7 @@ class InspectionMapState extends Equatable {
 
   final InspectionMapStatus status;
   final List<HomeInspectionSummarized> homeInspections;
+  final List<HomeInspectionSummarized> bufferHomeInspections;
   final double centerLatitude;
   final double centerLongitude;
   final String bingUrlTemplate;
@@ -31,6 +33,7 @@ class InspectionMapState extends Equatable {
   List<Object?> get props => [
         status,
         homeInspections,
+        bufferHomeInspections,
         centerLatitude,
         centerLongitude,
         bingUrlTemplate,
@@ -39,6 +42,7 @@ class InspectionMapState extends Equatable {
   InspectionMapState copyWith({
     InspectionMapStatus? status,
     List<HomeInspectionSummarized>? homeInspections,
+    List<HomeInspectionSummarized>? bufferHomeInspections,
     double? centerLatitude,
     double? centerLongitude,
     String? bingUrlTemplate,
@@ -46,6 +50,8 @@ class InspectionMapState extends Equatable {
     return InspectionMapState(
       status: status ?? this.status,
       homeInspections: homeInspections ?? this.homeInspections,
+      bufferHomeInspections:
+          bufferHomeInspections ?? this.bufferHomeInspections,
       centerLatitude: centerLatitude ?? this.centerLatitude,
       centerLongitude: centerLongitude ?? this.centerLongitude,
       bingUrlTemplate: bingUrlTemplate ?? this.bingUrlTemplate,

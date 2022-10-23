@@ -12,13 +12,17 @@ class InspectionRepository {
   final IInspectionApiRemote _apiRemote;
 
   /// Obtiene la lista de inspecciones de viviendas detalladas
-  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed() async {
-    return _apiRemote.getHomeInspectionDetailed();
+  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed(
+    int skip,
+  ) async {
+    return _apiRemote.getHomeInspectionDetailed(skip);
   }
 
   /// Obtiene la lista de inspecciones de viviendas resumidas
-  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized() async {
-    return _apiRemote.getHomeInspectionSummarized();
+  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized(
+    int skip,
+  ) async {
+    return _apiRemote.getHomeInspectionSummarized(skip);
   }
 
   /// Edita una inspección de vivienda

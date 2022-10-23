@@ -14,10 +14,12 @@ class InspectionApiRemote implements IInspectionApiRemote {
   final Dio _httpClient;
 
   @override
-  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed() async {
+  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed(
+    int skip,
+  ) async {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
-        '/home-inspections-detailed',
+        '/home-inspections-detailed/$skip',
       );
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
@@ -37,10 +39,12 @@ class InspectionApiRemote implements IInspectionApiRemote {
   }
 
   @override
-  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized() async {
+  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized(
+    int skip,
+  ) async {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
-        '/home-inspections-summarized',
+        '/home-inspections-summarized/$skip',
       );
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
