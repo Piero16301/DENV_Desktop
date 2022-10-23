@@ -17,6 +17,7 @@ class InspectionMapState extends Equatable {
     this.status = InspectionMapStatus.initial,
     this.homeInspections = const <HomeInspectionSummarized>[],
     this.bufferHomeInspections = const <HomeInspectionSummarized>[],
+    this.lastUpdated,
     this.centerLatitude = 0,
     this.centerLongitude = 0,
     this.bingUrlTemplate = '',
@@ -25,6 +26,7 @@ class InspectionMapState extends Equatable {
   final InspectionMapStatus status;
   final List<HomeInspectionSummarized> homeInspections;
   final List<HomeInspectionSummarized> bufferHomeInspections;
+  final DateTime? lastUpdated;
   final double centerLatitude;
   final double centerLongitude;
   final String bingUrlTemplate;
@@ -34,6 +36,7 @@ class InspectionMapState extends Equatable {
         status,
         homeInspections,
         bufferHomeInspections,
+        lastUpdated,
         centerLatitude,
         centerLongitude,
         bingUrlTemplate,
@@ -43,6 +46,7 @@ class InspectionMapState extends Equatable {
     InspectionMapStatus? status,
     List<HomeInspectionSummarized>? homeInspections,
     List<HomeInspectionSummarized>? bufferHomeInspections,
+    DateTime? lastUpdated,
     double? centerLatitude,
     double? centerLongitude,
     String? bingUrlTemplate,
@@ -52,6 +56,7 @@ class InspectionMapState extends Equatable {
       homeInspections: homeInspections ?? this.homeInspections,
       bufferHomeInspections:
           bufferHomeInspections ?? this.bufferHomeInspections,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
       centerLatitude: centerLatitude ?? this.centerLatitude,
       centerLongitude: centerLongitude ?? this.centerLongitude,
       bingUrlTemplate: bingUrlTemplate ?? this.bingUrlTemplate,

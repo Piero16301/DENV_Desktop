@@ -33,7 +33,7 @@ class InspectionTableError extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    FluentIcons.refresh,
+                    FluentIcons.sync,
                     size: 25,
                     color: isDarkThemeOn
                         ? const Color.fromARGB(255, 39, 39, 39)

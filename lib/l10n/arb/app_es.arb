@@ -58,6 +58,23 @@
     "inspectionMapErrorText": "Error al cargar las inspecciones de viviendas",
     "inspectionMapErrorUpdate": "Actualizar",
     "inspectionMapNoDataText": "No hay inspecciones de viviendas registradas",
+    "inspectionMapDateText": "Fecha:",
+    "inspectionMapHourText": "Hora:",
+    "inspectionMapLastUpdatedText": "Actualizado el {date} a las {time}",
+    "@inspectionMapLastUpdatedText": {
+        "description": "Texto mostrado en el mapa de inspecciones para indicar la última fecha y hora en la que se actualizó la información",
+        "placeholders": {
+            "date": {
+                "content": "{date}",
+                "example": "30-12-2020"
+            },
+            "time": {
+                "content": "{time}",
+                "example": "12:00:00 PM"
+            }
+        }
+    },
+    "inspectionMapRestartView": "Reiniciar vista del mapa",
 
     "settingsPageAppBarTitle": "Configuración",
     "@settingsPageAppBarTitle": {

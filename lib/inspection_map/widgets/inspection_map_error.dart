@@ -35,7 +35,7 @@ class InspectionMapError extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
-                    FluentIcons.refresh,
+                    FluentIcons.sync,
                     size: 25,
                     color: isDarkMode
                         ? const Color.fromARGB(255, 39, 39, 39)
@@ -43,7 +43,7 @@ class InspectionMapError extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Text(
-                    'Retry',
+                    l10n.inspectionMapErrorUpdate,
                     style:
                         FluentTheme.of(context).typography.bodyStrong!.copyWith(
                               color: isDarkMode

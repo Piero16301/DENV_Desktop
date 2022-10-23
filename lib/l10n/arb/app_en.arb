@@ -58,6 +58,23 @@
     "inspectionMapErrorText": "Error loading home inspections",
     "inspectionMapErrorUpdate": "Update",
     "inspectionMapNoDataText": "No home inspections registered",
+    "inspectionMapDateText": "Date:",
+    "inspectionMapHourText": "Hour:",
+    "inspectionMapLastUpdatedText": "Updated {date} at {time}",
+    "@inspectionMapLastUpdatedText": {
+        "description": "Text displayed on the inspection map to indicate the last date and time the information was updated",
+        "placeholders": {
+            "date": {
+                "content": "{date}",
+                "example": "30-12-2020"
+            },
+            "time": {
+                "content": "{time}",
+                "example": "12:00:00 PM"
+            }
+        }
+    },
+    "inspectionMapRestartView": "Restart map view",
 
     "settingsPageAppBarTitle": "Settings",
     "@settingsPageAppBarTitle": {

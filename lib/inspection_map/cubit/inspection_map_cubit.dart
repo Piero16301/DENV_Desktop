@@ -26,6 +26,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
           state.copyWith(
             status: InspectionMapStatus.success,
             homeInspections: homeInspections,
+            lastUpdated: DateTime.now(),
             centerLatitude: 0,
             centerLongitude: 0,
             bingUrlTemplate: bingUrlTemplate,
@@ -44,6 +45,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
           state.copyWith(
             status: InspectionMapStatus.success,
             homeInspections: homeInspections,
+            lastUpdated: DateTime.now(),
             centerLatitude: centerLatitude,
             centerLongitude: centerLongitude,
             bingUrlTemplate: bingUrlTemplate,
@@ -78,5 +80,25 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
         bufferHomeInspections: [],
       ),
     );
+  }
+
+  void updateLastUpdated() {
+    emit(
+      state.copyWith(
+        lastUpdated: DateTime.now(),
+      ),
+    );
+  }
+
+  MapLatLng getCenterLatLng() {
+    final centerLatitude = state.homeInspections
+            .map((e) => e.latitude)
+            .reduce((value, element) => value + element) /
+        state.homeInspections.length;
+    final centerLongitude = state.homeInspections
+            .map((e) => e.longitude)
+            .reduce((value, element) => value + element) /
+        state.homeInspections.length;
+    return MapLatLng(centerLatitude, centerLongitude);
   }
 }

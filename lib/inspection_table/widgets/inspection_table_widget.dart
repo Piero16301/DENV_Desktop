@@ -460,7 +460,7 @@ class ExportButtons extends StatelessWidget {
             useMousePosition: false,
             child: IconButton(
               icon: const Icon(
-                FluentIcons.refresh,
+                FluentIcons.sync,
                 size: 30,
               ),
               onPressed: () {
