@@ -1,3 +1,4 @@
+import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/inspection_table/inspection_table.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -18,6 +19,9 @@ class InspectionTableWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<InspectionTableCubit>().setDataGridKey(_key);
     context.read<InspectionTableCubit>().changeKeyUpdated(isKeyUpdated: true);
+    final isDarkMode = context.select(
+      (AppCubit cubit) => cubit.state.isDarkMode,
+    );
     final l10n = context.l10n;
 
     return ScaffoldPage(
@@ -29,18 +33,26 @@ class InspectionTableWidget extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: SfDataGrid(
-                  key: _key,
-                  source:
-                      InspectionTableDatagrid(homeInspections: homeInspections),
-                  gridLinesVisibility: GridLinesVisibility.both,
-                  headerGridLinesVisibility: GridLinesVisibility.both,
-                  rowHeight: 40,
-                  headerRowHeight: 50,
-                  columns: _getColumns(context),
-                  stackedHeaderRows: _getStackedHeaderRows(context),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: SfDataGrid(
+                    key: _key,
+                    source: InspectionTableDatagrid(
+                        homeInspections: homeInspections),
+                    gridLinesVisibility: GridLinesVisibility.both,
+                    headerGridLinesVisibility: GridLinesVisibility.both,
+                    rowHeight: 40,
+                    headerRowHeight: 50,
+                    columns: _getColumns(context),
+                    stackedHeaderRows: _getStackedHeaderRows(context),
+                  ),
                 ),
               ),
             ),
