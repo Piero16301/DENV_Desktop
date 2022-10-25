@@ -39,6 +39,7 @@ dependencies:
   syncfusion_flutter_maps: ^20.3.48
   syncfusion_flutter_pdf: ^20.3.47
   syncfusion_flutter_xlsio: ^20.3.47-beta
+  text_scroll: ^0.1.0
 
 dev_dependencies:
   bloc_test: ^9.1.0

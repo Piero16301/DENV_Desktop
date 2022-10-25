@@ -5,7 +5,7 @@ import 'package:inspection_api/inspection_api.dart';
 /// {@endtemplate}
 abstract class IInspectionApiRemote {
   /// Obtiene la lista de inspecciones de viviendas detalladas
-  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed(
+  Future<List<HomeInspectionDetailed>> getHomeInspectionsDetailed(
     int skip,
   );
 
@@ -16,4 +16,9 @@ abstract class IInspectionApiRemote {
 
   /// Edita una inspección de vivienda
   Future<void> editHomeInspection(HomeInspectionDetailed homeInspection);
+
+  /// Obtiene los detalles de una inspección de vivienda
+  Future<HomeInspectionDetailed> getHomeInspectionDetails(
+    String id,
+  );
 }

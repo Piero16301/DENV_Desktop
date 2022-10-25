@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:inspection_api/inspection_api.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_maps/maps.dart';
+import 'package:text_scroll/text_scroll.dart';
 
 class InspectionMapWidget extends StatefulWidget {
   const InspectionMapWidget({
@@ -102,9 +103,10 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
       header: PageHeader(
         title: Text(l10n.inspectionMapAppBarTitle),
       ),
-      content: Column(
+      content: Row(
         children: [
           Expanded(
+            flex: 3,
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
               child: Container(
@@ -183,7 +185,7 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                                       },
                                     ),
                                   ),
-                                  const SizedBox(height: 5),
+                                  const SizedBox(height: 2.5),
                                   Container(
                                     width: 150,
                                     padding: const EdgeInsets.all(5),
@@ -257,7 +259,7 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                                         widget.homeInspections[index].latitude,
                                         widget.homeInspections[index].longitude,
                                       )
-                                      ..zoomLevel = 17.5;
+                                      ..zoomLevel = 18;
                                     // _mapController.updateMarkers([1, 5]);
                                   },
                                   child: AnimatedContainer(
@@ -340,7 +342,183 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
               ),
             ),
           ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 25, bottom: 25),
+              child: Container(
+                padding: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: isDarkMode ? Colors.white : Colors.black,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 10,
+                            ),
+                            child: TextScrollDetails(content: 'DNI: 12345678'),
+                          ),
+                          Expander(
+                            header: Text(
+                              'Dirección',
+                              style:
+                                  FluentTheme.of(context).typography.bodyLarge,
+                            ),
+                            content: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                TextScrollDetails(
+                                  content: 'Código postal: 19276',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(content: 'País: España'),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Departamento: Barcelona',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Provincia: Barcelona',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Distrito: Les Corts',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Urbanización: Les Corts',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Calle: Carrer de la Diputació',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(content: 'Número: 342'),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content:
+                                      'Dirección: Carrer de la Diputació, 342, 19276 Les Corts, Barcelona, España',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(content: 'Manzana: A-1'),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(content: 'Lote: 1'),
+                              ],
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 10,
+                            ),
+                            child: TextScroll(
+                              'N° de habitantes: 5',
+                              mode: TextScrollMode.bouncing,
+                              velocity: Velocity(
+                                pixelsPerSecond: Offset(15, 0),
+                              ),
+                              delayBefore: Duration(milliseconds: 500),
+                              pauseBetween: Duration(milliseconds: 50),
+                              selectable: true,
+                              style: TextStyle(
+                                fontFamily: 'Courier New',
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          Expander(
+                            header: Text(
+                              'Condición de vivienda',
+                              style:
+                                  FluentTheme.of(context).typography.bodyLarge,
+                            ),
+                            content: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: const [
+                                TextScrollDetails(
+                                  content: 'Vivienda inspecionada: 1',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Vivienda renuente: 1',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Vivienda cerrada: 1',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Vivienda deshabitada: 1',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Vivienda focos: 1',
+                                ),
+                                SizedBox(height: 2.5),
+                                TextScrollDetails(
+                                  content: 'Vivienda tratada con abte: 1',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        right: 10,
+                        bottom: 10,
+                        child: SizedBox(
+                          height: 40,
+                          width: 40,
+                          child: FilledButton(
+                            child: const Icon(FluentIcons.chrome_close),
+                            onPressed: () {},
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class TextScrollDetails extends StatelessWidget {
+  const TextScrollDetails({
+    super.key,
+    required this.content,
+  });
+
+  final String content;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextScroll(
+      content,
+      mode: TextScrollMode.bouncing,
+      velocity: const Velocity(
+        pixelsPerSecond: Offset(15, 0),
+      ),
+      delayBefore: const Duration(milliseconds: 500),
+      pauseBetween: const Duration(milliseconds: 50),
+      selectable: true,
+      style: const TextStyle(
+        fontFamily: 'Courier New',
+        fontWeight: FontWeight.w600,
       ),
     );
   }

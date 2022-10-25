@@ -101,4 +101,38 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
         state.homeInspections.length;
     return MapLatLng(centerLatitude, centerLongitude);
   }
+
+  Future<void> getSelectedInspectionDetails({
+    required String inspectionId,
+  }) async {
+    emit(
+      state.copyWith(
+        selectedInspectionStatus: SelectedInspectionStatus.loading,
+      ),
+    );
+    try {
+      final inspectionDetails =
+          await _inspectionRepository.getHomeInspectionDetails(inspectionId);
+      emit(
+        state.copyWith(
+          selectedInspectionStatus: SelectedInspectionStatus.success,
+          selectedInspection: inspectionDetails,
+        ),
+      );
+    } catch (e) {
+      emit(
+        state.copyWith(
+          selectedInspectionStatus: SelectedInspectionStatus.failure,
+        ),
+      );
+    }
+  }
+
+  void closeSelectedInspection() {
+    emit(
+      state.copyWith(
+        selectedInspectionStatus: SelectedInspectionStatus.initial,
+      ),
+    );
+  }
 }

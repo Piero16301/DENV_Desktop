@@ -14,7 +14,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
   final Dio _httpClient;
 
   @override
-  Future<List<HomeInspectionDetailed>> getHomeInspectionDetailed(
+  Future<List<HomeInspectionDetailed>> getHomeInspectionsDetailed(
     int skip,
   ) async {
     try {
@@ -70,6 +70,25 @@ class InspectionApiRemote implements IInspectionApiRemote {
         data: homeInspection.toJson(),
       );
       if (response.statusCode != 200) throw Exception();
+    } on DioError catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<HomeInspectionDetailed> getHomeInspectionDetails(
+    String id,
+  ) async {
+    try {
+      final response = await _httpClient.get<Map<String, dynamic>>(
+        '/home-inspection/$id',
+      );
+      if (response.statusCode != 200) throw Exception();
+      if (response.data == null) throw Exception();
+      if (response.data?['data'] == null) throw Exception();
+      final inspectionJson = response.data?['data'] as Map<String, dynamic>;
+      final inspection = HomeInspectionDetailed.fromJson(inspectionJson);
+      return inspection;
     } on DioError catch (e) {
       throw Exception(e);
     }
