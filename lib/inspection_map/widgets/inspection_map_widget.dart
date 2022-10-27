@@ -381,6 +381,7 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                 return HomeInspectionDetailsPanel(
                   isDarkMode: isDarkMode,
                   padRight: _padRight,
+                  inspection: state.selectedInspection!,
                 );
               } else if (state.selectedInspectionStatus.isFailure) {
                 return Expanded(
@@ -426,10 +427,12 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
     super.key,
     required this.isDarkMode,
     required int padRight,
+    required this.inspection,
   }) : _padRight = padRight;
 
   final bool isDarkMode;
   final int _padRight;
+  final HomeInspectionDetailed inspection;
 
   @override
   Widget build(BuildContext context) {
@@ -464,7 +467,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                           ),
                           child: TextScrollDetails(
                             title: 'DNI'.padRight(_padRight),
-                            content: '12345678',
+                            content: inspection.dni,
                           ),
                         ),
                         Expander(
@@ -477,58 +480,58 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             children: [
                               TextScrollDetails(
                                 title: 'Código postal'.padRight(_padRight),
-                                content: '19376',
+                                content: inspection.address.postalCode,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'País'.padRight(_padRight),
-                                content: 'España',
+                                content: inspection.address.country,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Departamento'.padRight(_padRight),
-                                content: 'Barcelona',
+                                content: inspection.address.department,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Provincia'.padRight(_padRight),
-                                content: 'Barcelona',
+                                content: inspection.address.province,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Distrito'.padRight(_padRight),
-                                content: 'Les Corts',
+                                content: inspection.address.district,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Urbanización'.padRight(_padRight),
-                                content: 'Les Corts',
+                                content: inspection.address.urbanization,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Calle'.padRight(_padRight),
-                                content: 'Carrer de la Diputació',
+                                content: inspection.address.street,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Número'.padRight(_padRight),
-                                content: '342',
+                                content:
+                                    inspection.address.streetNumber.toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Dirección'.padRight(_padRight),
-                                content:
-                                    'Carrer de la Diputació, 342, 19376 Les Corts, Barcelona, España',
+                                content: inspection.address.formattedAddress,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Manzana'.padRight(_padRight),
-                                content: 'A-1',
+                                content: inspection.address.block,
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Lote'.padRight(_padRight),
-                                content: '12',
+                                content: inspection.address.lot.toString(),
                               ),
                             ],
                           ),
@@ -540,7 +543,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                           ),
                           child: TextScrollDetails(
                             title: 'N° de habitantes'.padRight(_padRight),
-                            content: '5',
+                            content: inspection.numberInhabitants.toString(),
                           ),
                         ),
                         Expander(
@@ -554,35 +557,44 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                               TextScrollDetails(
                                 title:
                                     'Vivienda inspecionada'.padRight(_padRight),
-                                content: '1',
+                                content: inspection.homeCondition.inspectedHome
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Vivienda renuente'.padRight(_padRight),
-                                content: '1',
+                                content: inspection
+                                    .homeCondition.reluctantDwelling
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Vivienda cerrada'.padRight(_padRight),
-                                content: '1',
+                                content: inspection.homeCondition.closedHome
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title:
                                     'Vivienda deshabitada'.padRight(_padRight),
-                                content: '1',
+                                content: inspection
+                                    .homeCondition.uninhabitedHouse
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Vivienda focos'.padRight(_padRight),
-                                content: '1',
+                                content: inspection
+                                    .homeCondition.housingSpotlights
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Vivienda tratada con abte'.padRight(
                                   _padRight,
                                 ),
-                                content: '1',
+                                content: inspection.homeCondition.treatedHousing
+                                    .toString(),
                               ),
                             ],
                           ),
@@ -597,50 +609,58 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             children: [
                               TextScrollDetails(
                                 title: 'Tanque elevado'.padRight(_padRight),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.elevatedTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.elevatedTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.elevatedTank.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Tanque bajo, pozos'.padRight(
                                   _padRight,
                                 ),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.lowTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.lowTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.lowTank.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Barril, cilindro sanson'.padRight(
                                   _padRight,
                                 ),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.cylinderBarrel.i.toString().padLeft(2)}, P=${inspection.typeContainers.cylinderBarrel.p.toString().padLeft(2)}, T=${inspection.typeContainers.cylinderBarrel.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Balde, abtea, tina'.padRight(
                                   _padRight,
                                 ),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.bucketTub.i.toString().padLeft(2)}, P=${inspection.typeContainers.bucketTub.p.toString().padLeft(2)}, T=${inspection.typeContainers.bucketTub.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Llanta'.padRight(_padRight),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.tire.i.toString().padLeft(2)}, P=${inspection.typeContainers.tire.p.toString().padLeft(2)}, T=${inspection.typeContainers.tire.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Florero, maceta'.padRight(
                                   _padRight,
                                 ),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.flower.i.toString().padLeft(2)}, P=${inspection.typeContainers.flower.p.toString().padLeft(2)}, T=${inspection.typeContainers.flower.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Inservibles'.padRight(_padRight),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.useless.i.toString().padLeft(2)}, P=${inspection.typeContainers.useless.p.toString().padLeft(2)}, T=${inspection.typeContainers.useless.t.toString().padLeft(2)}',
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Otros'.padRight(_padRight),
-                                content: 'I=1, P=1, T=1',
+                                content:
+                                    'I=${inspection.typeContainers.others.i.toString().padLeft(2)}, P=${inspection.typeContainers.others.p.toString().padLeft(2)}, T=${inspection.typeContainers.others.t.toString().padLeft(2)}',
                               ),
                             ],
                           ),
@@ -656,28 +676,36 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                               TextScrollDetails(
                                 title: 'Recipientes inspeccionados'
                                     .padRight(_padRight),
-                                content: '1',
+                                content: inspection
+                                    .totalContainer.inspectedContainers
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Recipientes focos'.padRight(
                                   _padRight,
                                 ),
-                                content: '1',
+                                content: inspection
+                                    .totalContainer.containersSpotlights
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Recipientes tratados'.padRight(
                                   _padRight,
                                 ),
-                                content: '1',
+                                content: inspection
+                                    .totalContainer.treatedContainers
+                                    .toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Recipientes destruidos'.padRight(
                                   _padRight,
                                 ),
-                                content: '1',
+                                content: inspection
+                                    .totalContainer.destroyedContainers
+                                    .toString(),
                               ),
                             ],
                           ),
@@ -692,21 +720,24 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             children: [
                               TextScrollDetails(
                                 title: 'Larvas'.padRight(_padRight),
-                                content: '1',
+                                content:
+                                    inspection.aegyptiFocus.larvae.toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Pupas'.padRight(
                                   _padRight,
                                 ),
-                                content: '1',
+                                content:
+                                    inspection.aegyptiFocus.pupae.toString(),
                               ),
                               const SizedBox(height: 2.5),
                               TextScrollDetails(
                                 title: 'Adulto'.padRight(
                                   _padRight,
                                 ),
-                                content: '1',
+                                content:
+                                    inspection.aegyptiFocus.adult.toString(),
                               ),
                             ],
                           ),
@@ -718,7 +749,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                           ),
                           child: TextScrollDetails(
                             title: 'Larvicida (grs)'.padRight(_padRight),
-                            content: '3.762',
+                            content: inspection.larvicide.toStringAsFixed(3),
                           ),
                         ),
                         Padding(
@@ -728,7 +759,8 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                           ),
                           child: TextScrollDetails(
                             title: 'Fecha y hora'.padRight(_padRight),
-                            content: '2021-05-05 12:00:00',
+                            content:
+                                '${inspection.dateTime.date} ${inspection.dateTime.time}',
                           ),
                         ),
                         Padding(
@@ -738,7 +770,8 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                           ),
                           child: TextScrollDetails(
                             title: 'Latitud y longitud'.padRight(_padRight),
-                            content: '12.345678, -12.345678',
+                            content:
+                                '${inspection.latitude.toStringAsFixed(5)}, ${inspection.longitude.toStringAsFixed(5)}',
                           ),
                         ),
                         Padding(
@@ -748,8 +781,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                           ),
                           child: TextScrollDetails(
                             title: 'Comentario'.padRight(_padRight),
-                            content:
-                                'Se ha reportado una nueva inspección de vivienda',
+                            content: inspection.comment,
                           ),
                         ),
                         Expander(
@@ -763,7 +795,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  'https://chequeado.com/wp-content/uploads/2020/03/dengue-1.jpg',
+                                  inspection.photoUrl,
                                   fit: BoxFit.contain,
                                   loadingBuilder: (
                                     context,
