@@ -652,9 +652,71 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                                   vertical: 10,
                                 ),
                                 child: TextScrollDetails(
+                                  title: 'Fecha y hora'.padRight(_padRight),
+                                  content: '2021-05-05 12:00:00',
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 10,
+                                ),
+                                child: TextScrollDetails(
+                                  title:
+                                      'Latitud y longitud'.padRight(_padRight),
+                                  content: '12.345678, -12.345678',
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 18,
+                                  vertical: 10,
+                                ),
+                                child: TextScrollDetails(
                                   title: 'Comentario'.padRight(_padRight),
                                   content:
                                       'Se ha reportado una nueva inspección de vivienda',
+                                ),
+                              ),
+                              Expander(
+                                header: Text(
+                                  'Fotografía',
+                                  style: FluentTheme.of(context)
+                                      .typography
+                                      .bodyLarge,
+                                ),
+                                content: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        'https://chequeado.com/wp-content/uploads/2020/03/dengue-1.jpg',
+                                        fit: BoxFit.contain,
+                                        loadingBuilder: (
+                                          context,
+                                          child,
+                                          loadingProgress,
+                                        ) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+                                          return const Center(
+                                            child: ProgressRing(),
+                                          );
+                                        },
+                                        errorBuilder: (
+                                          context,
+                                          error,
+                                          stackTrace,
+                                        ) {
+                                          return Image.asset(
+                                            'assets/images/no-image.png',
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
