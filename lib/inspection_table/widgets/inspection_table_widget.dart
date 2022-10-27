@@ -45,7 +45,8 @@ class InspectionTableWidget extends StatelessWidget {
                   child: SfDataGrid(
                     key: _key,
                     source: InspectionTableDatagrid(
-                        homeInspections: homeInspections),
+                      homeInspections: homeInspections,
+                    ),
                     gridLinesVisibility: GridLinesVisibility.both,
                     headerGridLinesVisibility: GridLinesVisibility.both,
                     rowHeight: 40,

@@ -66,6 +66,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
       emit(
         state.copyWith(
           bufferHomeInspections: bufferHomeInspections,
+          lastUpdated: DateTime.now(),
         ),
       );
       return bufferHomeInspections;
@@ -74,18 +75,10 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
     }
   }
 
-  void mergeHomeInspections() {
+  void cleanBufferHomeInspections() {
     emit(
       state.copyWith(
         bufferHomeInspections: [],
-      ),
-    );
-  }
-
-  void updateLastUpdated() {
-    emit(
-      state.copyWith(
-        lastUpdated: DateTime.now(),
       ),
     );
   }

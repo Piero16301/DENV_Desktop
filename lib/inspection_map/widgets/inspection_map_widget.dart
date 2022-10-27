@@ -56,9 +56,7 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
           counter++;
         }
         // ignore: use_build_context_synchronously
-        context.read<InspectionMapCubit>().mergeHomeInspections();
-        // ignore: use_build_context_synchronously
-        context.read<InspectionMapCubit>().updateLastUpdated();
+        context.read<InspectionMapCubit>().cleanBufferHomeInspections();
       },
     );
 
@@ -255,14 +253,18 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                                     widget.homeInspections[index].longitude,
                                 // alignment: Alignment.center,
                                 child: GestureDetector(
-                                  onTap: () {
+                                  onTap: () async {
+                                    await inspectionCubit
+                                        .getSelectedInspectionDetails(
+                                      inspectionId:
+                                          widget.homeInspections[index].id,
+                                    );
                                     _zoomPanBehavior
                                       ..focalLatLng = MapLatLng(
                                         widget.homeInspections[index].latitude,
                                         widget.homeInspections[index].longitude,
                                       )
                                       ..zoomLevel = 18;
-                                    // _mapController.updateMarkers([1, 5]);
                                   },
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 250),
@@ -344,404 +346,471 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
               ),
             ),
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 25, bottom: 25),
-              child: Container(
-                padding: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isDarkMode ? Colors.white : Colors.black,
-                    width: 2,
+          BlocBuilder<InspectionMapCubit, InspectionMapState>(
+            builder: (context, state) {
+              if (state.selectedInspectionStatus.isLoading) {
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 25, bottom: 25),
+                    child: Container(
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: isDarkMode ? Colors.white : Colors.black,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: const [
+                            SizedBox(
+                              height: double.infinity,
+                              child: Center(
+                                child: ProgressRing(),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        height: double.infinity,
-                        child: SingleChildScrollView(
-                          child: Column(
+                );
+              } else if (state.selectedInspectionStatus.isSuccess) {
+                return HomeInspectionDetailsPanel(
+                  isDarkMode: isDarkMode,
+                  padRight: _padRight,
+                );
+              } else if (state.selectedInspectionStatus.isFailure) {
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 25, bottom: 25),
+                    child: Container(
+                      padding: EdgeInsets.zero,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: isDarkMode ? Colors.white : Colors.black,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Stack(
+                          children: const [
+                            SizedBox(
+                              height: double.infinity,
+                              child: Center(
+                                child: Text('Error'),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeInspectionDetailsPanel extends StatelessWidget {
+  const HomeInspectionDetailsPanel({
+    super.key,
+    required this.isDarkMode,
+    required int padRight,
+  }) : _padRight = padRight;
+
+  final bool isDarkMode;
+  final int _padRight;
+
+  @override
+  Widget build(BuildContext context) {
+    final inspectionCubit = context.read<InspectionMapCubit>();
+
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 25, bottom: 25),
+        child: Container(
+          padding: EdgeInsets.zero,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: isDarkMode ? Colors.white : Colors.black,
+              width: 2,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: double.infinity,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          child: TextScrollDetails(
+                            title: 'DNI'.padRight(_padRight),
+                            content: '12345678',
+                          ),
+                        ),
+                        Expander(
+                          header: Text(
+                            'Dirección',
+                            style: FluentTheme.of(context).typography.bodyLarge,
+                          ),
+                          content: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 10,
-                                ),
-                                child: TextScrollDetails(
-                                  title: 'DNI'.padRight(_padRight),
-                                  content: '12345678',
-                                ),
+                              TextScrollDetails(
+                                title: 'Código postal'.padRight(_padRight),
+                                content: '19376',
                               ),
-                              Expander(
-                                header: Text(
-                                  'Dirección',
-                                  style: FluentTheme.of(context)
-                                      .typography
-                                      .bodyLarge,
-                                ),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextScrollDetails(
-                                      title:
-                                          'Código postal'.padRight(_padRight),
-                                      content: '19376',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'País'.padRight(_padRight),
-                                      content: 'España',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Departamento'.padRight(_padRight),
-                                      content: 'Barcelona',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Provincia'.padRight(_padRight),
-                                      content: 'Barcelona',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Distrito'.padRight(_padRight),
-                                      content: 'Les Corts',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Urbanización'.padRight(_padRight),
-                                      content: 'Les Corts',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Calle'.padRight(_padRight),
-                                      content: 'Carrer de la Diputació',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Número'.padRight(_padRight),
-                                      content: '342',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Dirección'.padRight(_padRight),
-                                      content:
-                                          'Carrer de la Diputació, 342, 19376 Les Corts, Barcelona, España',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Manzana'.padRight(_padRight),
-                                      content: 'A-1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Lote'.padRight(_padRight),
-                                      content: '12',
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'País'.padRight(_padRight),
+                                content: 'España',
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 10,
-                                ),
-                                child: TextScrollDetails(
-                                  title: 'N° de habitantes'.padRight(_padRight),
-                                  content: '5',
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Departamento'.padRight(_padRight),
+                                content: 'Barcelona',
                               ),
-                              Expander(
-                                header: Text(
-                                  'Condición de vivienda',
-                                  style: FluentTheme.of(context)
-                                      .typography
-                                      .bodyLarge,
-                                ),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextScrollDetails(
-                                      title: 'Vivienda inspecionada'
-                                          .padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Vivienda renuente'
-                                          .padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Vivienda cerrada'
-                                          .padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Vivienda deshabitada'
-                                          .padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title:
-                                          'Vivienda focos'.padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title:
-                                          'Vivienda tratada con abte'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: '1',
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Provincia'.padRight(_padRight),
+                                content: 'Barcelona',
                               ),
-                              Expander(
-                                header: Text(
-                                  'Tipo de recipientes',
-                                  style: FluentTheme.of(context)
-                                      .typography
-                                      .bodyLarge,
-                                ),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextScrollDetails(
-                                      title:
-                                          'Tanque elevado'.padRight(_padRight),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Tanque bajo, pozos'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Barril, cilindro sanson'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Balde, abtea, tina'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Llanta'.padRight(_padRight),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Florero, maceta'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Inservibles'.padRight(_padRight),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Otros'.padRight(_padRight),
-                                      content: 'I=1, P=1, T=1',
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Distrito'.padRight(_padRight),
+                                content: 'Les Corts',
                               ),
-                              Expander(
-                                header: Text(
-                                  'Total de recipiente',
-                                  style: FluentTheme.of(context)
-                                      .typography
-                                      .bodyLarge,
-                                ),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextScrollDetails(
-                                      title: 'Recipientes inspeccionados'
-                                          .padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Recipientes focos'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Recipientes tratados'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Recipientes destruidos'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: '1',
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Urbanización'.padRight(_padRight),
+                                content: 'Les Corts',
                               ),
-                              Expander(
-                                header: Text(
-                                  'Foco de A. aegypti',
-                                  style: FluentTheme.of(context)
-                                      .typography
-                                      .bodyLarge,
-                                ),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextScrollDetails(
-                                      title: 'Larvas'.padRight(_padRight),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Pupas'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: '1',
-                                    ),
-                                    const SizedBox(height: 2.5),
-                                    TextScrollDetails(
-                                      title: 'Adulto'.padRight(
-                                        _padRight,
-                                      ),
-                                      content: '1',
-                                    ),
-                                  ],
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Calle'.padRight(_padRight),
+                                content: 'Carrer de la Diputació',
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 10,
-                                ),
-                                child: TextScrollDetails(
-                                  title: 'Larvicida (grs)'.padRight(_padRight),
-                                  content: '3.762',
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Número'.padRight(_padRight),
+                                content: '342',
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 10,
-                                ),
-                                child: TextScrollDetails(
-                                  title: 'Fecha y hora'.padRight(_padRight),
-                                  content: '2021-05-05 12:00:00',
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Dirección'.padRight(_padRight),
+                                content:
+                                    'Carrer de la Diputació, 342, 19376 Les Corts, Barcelona, España',
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 10,
-                                ),
-                                child: TextScrollDetails(
-                                  title:
-                                      'Latitud y longitud'.padRight(_padRight),
-                                  content: '12.345678, -12.345678',
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Manzana'.padRight(_padRight),
+                                content: 'A-1',
                               ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 18,
-                                  vertical: 10,
-                                ),
-                                child: TextScrollDetails(
-                                  title: 'Comentario'.padRight(_padRight),
-                                  content:
-                                      'Se ha reportado una nueva inspección de vivienda',
-                                ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Lote'.padRight(_padRight),
+                                content: '12',
                               ),
-                              Expander(
-                                header: Text(
-                                  'Fotografía',
-                                  style: FluentTheme.of(context)
-                                      .typography
-                                      .bodyLarge,
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          child: TextScrollDetails(
+                            title: 'N° de habitantes'.padRight(_padRight),
+                            content: '5',
+                          ),
+                        ),
+                        Expander(
+                          header: Text(
+                            'Condición de vivienda',
+                            style: FluentTheme.of(context).typography.bodyLarge,
+                          ),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextScrollDetails(
+                                title:
+                                    'Vivienda inspecionada'.padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Vivienda renuente'.padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Vivienda cerrada'.padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title:
+                                    'Vivienda deshabitada'.padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Vivienda focos'.padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Vivienda tratada con abte'.padRight(
+                                  _padRight,
                                 ),
-                                content: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        'https://chequeado.com/wp-content/uploads/2020/03/dengue-1.jpg',
-                                        fit: BoxFit.contain,
-                                        loadingBuilder: (
-                                          context,
-                                          child,
-                                          loadingProgress,
-                                        ) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          }
-                                          return const Center(
-                                            child: ProgressRing(),
-                                          );
-                                        },
-                                        errorBuilder: (
-                                          context,
-                                          error,
-                                          stackTrace,
-                                        ) {
-                                          return Image.asset(
-                                            'assets/images/no-image.png',
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                                content: '1',
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expander(
+                          header: Text(
+                            'Tipo de recipientes',
+                            style: FluentTheme.of(context).typography.bodyLarge,
+                          ),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextScrollDetails(
+                                title: 'Tanque elevado'.padRight(_padRight),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Tanque bajo, pozos'.padRight(
+                                  _padRight,
+                                ),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Barril, cilindro sanson'.padRight(
+                                  _padRight,
+                                ),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Balde, abtea, tina'.padRight(
+                                  _padRight,
+                                ),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Llanta'.padRight(_padRight),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Florero, maceta'.padRight(
+                                  _padRight,
+                                ),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Inservibles'.padRight(_padRight),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Otros'.padRight(_padRight),
+                                content: 'I=1, P=1, T=1',
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expander(
+                          header: Text(
+                            'Total de recipiente',
+                            style: FluentTheme.of(context).typography.bodyLarge,
+                          ),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextScrollDetails(
+                                title: 'Recipientes inspeccionados'
+                                    .padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Recipientes focos'.padRight(
+                                  _padRight,
+                                ),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Recipientes tratados'.padRight(
+                                  _padRight,
+                                ),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Recipientes destruidos'.padRight(
+                                  _padRight,
+                                ),
+                                content: '1',
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expander(
+                          header: Text(
+                            'Foco de A. aegypti',
+                            style: FluentTheme.of(context).typography.bodyLarge,
+                          ),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextScrollDetails(
+                                title: 'Larvas'.padRight(_padRight),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Pupas'.padRight(
+                                  _padRight,
+                                ),
+                                content: '1',
+                              ),
+                              const SizedBox(height: 2.5),
+                              TextScrollDetails(
+                                title: 'Adulto'.padRight(
+                                  _padRight,
+                                ),
+                                content: '1',
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          child: TextScrollDetails(
+                            title: 'Larvicida (grs)'.padRight(_padRight),
+                            content: '3.762',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          child: TextScrollDetails(
+                            title: 'Fecha y hora'.padRight(_padRight),
+                            content: '2021-05-05 12:00:00',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          child: TextScrollDetails(
+                            title: 'Latitud y longitud'.padRight(_padRight),
+                            content: '12.345678, -12.345678',
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 18,
+                            vertical: 10,
+                          ),
+                          child: TextScrollDetails(
+                            title: 'Comentario'.padRight(_padRight),
+                            content:
+                                'Se ha reportado una nueva inspección de vivienda',
+                          ),
+                        ),
+                        Expander(
+                          header: Text(
+                            'Fotografía',
+                            style: FluentTheme.of(context).typography.bodyLarge,
+                          ),
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.network(
+                                  'https://chequeado.com/wp-content/uploads/2020/03/dengue-1.jpg',
+                                  fit: BoxFit.contain,
+                                  loadingBuilder: (
+                                    context,
+                                    child,
+                                    loadingProgress,
+                                  ) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    }
+                                    return const Center(
+                                      child: ProgressRing(),
+                                    );
+                                  },
+                                  errorBuilder: (
+                                    context,
+                                    error,
+                                    stackTrace,
+                                  ) {
+                                    return Image.asset(
+                                      'assets/images/no-image.png',
+                                    );
+                                  },
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                      Positioned(
-                        right: 10,
-                        bottom: 10,
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: FilledButton(
-                            child: const Icon(FluentIcons.chrome_close),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                Positioned(
+                  right: 10,
+                  bottom: 10,
+                  child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: FilledButton(
+                      onPressed: inspectionCubit.closeSelectedInspection,
+                      child: const Icon(FluentIcons.chrome_close),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -782,6 +851,6 @@ extension on DateTime {
   }
 
   String get time {
-    return DateFormat('hh:mm a', 'en_US').format(this);
+    return DateFormat('hh:mm:ss a', 'en_US').format(this);
   }
 }
