@@ -4,8 +4,10 @@
     "@homePageAppBarTitle": {
         "description": "Text shown in the AppBar of the Home Page"
     },
+    "homePageHomeInspectionTitle": "Home Inspections",
+    "homePageVectorRecordTitle": "Vector Records",
 
-    "inspectionTableAppBarTitle": "Inspections table",
+    "inspectionTableAppBarTitle": "Registers table",
     "@inspectionTableAppBarTitle": {
         "description": "Text shown in the AppBar of the Inspection Table Page"
     },
@@ -51,7 +53,7 @@
     "inspectionTableExportSuccessContentDialog": "The data was successfully exported to Excel and saved in the Downloads folder.",
     "inspectionTableExportSuccessAcceptButton": "Accept",
 
-    "inspectionMapAppBarTitle": "Inspections map",
+    "inspectionMapAppBarTitle": "Real-time map",
     "@inspectionMapAppBarTitle": {
         "description": "Text shown in the AppBar of the Inspection Map Page"
     },

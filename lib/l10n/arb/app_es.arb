@@ -4,8 +4,10 @@
     "@homePageAppBarTitle": {
         "description": "Texto mostrado en la barra de navegación de la página de inicio"
     },
+    "homePageHomeInspectionTitle": "Inspección de viviendas",
+    "homePageVectorRecordTitle": "Registro de vectores",
 
-    "inspectionTableAppBarTitle": "Tabla de inspecciones",
+    "inspectionTableAppBarTitle": "Tabla de registros",
     "@inspectionTableAppBarTitle": {
         "description": "Texto mostrado en la barra de navegación de la tabla de inspecciones"
     },
@@ -51,7 +53,7 @@
     "inspectionTableExportSuccessContentDialog": "Los datos se exportaron correctamente a Excel y se guardaron en la carpeta de Descargas.",
     "inspectionTableExportSuccessAcceptButton": "Aceptar",
 
-    "inspectionMapAppBarTitle": "Mapa de inspecciones",
+    "inspectionMapAppBarTitle": "Mapa en tiempo real",
     "@inspectionMapAppBarTitle": {
         "description": "Texto mostrado en la barra de navegación del mapa de inspecciones"
     },

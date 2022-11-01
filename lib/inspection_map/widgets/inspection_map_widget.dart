@@ -64,7 +64,7 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
     _zoomPanBehavior = MapZoomPanBehavior(
       minZoomLevel: 3,
       maxZoomLevel: 20,
-      zoomLevel: 12,
+      zoomLevel: 8,
       focalLatLng: MapLatLng(
         widget.centerLatitude,
         widget.centerLongitude,
@@ -334,7 +334,7 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                                 _zoomPanBehavior
                                   ..focalLatLng =
                                       inspectionCubit.getCenterLatLng()
-                                  ..zoomLevel = 12;
+                                  ..zoomLevel = 8;
                               },
                             ),
                           ),

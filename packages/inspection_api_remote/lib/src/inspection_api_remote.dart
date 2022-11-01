@@ -20,6 +20,12 @@ class InspectionApiRemote implements IInspectionApiRemote {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
         '/home-inspections-detailed/$skip',
+        queryParameters: {
+          'startDate': DateTime.now()
+              .subtract(const Duration(days: 15))
+              .toIso8601String(),
+          'endDate': DateTime.now().toIso8601String(),
+        },
       );
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
@@ -45,6 +51,12 @@ class InspectionApiRemote implements IInspectionApiRemote {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
         '/home-inspections-summarized/$skip',
+        queryParameters: {
+          'startDate': DateTime.now()
+              .subtract(const Duration(days: 15))
+              .toIso8601String(),
+          'endDate': DateTime.now().toIso8601String(),
+        },
       );
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();

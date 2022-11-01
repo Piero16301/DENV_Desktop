@@ -19,6 +19,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   flutter_localizations:
     sdk: flutter
+  flutter_lorem: ^2.0.0
   inspection_api:
     path: packages/inspection_api
   inspection_api_remote:
