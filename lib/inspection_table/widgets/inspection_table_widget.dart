@@ -1,4 +1,3 @@
-import 'package:denv_desktop/app/app.dart';
 import 'package:denv_desktop/inspection_table/inspection_table.dart';
 import 'package:denv_desktop/l10n/l10n.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -19,48 +18,77 @@ class InspectionTableWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<InspectionTableCubit>().setDataGridKey(_key);
     context.read<InspectionTableCubit>().changeKeyUpdated(isKeyUpdated: true);
-    final isDarkMode = context.select(
-      (AppCubit cubit) => cubit.state.isDarkMode,
-    );
+
     final l10n = context.l10n;
+    final exportStatus =
+        context.select<InspectionTableCubit, InspectionExportStatus>(
+      (cubit) => cubit.state.exportStatus,
+    );
+    final inspectionCubit = context.read<InspectionTableCubit>();
 
     return ScaffoldPage(
       header: PageHeader(
         title: Text(l10n.inspectionTableAppBarTitle),
+        commandBar: Expanded(
+          child: CommandBarCard(
+            child: CommandBar(
+              overflowBehavior: CommandBarOverflowBehavior.scrolling,
+              primaryItems: [
+                CommandBarButton(
+                  icon: exportStatus == InspectionExportStatus.loading
+                      ? const SizedBox.square(
+                          dimension: 20,
+                          child: ProgressRing(
+                            strokeWidth: 3,
+                          ),
+                        )
+                      : const Icon(FluentIcons.excel_logo),
+                  label: exportStatus == InspectionExportStatus.loading
+                      ? Text(l10n.inspectionTableExportToExcelLoading)
+                      : Text(l10n.inspectionTableExportToExcel),
+                  onPressed: () => context
+                      .read<InspectionTableCubit>()
+                      .exportHomeInspectionsExcel(
+                        dataGridKey: _key,
+                        context: context,
+                      ),
+                ),
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.sync),
+                  label: Text(l10n.inspectionTableUpdateText),
+                  onPressed: () => inspectionCubit
+                    ..getHomeInspections()
+                    ..changeKeyUpdated(isKeyUpdated: true),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       content: Column(
         children: [
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isDarkMode ? Colors.white : Colors.black,
+              padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
+              child: Card(
+                borderRadius: BorderRadius.circular(10),
+                child: SfDataGrid(
+                  key: _key,
+                  source: InspectionTableDatagrid(
+                    homeInspections: homeInspections,
                   ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SfDataGrid(
-                    key: _key,
-                    source: InspectionTableDatagrid(
-                      homeInspections: homeInspections,
-                    ),
-                    gridLinesVisibility: GridLinesVisibility.both,
-                    headerGridLinesVisibility: GridLinesVisibility.both,
-                    rowHeight: 40,
-                    headerRowHeight: 50,
-                    columns: _getColumns(context),
-                    stackedHeaderRows: _getStackedHeaderRows(context),
-                  ),
+                  gridLinesVisibility: GridLinesVisibility.both,
+                  headerGridLinesVisibility: GridLinesVisibility.both,
+                  rowHeight: 40,
+                  headerRowHeight: 50,
+                  columns: _getColumns(context),
+                  stackedHeaderRows: _getStackedHeaderRows(context),
                 ),
               ),
             ),
           ),
         ],
       ),
-      bottomBar: ExportButtons(dataGridKey: _key),
     );
   }
 
@@ -433,47 +461,6 @@ class InspectionTableWidget extends StatelessWidget {
         ],
       ),
     ];
-  }
-}
-
-class ExportButtons extends StatelessWidget {
-  const ExportButtons({
-    super.key,
-    required this.dataGridKey,
-  });
-
-  final GlobalKey<SfDataGridState> dataGridKey;
-
-  @override
-  Widget build(BuildContext context) {
-    final inspectionCubit = context.read<InspectionTableCubit>();
-    final l10n = context.l10n;
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-      child: Row(
-        children: [
-          ExportExcelButton(dataGridKey: dataGridKey),
-          Expanded(child: Container()),
-          Tooltip(
-            message: l10n.inspectionTableUpdateText,
-            displayHorizontally: true,
-            useMousePosition: false,
-            child: IconButton(
-              icon: const Icon(
-                FluentIcons.sync,
-                size: 30,
-              ),
-              onPressed: () {
-                inspectionCubit
-                  ..getHomeInspections()
-                  ..changeKeyUpdated(isKeyUpdated: true);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 

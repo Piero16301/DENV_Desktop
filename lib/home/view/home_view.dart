@@ -17,17 +17,22 @@ class HomeView extends StatelessWidget {
       [
         'Tabla de registros',
         'assets/images/no-image.png',
-        lorem(paragraphs: 1, words: 200),
+        lorem(paragraphs: 2),
       ],
       [
         'Mapa en tiempo real',
         'assets/images/no-image.png',
-        lorem(paragraphs: 1, words: 200),
+        lorem(paragraphs: 2),
       ],
       [
-        'Clusterización en tiempo real',
+        'Historial de casos',
         'assets/images/no-image.png',
-        lorem(paragraphs: 1, words: 200),
+        lorem(paragraphs: 2),
+      ],
+      [
+        'Clusterización de casos',
+        'assets/images/no-image.png',
+        lorem(paragraphs: 2),
       ],
     ];
 
@@ -49,26 +54,6 @@ class HomeView extends StatelessWidget {
             body: ScaffoldPage(
               header: PageHeader(
                 title: Text(l10n.homePageHomeInspectionTitle),
-                // commandBar: ConstrainedBox(
-                //   constraints: const BoxConstraints(maxWidth: 200),
-                //   child: CommandBarCard(
-                //     child: CommandBar(
-                //       mainAxisAlignment: MainAxisAlignment.end,
-                //       primaryItems: [
-                //         CommandBarButton(
-                //           icon: const Icon(FluentIcons.a_a_d_logo),
-                //           label: const Text('AAD'),
-                //           onPressed: () {},
-                //         ),
-                //         CommandBarButton(
-                //           icon: const Icon(FluentIcons.a_a_d_logo),
-                //           label: const Text('AAD'),
-                //           onPressed: () {},
-                //         ),
-                //       ],
-                //     ),
-                //   ),
-                // ),
               ),
               content: Padding(
                 padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
@@ -90,16 +75,11 @@ class HomeView extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 20),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 50,
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    e[1],
-                                    width: double.infinity,
-                                  ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.asset(
+                                  e[1],
+                                  width: double.infinity,
                                 ),
                               ),
                               const SizedBox(height: 20),
