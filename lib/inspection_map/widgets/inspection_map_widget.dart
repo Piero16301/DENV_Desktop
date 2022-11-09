@@ -109,15 +109,8 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
             flex: 2,
             child: Padding(
               padding: const EdgeInsets.only(left: 25, right: 25, bottom: 25),
-              child: Container(
-                padding: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isDarkMode ? Colors.white : Colors.black,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                ),
+              child: Card(
+                borderRadius: BorderRadius.circular(10),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Stack(
@@ -287,17 +280,9 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                       Positioned(
                         left: 10,
                         bottom: 10,
-                        child: Container(
-                          height: 40,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                            color: isDarkMode ? Colors.black : Colors.white,
-                            border: Border.all(
-                              color: isDarkMode ? Colors.white : Colors.black,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                        child: Card(
+                          borderRadius: BorderRadius.circular(10),
+                          padding: const EdgeInsets.all(10),
                           child: Center(
                             child: Text(
                               l10n.inspectionMapLastUpdatedText(
@@ -311,16 +296,9 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                       Positioned(
                         left: 10,
                         top: 10,
-                        child: Container(
+                        child: Card(
+                          borderRadius: BorderRadius.circular(10),
                           padding: const EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: isDarkMode ? Colors.black : Colors.white,
-                            border: Border.all(
-                              color: isDarkMode ? Colors.white : Colors.black,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
                           child: Tooltip(
                             message: l10n.inspectionMapRestartView,
                             displayHorizontally: true,
