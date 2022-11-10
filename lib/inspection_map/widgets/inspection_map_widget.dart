@@ -102,6 +102,31 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
     return ScaffoldPage(
       header: PageHeader(
         title: Text(l10n.inspectionMapAppBarTitle),
+        commandBar: Expanded(
+          child: CommandBarCard(
+            child: CommandBar(
+              overflowBehavior: CommandBarOverflowBehavior.scrolling,
+              primaryItems: [
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.number_field),
+                  label: SizedBox(
+                    width: 150,
+                    child: TextBox(
+                      placeholder: 'Días de búsqueda',
+                      onChanged: (value) {},
+                    ),
+                  ),
+                  onPressed: () {},
+                ),
+                CommandBarButton(
+                  icon: const Icon(FluentIcons.sync),
+                  label: Text(l10n.inspectionTableUpdateText),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       content: Row(
         children: [
@@ -330,27 +355,17 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                 return Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25, bottom: 25),
-                    child: Container(
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isDarkMode ? Colors.white : Colors.black,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          children: const [
-                            SizedBox(
-                              height: double.infinity,
-                              child: Center(
-                                child: ProgressRing(),
-                              ),
+                    child: Card(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(
+                        children: const [
+                          SizedBox(
+                            height: double.infinity,
+                            child: Center(
+                              child: ProgressRing(),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -365,27 +380,17 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                 return Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25, bottom: 25),
-                    child: Container(
-                      padding: EdgeInsets.zero,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: isDarkMode ? Colors.white : Colors.black,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Stack(
-                          children: const [
-                            SizedBox(
-                              height: double.infinity,
-                              child: Center(
-                                child: Text('Error'),
-                              ),
+                    child: Card(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Stack(
+                        children: const [
+                          SizedBox(
+                            height: double.infinity,
+                            child: Center(
+                              child: Text('Error'),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -419,406 +424,392 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(right: 25, bottom: 25),
-        child: Container(
-          padding: EdgeInsets.zero,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: isDarkMode ? Colors.white : Colors.black,
-              width: 2,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: Stack(
-              children: [
-                SizedBox(
-                  height: double.infinity,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          child: TextScrollDetails(
-                            title: 'DNI'.padRight(_padRight),
-                            content: inspection.dni,
-                          ),
+        child: Card(
+          borderRadius: BorderRadius.circular(10),
+          child: Stack(
+            children: [
+              SizedBox(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
                         ),
-                        Expander(
-                          header: Text(
-                            'Dirección',
-                            style: FluentTheme.of(context).typography.bodyLarge,
-                          ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextScrollDetails(
-                                title: 'Código postal'.padRight(_padRight),
-                                content: inspection.address.postalCode,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'País'.padRight(_padRight),
-                                content: inspection.address.country,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Departamento'.padRight(_padRight),
-                                content: inspection.address.department,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Provincia'.padRight(_padRight),
-                                content: inspection.address.province,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Distrito'.padRight(_padRight),
-                                content: inspection.address.district,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Urbanización'.padRight(_padRight),
-                                content: inspection.address.urbanization,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Calle'.padRight(_padRight),
-                                content: inspection.address.street,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Número'.padRight(_padRight),
-                                content:
-                                    inspection.address.streetNumber.toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Dirección'.padRight(_padRight),
-                                content: inspection.address.formattedAddress,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Manzana'.padRight(_padRight),
-                                content: inspection.address.block,
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Lote'.padRight(_padRight),
-                                content: inspection.address.lot.toString(),
-                              ),
-                            ],
-                          ),
+                        child: TextScrollDetails(
+                          title: 'DNI'.padRight(_padRight),
+                          content: inspection.dni,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          child: TextScrollDetails(
-                            title: 'N° de habitantes'.padRight(_padRight),
-                            content: inspection.numberInhabitants.toString(),
-                          ),
+                      ),
+                      Expander(
+                        header: Text(
+                          'Dirección',
+                          style: FluentTheme.of(context).typography.bodyLarge,
                         ),
-                        Expander(
-                          header: Text(
-                            'Condición de vivienda',
-                            style: FluentTheme.of(context).typography.bodyLarge,
-                          ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextScrollDetails(
-                                title:
-                                    'Vivienda inspecionada'.padRight(_padRight),
-                                content: inspection.homeCondition.inspectedHome
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Vivienda renuente'.padRight(_padRight),
-                                content: inspection
-                                    .homeCondition.reluctantDwelling
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Vivienda cerrada'.padRight(_padRight),
-                                content: inspection.homeCondition.closedHome
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title:
-                                    'Vivienda deshabitada'.padRight(_padRight),
-                                content: inspection
-                                    .homeCondition.uninhabitedHouse
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Vivienda focos'.padRight(_padRight),
-                                content: inspection
-                                    .homeCondition.housingSpotlights
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Vivienda tratada con abte'.padRight(
-                                  _padRight,
-                                ),
-                                content: inspection.homeCondition.treatedHousing
-                                    .toString(),
-                              ),
-                            ],
-                          ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextScrollDetails(
+                              title: 'Código postal'.padRight(_padRight),
+                              content: inspection.address.postalCode,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'País'.padRight(_padRight),
+                              content: inspection.address.country,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Departamento'.padRight(_padRight),
+                              content: inspection.address.department,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Provincia'.padRight(_padRight),
+                              content: inspection.address.province,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Distrito'.padRight(_padRight),
+                              content: inspection.address.district,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Urbanización'.padRight(_padRight),
+                              content: inspection.address.urbanization,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Calle'.padRight(_padRight),
+                              content: inspection.address.street,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Número'.padRight(_padRight),
+                              content:
+                                  inspection.address.streetNumber.toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Dirección'.padRight(_padRight),
+                              content: inspection.address.formattedAddress,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Manzana'.padRight(_padRight),
+                              content: inspection.address.block,
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Lote'.padRight(_padRight),
+                              content: inspection.address.lot.toString(),
+                            ),
+                          ],
                         ),
-                        Expander(
-                          header: Text(
-                            'Tipo de recipientes',
-                            style: FluentTheme.of(context).typography.bodyLarge,
-                          ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextScrollDetails(
-                                title: 'Tanque elevado'.padRight(_padRight),
-                                content:
-                                    'I=${inspection.typeContainers.elevatedTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.elevatedTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.elevatedTank.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Tanque bajo, pozos'.padRight(
-                                  _padRight,
-                                ),
-                                content:
-                                    'I=${inspection.typeContainers.lowTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.lowTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.lowTank.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Barril, cilindro sanson'.padRight(
-                                  _padRight,
-                                ),
-                                content:
-                                    'I=${inspection.typeContainers.cylinderBarrel.i.toString().padLeft(2)}, P=${inspection.typeContainers.cylinderBarrel.p.toString().padLeft(2)}, T=${inspection.typeContainers.cylinderBarrel.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Balde, abtea, tina'.padRight(
-                                  _padRight,
-                                ),
-                                content:
-                                    'I=${inspection.typeContainers.bucketTub.i.toString().padLeft(2)}, P=${inspection.typeContainers.bucketTub.p.toString().padLeft(2)}, T=${inspection.typeContainers.bucketTub.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Llanta'.padRight(_padRight),
-                                content:
-                                    'I=${inspection.typeContainers.tire.i.toString().padLeft(2)}, P=${inspection.typeContainers.tire.p.toString().padLeft(2)}, T=${inspection.typeContainers.tire.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Florero, maceta'.padRight(
-                                  _padRight,
-                                ),
-                                content:
-                                    'I=${inspection.typeContainers.flower.i.toString().padLeft(2)}, P=${inspection.typeContainers.flower.p.toString().padLeft(2)}, T=${inspection.typeContainers.flower.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Inservibles'.padRight(_padRight),
-                                content:
-                                    'I=${inspection.typeContainers.useless.i.toString().padLeft(2)}, P=${inspection.typeContainers.useless.p.toString().padLeft(2)}, T=${inspection.typeContainers.useless.t.toString().padLeft(2)}',
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Otros'.padRight(_padRight),
-                                content:
-                                    'I=${inspection.typeContainers.others.i.toString().padLeft(2)}, P=${inspection.typeContainers.others.p.toString().padLeft(2)}, T=${inspection.typeContainers.others.t.toString().padLeft(2)}',
-                              ),
-                            ],
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
                         ),
-                        Expander(
-                          header: Text(
-                            'Total de recipiente',
-                            style: FluentTheme.of(context).typography.bodyLarge,
-                          ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextScrollDetails(
-                                title: 'Recipientes inspeccionados'
-                                    .padRight(_padRight),
-                                content: inspection
-                                    .totalContainer.inspectedContainers
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Recipientes focos'.padRight(
-                                  _padRight,
-                                ),
-                                content: inspection
-                                    .totalContainer.containersSpotlights
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Recipientes tratados'.padRight(
-                                  _padRight,
-                                ),
-                                content: inspection
-                                    .totalContainer.treatedContainers
-                                    .toString(),
-                              ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Recipientes destruidos'.padRight(
-                                  _padRight,
-                                ),
-                                content: inspection
-                                    .totalContainer.destroyedContainers
-                                    .toString(),
-                              ),
-                            ],
-                          ),
+                        child: TextScrollDetails(
+                          title: 'N° de habitantes'.padRight(_padRight),
+                          content: inspection.numberInhabitants.toString(),
                         ),
-                        Expander(
-                          header: Text(
-                            'Foco de A. aegypti',
-                            style: FluentTheme.of(context).typography.bodyLarge,
-                          ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              TextScrollDetails(
-                                title: 'Larvas'.padRight(_padRight),
-                                content:
-                                    inspection.aegyptiFocus.larvae.toString(),
+                      ),
+                      Expander(
+                        header: Text(
+                          'Condición de vivienda',
+                          style: FluentTheme.of(context).typography.bodyLarge,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextScrollDetails(
+                              title:
+                                  'Vivienda inspecionada'.padRight(_padRight),
+                              content: inspection.homeCondition.inspectedHome
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Vivienda renuente'.padRight(_padRight),
+                              content: inspection
+                                  .homeCondition.reluctantDwelling
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Vivienda cerrada'.padRight(_padRight),
+                              content: inspection.homeCondition.closedHome
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Vivienda deshabitada'.padRight(_padRight),
+                              content: inspection.homeCondition.uninhabitedHouse
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Vivienda focos'.padRight(_padRight),
+                              content: inspection
+                                  .homeCondition.housingSpotlights
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Vivienda tratada con abte'.padRight(
+                                _padRight,
                               ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Pupas'.padRight(
-                                  _padRight,
-                                ),
-                                content:
-                                    inspection.aegyptiFocus.pupae.toString(),
+                              content: inspection.homeCondition.treatedHousing
+                                  .toString(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expander(
+                        header: Text(
+                          'Tipo de recipientes',
+                          style: FluentTheme.of(context).typography.bodyLarge,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextScrollDetails(
+                              title: 'Tanque elevado'.padRight(_padRight),
+                              content:
+                                  'I=${inspection.typeContainers.elevatedTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.elevatedTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.elevatedTank.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Tanque bajo, pozos'.padRight(
+                                _padRight,
                               ),
-                              const SizedBox(height: 2.5),
-                              TextScrollDetails(
-                                title: 'Adulto'.padRight(
-                                  _padRight,
-                                ),
-                                content:
-                                    inspection.aegyptiFocus.adult.toString(),
+                              content:
+                                  'I=${inspection.typeContainers.lowTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.lowTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.lowTank.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Barril, cilindro sanson'.padRight(
+                                _padRight,
                               ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          child: TextScrollDetails(
-                            title: 'Larvicida (grs)'.padRight(_padRight),
-                            content: inspection.larvicide.toStringAsFixed(3),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          child: TextScrollDetails(
-                            title: 'Fecha y hora'.padRight(_padRight),
-                            content:
-                                '${inspection.dateTime.date} ${inspection.dateTime.time}',
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          child: TextScrollDetails(
-                            title: 'Latitud y longitud'.padRight(_padRight),
-                            content:
-                                '${inspection.latitude.toStringAsFixed(5)}, ${inspection.longitude.toStringAsFixed(5)}',
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 18,
-                            vertical: 10,
-                          ),
-                          child: TextScrollDetails(
-                            title: 'Comentario'.padRight(_padRight),
-                            content: inspection.comment,
-                          ),
-                        ),
-                        Expander(
-                          header: Text(
-                            'Fotografía',
-                            style: FluentTheme.of(context).typography.bodyLarge,
-                          ),
-                          content: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: Image.network(
-                                  inspection.photoUrl,
-                                  fit: BoxFit.contain,
-                                  loadingBuilder: (
-                                    context,
-                                    child,
-                                    loadingProgress,
-                                  ) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    }
-                                    return const Center(
-                                      child: ProgressRing(),
-                                    );
-                                  },
-                                  errorBuilder: (
-                                    context,
-                                    error,
-                                    stackTrace,
-                                  ) {
-                                    return Image.asset(
-                                      'assets/images/no-image.png',
-                                    );
-                                  },
-                                ),
+                              content:
+                                  'I=${inspection.typeContainers.cylinderBarrel.i.toString().padLeft(2)}, P=${inspection.typeContainers.cylinderBarrel.p.toString().padLeft(2)}, T=${inspection.typeContainers.cylinderBarrel.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Balde, abtea, tina'.padRight(
+                                _padRight,
                               ),
-                            ],
-                          ),
+                              content:
+                                  'I=${inspection.typeContainers.bucketTub.i.toString().padLeft(2)}, P=${inspection.typeContainers.bucketTub.p.toString().padLeft(2)}, T=${inspection.typeContainers.bucketTub.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Llanta'.padRight(_padRight),
+                              content:
+                                  'I=${inspection.typeContainers.tire.i.toString().padLeft(2)}, P=${inspection.typeContainers.tire.p.toString().padLeft(2)}, T=${inspection.typeContainers.tire.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Florero, maceta'.padRight(
+                                _padRight,
+                              ),
+                              content:
+                                  'I=${inspection.typeContainers.flower.i.toString().padLeft(2)}, P=${inspection.typeContainers.flower.p.toString().padLeft(2)}, T=${inspection.typeContainers.flower.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Inservibles'.padRight(_padRight),
+                              content:
+                                  'I=${inspection.typeContainers.useless.i.toString().padLeft(2)}, P=${inspection.typeContainers.useless.p.toString().padLeft(2)}, T=${inspection.typeContainers.useless.t.toString().padLeft(2)}',
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Otros'.padRight(_padRight),
+                              content:
+                                  'I=${inspection.typeContainers.others.i.toString().padLeft(2)}, P=${inspection.typeContainers.others.p.toString().padLeft(2)}, T=${inspection.typeContainers.others.t.toString().padLeft(2)}',
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      Expander(
+                        header: Text(
+                          'Total de recipiente',
+                          style: FluentTheme.of(context).typography.bodyLarge,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextScrollDetails(
+                              title: 'Recipientes inspeccionados'
+                                  .padRight(_padRight),
+                              content: inspection
+                                  .totalContainer.inspectedContainers
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Recipientes focos'.padRight(
+                                _padRight,
+                              ),
+                              content: inspection
+                                  .totalContainer.containersSpotlights
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Recipientes tratados'.padRight(
+                                _padRight,
+                              ),
+                              content: inspection
+                                  .totalContainer.treatedContainers
+                                  .toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Recipientes destruidos'.padRight(
+                                _padRight,
+                              ),
+                              content: inspection
+                                  .totalContainer.destroyedContainers
+                                  .toString(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expander(
+                        header: Text(
+                          'Foco de A. aegypti',
+                          style: FluentTheme.of(context).typography.bodyLarge,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextScrollDetails(
+                              title: 'Larvas'.padRight(_padRight),
+                              content:
+                                  inspection.aegyptiFocus.larvae.toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Pupas'.padRight(
+                                _padRight,
+                              ),
+                              content: inspection.aegyptiFocus.pupae.toString(),
+                            ),
+                            const SizedBox(height: 2.5),
+                            TextScrollDetails(
+                              title: 'Adulto'.padRight(
+                                _padRight,
+                              ),
+                              content: inspection.aegyptiFocus.adult.toString(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
+                        ),
+                        child: TextScrollDetails(
+                          title: 'Larvicida (grs)'.padRight(_padRight),
+                          content: inspection.larvicide.toStringAsFixed(3),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
+                        ),
+                        child: TextScrollDetails(
+                          title: 'Fecha y hora'.padRight(_padRight),
+                          content:
+                              '${inspection.dateTime.date} ${inspection.dateTime.time}',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
+                        ),
+                        child: TextScrollDetails(
+                          title: 'Latitud y longitud'.padRight(_padRight),
+                          content:
+                              '${inspection.latitude.toStringAsFixed(5)}, ${inspection.longitude.toStringAsFixed(5)}',
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 10,
+                        ),
+                        child: TextScrollDetails(
+                          title: 'Comentario'.padRight(_padRight),
+                          content: inspection.comment,
+                        ),
+                      ),
+                      Expander(
+                        header: Text(
+                          'Fotografía',
+                          style: FluentTheme.of(context).typography.bodyLarge,
+                        ),
+                        content: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Image.network(
+                                inspection.photoUrl,
+                                fit: BoxFit.contain,
+                                loadingBuilder: (
+                                  context,
+                                  child,
+                                  loadingProgress,
+                                ) {
+                                  if (loadingProgress == null) {
+                                    return child;
+                                  }
+                                  return const Center(
+                                    child: ProgressRing(),
+                                  );
+                                },
+                                errorBuilder: (
+                                  context,
+                                  error,
+                                  stackTrace,
+                                ) {
+                                  return Image.asset(
+                                    'assets/images/no-image.png',
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  right: 10,
-                  bottom: 10,
-                  child: SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: FilledButton(
-                      onPressed: inspectionCubit.closeSelectedInspection,
-                      child: const Icon(FluentIcons.chrome_close),
-                    ),
+              ),
+              Positioned(
+                right: 10,
+                bottom: 10,
+                child: SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: FilledButton(
+                    onPressed: inspectionCubit.closeSelectedInspection,
+                    child: const Icon(FluentIcons.chrome_close),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
