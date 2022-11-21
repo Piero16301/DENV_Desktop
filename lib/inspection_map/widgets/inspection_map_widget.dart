@@ -112,15 +112,18 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                   label: SizedBox(
                     width: 150,
                     child: TextBox(
-                      placeholder: 'Días de búsqueda',
-                      onChanged: (value) {},
+                      placeholder: 'Días de antigüedad',
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) => context
+                          .read<InspectionMapCubit>()
+                          .changeDaysBeforeToDisplay,
                     ),
                   ),
                   onPressed: () {},
                 ),
                 CommandBarButton(
-                  icon: const Icon(FluentIcons.sync),
-                  label: Text(l10n.inspectionTableUpdateText),
+                  icon: const Icon(FluentIcons.send),
+                  label: const Text('Aplicar cambios'),
                   onPressed: () {},
                 ),
               ],

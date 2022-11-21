@@ -33,6 +33,7 @@ class InspectionMapState extends Equatable {
     this.centerLatitude = 0,
     this.centerLongitude = 0,
     this.bingUrlTemplate = '',
+    this.daysBeforeToDisplay = 0,
     this.selectedInspectionStatus = SelectedInspectionStatus.initial,
     this.selectedInspection,
   });
@@ -44,6 +45,7 @@ class InspectionMapState extends Equatable {
   final double centerLatitude;
   final double centerLongitude;
   final String bingUrlTemplate;
+  final int daysBeforeToDisplay;
 
   final SelectedInspectionStatus selectedInspectionStatus;
   final HomeInspectionDetailed? selectedInspection;
@@ -57,6 +59,7 @@ class InspectionMapState extends Equatable {
         centerLatitude,
         centerLongitude,
         bingUrlTemplate,
+        daysBeforeToDisplay,
         selectedInspectionStatus,
         selectedInspection,
       ];
@@ -69,6 +72,7 @@ class InspectionMapState extends Equatable {
     double? centerLatitude,
     double? centerLongitude,
     String? bingUrlTemplate,
+    int? daysBeforeToDisplay,
     SelectedInspectionStatus? selectedInspectionStatus,
     HomeInspectionDetailed? selectedInspection,
   }) {
@@ -81,6 +85,7 @@ class InspectionMapState extends Equatable {
       centerLatitude: centerLatitude ?? this.centerLatitude,
       centerLongitude: centerLongitude ?? this.centerLongitude,
       bingUrlTemplate: bingUrlTemplate ?? this.bingUrlTemplate,
+      daysBeforeToDisplay: daysBeforeToDisplay ?? this.daysBeforeToDisplay,
       selectedInspectionStatus:
           selectedInspectionStatus ?? this.selectedInspectionStatus,
       selectedInspection: selectedInspection ?? this.selectedInspection,

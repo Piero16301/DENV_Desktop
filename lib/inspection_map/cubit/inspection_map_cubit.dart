@@ -57,6 +57,14 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
     }
   }
 
+  Future<void> changeDaysBeforeToDisplay(String days) async {
+    emit(
+      state.copyWith(
+        daysBeforeToDisplay: int.tryParse(days) ?? 0,
+      ),
+    );
+  }
+
   Future<List<HomeInspectionSummarized>> updateHomeInspections() async {
     try {
       final bufferHomeInspections =
