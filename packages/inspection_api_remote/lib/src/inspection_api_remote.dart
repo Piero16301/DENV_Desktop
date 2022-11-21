@@ -23,8 +23,8 @@ class InspectionApiRemote implements IInspectionApiRemote {
         queryParameters: {
           'startDate': DateTime.now()
               .subtract(const Duration(days: 15))
-              .toIso8601String(),
-          'endDate': DateTime.now().toIso8601String(),
+              .toBackendString(),
+          'endDate': DateTime.now().toBackendString(),
         },
       );
       if (response.statusCode != 200) throw Exception();
@@ -54,8 +54,8 @@ class InspectionApiRemote implements IInspectionApiRemote {
         queryParameters: {
           'startDate': DateTime.now()
               .subtract(const Duration(days: 15))
-              .toIso8601String(),
-          'endDate': DateTime.now().toIso8601String(),
+              .toBackendString(),
+          'endDate': DateTime.now().toBackendString(),
         },
       );
       if (response.statusCode != 200) throw Exception();
@@ -104,5 +104,11 @@ class InspectionApiRemote implements IInspectionApiRemote {
     } on DioError catch (e) {
       throw Exception(e);
     }
+  }
+}
+
+extension on DateTime {
+  String toBackendString() {
+    return '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}T${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}.000000';
   }
 }
