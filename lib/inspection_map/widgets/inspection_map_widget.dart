@@ -102,34 +102,34 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
     return ScaffoldPage(
       header: PageHeader(
         title: Text(l10n.inspectionMapAppBarTitle),
-        commandBar: Expanded(
-          child: CommandBarCard(
-            child: CommandBar(
-              overflowBehavior: CommandBarOverflowBehavior.scrolling,
-              primaryItems: [
-                CommandBarButton(
-                  icon: const Icon(FluentIcons.number_field),
-                  label: SizedBox(
-                    width: 150,
-                    child: TextBox(
-                      placeholder: 'Días de antigüedad',
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) => context
-                          .read<InspectionMapCubit>()
-                          .changeDaysBeforeToDisplay,
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-                CommandBarButton(
-                  icon: const Icon(FluentIcons.send),
-                  label: const Text('Aplicar cambios'),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-        ),
+        // commandBar: Expanded(
+        //   child: CommandBarCard(
+        //     child: CommandBar(
+        //       overflowBehavior: CommandBarOverflowBehavior.scrolling,
+        //       primaryItems: [
+        //         CommandBarButton(
+        //           icon: const Icon(FluentIcons.number_field),
+        //           label: SizedBox(
+        //             width: 150,
+        //             child: TextBox(
+        //               placeholder: 'Días de antigüedad',
+        //               keyboardType: TextInputType.number,
+        //               onChanged: (value) => context
+        //                   .read<InspectionMapCubit>()
+        //                   .changeDaysBeforeToDisplay,
+        //             ),
+        //           ),
+        //           onPressed: () {},
+        //         ),
+        //         CommandBarButton(
+        //           icon: const Icon(FluentIcons.send),
+        //           label: const Text('Aplicar cambios'),
+        //           onPressed: () {},
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
       ),
       content: Row(
         children: [
