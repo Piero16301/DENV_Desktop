@@ -16,11 +16,11 @@ class TotalContainer extends Equatable {
     required this.destroyedContainers,
   });
 
-  /// Crea una instancia de [TotalContainer] a partir de un [json]
+  /// Crea una instancia de [TotalContainer] a partir de un [Map]
   factory TotalContainer.fromJson(Map<String, dynamic> json) =>
       _$TotalContainerFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [TotalContainer]
+  /// Crea un [Map] a partir de una instancia de [TotalContainer]
   Map<String, dynamic> toJson() => _$TotalContainerToJson(this);
 
   /// Contenedores inspecionados

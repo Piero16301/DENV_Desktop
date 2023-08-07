@@ -15,11 +15,11 @@ class Useless extends Equatable {
     required this.t,
   });
 
-  /// Crea una instancia de [Useless] a partir de un [json]
+  /// Crea una instancia de [Useless] a partir de un [Map]
   factory Useless.fromJson(Map<String, dynamic> json) =>
       _$UselessFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [Useless]
+  /// Crea un [Map] a partir de una instancia de [Useless]
   Map<String, dynamic> toJson() => _$UselessToJson(this);
 
   /// i

@@ -15,11 +15,11 @@ class CylinderBarrel extends Equatable {
     required this.t,
   });
 
-  /// Crea una instancia de [CylinderBarrel] a partir de un [json]
+  /// Crea una instancia de [CylinderBarrel] a partir de un [Map]
   factory CylinderBarrel.fromJson(Map<String, dynamic> json) =>
       _$CylinderBarrelFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [CylinderBarrel]
+  /// Crea un [Map] a partir de una instancia de [CylinderBarrel]
   Map<String, dynamic> toJson() => _$CylinderBarrelToJson(this);
 
   /// i

@@ -126,11 +126,11 @@ class ExportPdfButton extends StatelessWidget {
     // document.pageSettings.rotate = PdfPageRotateAngle.rotateAngle90;
     final bytes = document.saveSync();
     final bytesExport = Uint8List.fromList(bytes);
-    const mimeType = MimeType.PDF;
+    const mimeType = MimeType.pdf;
     final path = await FileSaver.instance.saveFile(
-      'Reporte de inspecciones',
-      bytesExport,
-      'pdf',
+      name: 'Reporte de inspecciones',
+      bytes: bytesExport,
+      ext: 'pdf',
       mimeType: mimeType,
     );
     document.dispose();

@@ -15,11 +15,11 @@ class ElevatedTank extends Equatable {
     required this.t,
   });
 
-  /// Crea una instancia de [ElevatedTank] a partir de un [json]
+  /// Crea una instancia de [ElevatedTank] a partir de un [Map]
   factory ElevatedTank.fromJson(Map<String, dynamic> json) =>
       _$ElevatedTankFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [ElevatedTank]
+  /// Crea un [Map] a partir de una instancia de [ElevatedTank]
   Map<String, dynamic> toJson() => _$ElevatedTankToJson(this);
 
   /// i

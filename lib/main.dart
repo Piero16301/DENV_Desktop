@@ -17,8 +17,9 @@ void main() {
     final httpClient = Dio(
       BaseOptions(
         baseUrl: dotenv.get('BACKEND_URL'),
-        connectTimeout: 3000,
-        receiveTimeout: 3000,
+        connectTimeout: const Duration(seconds: 3),
+        receiveTimeout: const Duration(seconds: 3),
+        sendTimeout: const Duration(seconds: 3),
       ),
     );
 

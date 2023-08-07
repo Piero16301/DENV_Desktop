@@ -15,11 +15,11 @@ class AegyptiFocus extends Equatable {
     required this.adult,
   });
 
-  /// Crea una instancia de [AegyptiFocus] a partir de un [json]
+  /// Crea una instancia de [AegyptiFocus] a partir de un [Map]
   factory AegyptiFocus.fromJson(Map<String, dynamic> json) =>
       _$AegyptiFocusFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [AegyptiFocus]
+  /// Crea un [Map] a partir de una instancia de [AegyptiFocus]
   Map<String, dynamic> toJson() => _$AegyptiFocusToJson(this);
 
   /// Larvas de aegypti

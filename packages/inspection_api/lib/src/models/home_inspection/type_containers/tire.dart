@@ -15,10 +15,10 @@ class Tire extends Equatable {
     required this.t,
   });
 
-  /// Crea una instancia de [Tire] a partir de un [json]
+  /// Crea una instancia de [Tire] a partir de un [Map]
   factory Tire.fromJson(Map<String, dynamic> json) => _$TireFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [Tire]
+  /// Crea un [Map] a partir de una instancia de [Tire]
   Map<String, dynamic> toJson() => _$TireToJson(this);
 
   /// i

@@ -14,7 +14,9 @@ class AppView extends StatelessWidget {
       builder: (context, state) {
         return FluentApp(
           debugShowCheckedModeBanner: false,
-          theme: state.isDarkMode ? ThemeData.dark() : ThemeData.light(),
+          theme: state.isDarkMode
+              ? FluentThemeData.dark()
+              : FluentThemeData.light(),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

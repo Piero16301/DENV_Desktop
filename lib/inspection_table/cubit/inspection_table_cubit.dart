@@ -106,11 +106,11 @@ class InspectionTableCubit extends Cubit<InspectionTableState> {
       final sheets = workbook.saveAsStream();
       workbook.dispose();
       final data = Uint8List.fromList(sheets);
-      const mimeType = MimeType.MICROSOFTEXCEL;
+      const mimeType = MimeType.microsoftExcel;
       final path = await FileSaver.instance.saveFile(
-        'Reporte de inspecciones',
-        data,
-        'xlsx',
+        name: 'Reporte de inspecciones',
+        bytes: data,
+        ext: 'xlsx',
         mimeType: mimeType,
       );
       debugPrint('File saved to $path');

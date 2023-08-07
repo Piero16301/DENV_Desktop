@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:inspection_api/inspection_api.dart';
@@ -38,7 +40,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
           )
           .toList();
       return inspections;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint('debug: DioError: ${e.message}');
       throw Exception(e);
     }
@@ -69,7 +71,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
           )
           .toList();
       return inspections;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception(e);
     }
   }
@@ -82,7 +84,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
         data: homeInspection.toJson(),
       );
       if (response.statusCode != 200) throw Exception();
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception(e);
     }
   }
@@ -101,7 +103,7 @@ class InspectionApiRemote implements IInspectionApiRemote {
       final inspectionJson = response.data?['data'] as Map<String, dynamic>;
       final inspection = HomeInspectionDetailed.fromJson(inspectionJson);
       return inspection;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception(e);
     }
   }

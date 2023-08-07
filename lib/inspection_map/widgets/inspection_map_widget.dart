@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'dart:async';
 
 import 'package:denv_desktop/app/app.dart';
@@ -360,8 +362,8 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                     padding: const EdgeInsets.only(right: 25, bottom: 25),
                     child: Card(
                       borderRadius: BorderRadius.circular(10),
-                      child: Stack(
-                        children: const [
+                      child: const Stack(
+                        children: [
                           SizedBox(
                             height: double.infinity,
                             child: Center(
@@ -385,8 +387,8 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                     padding: const EdgeInsets.only(right: 25, bottom: 25),
                     child: Card(
                       borderRadius: BorderRadius.circular(10),
-                      child: Stack(
-                        children: const [
+                      child: const Stack(
+                        children: [
                           SizedBox(
                             height: double.infinity,
                             child: Center(

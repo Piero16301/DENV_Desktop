@@ -27,11 +27,11 @@ class HomeInspectionDetailed extends Equatable {
     required this.larvicide,
   });
 
-  /// Crea una instancia de [HomeInspectionDetailed] a partir de un [json]
+  /// Crea una instancia de [HomeInspectionDetailed] a partir de un [Map]
   factory HomeInspectionDetailed.fromJson(Map<String, dynamic> json) =>
       _$HomeInspectionDetailedFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [HomeInspectionDetailed]
+  /// Crea un [Map] a partir de una instancia de [HomeInspectionDetailed]
   Map<String, dynamic> toJson() => _$HomeInspectionDetailedToJson(this);
 
   /// Id de la inspección

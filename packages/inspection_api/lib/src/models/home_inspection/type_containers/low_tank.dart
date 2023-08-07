@@ -15,11 +15,11 @@ class LowTank extends Equatable {
     required this.t,
   });
 
-  /// Crea una instancia de [LowTank] a partir de un [json]
+  /// Crea una instancia de [LowTank] a partir de un [Map]
   factory LowTank.fromJson(Map<String, dynamic> json) =>
       _$LowTankFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [LowTank]
+  /// Crea un [Map] a partir de una instancia de [LowTank]
   Map<String, dynamic> toJson() => _$LowTankToJson(this);
 
   /// i

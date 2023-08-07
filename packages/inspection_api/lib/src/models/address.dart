@@ -23,11 +23,11 @@ class Address extends Equatable {
     required this.streetNumber,
   });
 
-  /// Crea una instancia de [Address] a partir de un [json]
+  /// Crea una instancia de [Address] a partir de un [Map]
   factory Address.fromJson(Map<String, dynamic> json) =>
       _$AddressFromJson(json);
 
-  /// Crea un [json] a partir de una instancia de [Address]
+  /// Crea un [Map] a partir de una instancia de [Address]
   Map<String, dynamic> toJson() => _$AddressToJson(this);
 
   /// Dirección formateada
