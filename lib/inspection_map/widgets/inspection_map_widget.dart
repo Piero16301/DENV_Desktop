@@ -14,11 +14,11 @@ import 'package:text_scroll/text_scroll.dart';
 
 class InspectionMapWidget extends StatefulWidget {
   const InspectionMapWidget({
-    super.key,
     required this.homeInspections,
     required this.centerLatitude,
     required this.centerLongitude,
     required this.isDarkMode,
+    super.key,
   });
 
   final List<HomeInspectionSummarized> homeInspections;
@@ -412,10 +412,10 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
 
 class HomeInspectionDetailsPanel extends StatelessWidget {
   const HomeInspectionDetailsPanel({
-    super.key,
     required this.isDarkMode,
     required int padRight,
     required this.inspection,
+    super.key,
   }) : _padRight = padRight;
 
   final bool isDarkMode;
@@ -824,9 +824,9 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
 
 class TextScrollDetails extends StatelessWidget {
   const TextScrollDetails({
-    super.key,
     required this.title,
     required this.content,
+    super.key,
   });
 
   final String title;

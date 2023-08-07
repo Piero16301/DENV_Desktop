@@ -7,8 +7,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class ExportExcelButton extends StatelessWidget {
   const ExportExcelButton({
-    super.key,
     required this.dataGridKey,
+    super.key,
   });
 
   final GlobalKey<SfDataGridState> dataGridKey;

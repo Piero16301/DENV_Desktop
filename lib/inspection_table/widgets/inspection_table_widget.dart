@@ -7,8 +7,8 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class InspectionTableWidget extends StatelessWidget {
   InspectionTableWidget({
-    super.key,
     required this.homeInspections,
+    super.key,
   });
 
   final List<HomeInspectionDetailed> homeInspections;

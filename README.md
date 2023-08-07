@@ -21,31 +21,17 @@ This project contains 3 flavors:
 To run the desired flavor either use the launch configuration in VSCode/Android Studio or use the following commands:
 
 ```sh
+# Development
+$ flutter run --flavor development --target lib/main_development.dart
+
+# Staging
+$ flutter run --flavor staging --target lib/main_staging.dart
+
 # Production
 $ flutter run --flavor production --target lib/main_production.dart
 ```
 
-_\*Denv Desktop works on Web, Linux, MacOS and Windows._
-
----
-
-## Compile production app 🏗
-
-To compile the production app, run the following command:
-
-```sh
-# Compile for Windows
-$ flutter build windows --target lib/main_production.dart
-
-# Compile for Linux
-$ flutter build linux --target lib/main_production.dart
-
-# Compile for MacOS
-$ flutter build macos --target lib/main_production.dart
-
-# Compile for Web
-$ flutter build web --target lib/main_production.dart
-```
+_\*Denv Desktop works on iOS, Android, Web, and Windows._
 
 ---
 

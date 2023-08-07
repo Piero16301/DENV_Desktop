@@ -9,8 +9,8 @@ import 'package:syncfusion_flutter_pdf/pdf.dart';
 
 class ExportPdfButton extends StatelessWidget {
   const ExportPdfButton({
-    super.key,
     required this.dataGridKey,
+    super.key,
   });
 
   final GlobalKey<SfDataGridState> dataGridKey;

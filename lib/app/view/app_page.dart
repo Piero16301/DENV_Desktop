@@ -6,9 +6,9 @@ import 'package:local_repository/local_repository.dart';
 
 class AppPage extends StatelessWidget {
   const AppPage({
-    super.key,
     required InspectionRepository inspectionRepository,
     required LocalRepository localRepository,
+    super.key,
   })  : _inspectionRepository = inspectionRepository,
         _localRepository = localRepository;
 
