@@ -10,6 +10,7 @@ part 'aegypti_focus.g.dart';
 class AegyptiFocus extends Equatable {
   /// {@macro aegypti_focus}
   const AegyptiFocus({
+    required this.id,
     required this.larvae,
     required this.pupae,
     required this.adult,
@@ -22,6 +23,9 @@ class AegyptiFocus extends Equatable {
   /// Crea un [Map] a partir de una instancia de [AegyptiFocus]
   Map<String, dynamic> toJson() => _$AegyptiFocusToJson(this);
 
+  /// Id del foco de aegypti
+  final int id;
+
   /// Larvas de aegypti
   final int larvae;
 
@@ -33,6 +37,7 @@ class AegyptiFocus extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         larvae,
         pupae,
         adult,

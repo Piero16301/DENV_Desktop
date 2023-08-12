@@ -22,7 +22,7 @@ class HomeInspectionSummarized extends Equatable {
       _$HomeInspectionSummarizedFromJson(json);
 
   /// Identificador de la inspección
-  final String id;
+  final int id;
 
   /// Latitud de la inspección
   final double latitude;
@@ -37,5 +37,11 @@ class HomeInspectionSummarized extends Equatable {
   final String photoUrl;
 
   @override
-  List<Object?> get props => [id, latitude, longitude];
+  List<Object?> get props => [
+        id,
+        latitude,
+        longitude,
+        dateTime,
+        photoUrl,
+      ];
 }

@@ -16,12 +16,10 @@ class InspectionApiRemote implements IInspectionApiRemote {
   final Dio _httpClient;
 
   @override
-  Future<List<HomeInspectionDetailed>> getHomeInspectionsDetailed(
-    int skip,
-  ) async {
+  Future<List<HomeInspectionDetailed>> getHomeInspectionsDetailed() async {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
-        '/home-inspections-detailed/$skip',
+        '/home-inspections/detailed',
         queryParameters: {
           'startDate': DateTime.now()
               .subtract(const Duration(days: 15))
@@ -29,9 +27,11 @@ class InspectionApiRemote implements IInspectionApiRemote {
           'endDate': DateTime.now().toBackendString(),
         },
       );
+
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
       if (response.data?['data'] == null) return [];
+
       final inspectionsJson = response.data?['data'] as List<dynamic>;
       final inspections = inspectionsJson
           .map(
@@ -39,20 +39,22 @@ class InspectionApiRemote implements IInspectionApiRemote {
                 HomeInspectionDetailed.fromJson(json as Map<String, dynamic>),
           )
           .toList();
+
       return inspections;
     } on DioException catch (e) {
       debugPrint('debug: DioError: ${e.message}');
+      throw Exception(e);
+    } catch (e) {
+      debugPrint('debug: Exception: $e');
       throw Exception(e);
     }
   }
 
   @override
-  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized(
-    int skip,
-  ) async {
+  Future<List<HomeInspectionSummarized>> getHomeInspectionSummarized() async {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
-        '/home-inspections-summarized/$skip',
+        '/home-inspections/summarized',
         queryParameters: {
           'startDate': DateTime.now()
               .subtract(const Duration(days: 15))
@@ -60,9 +62,11 @@ class InspectionApiRemote implements IInspectionApiRemote {
           'endDate': DateTime.now().toBackendString(),
         },
       );
+
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
       if (response.data?['data'] == null) return [];
+
       final inspectionsJson = response.data?['data'] as List<dynamic>;
       final inspections = inspectionsJson
           .map(
@@ -70,8 +74,13 @@ class InspectionApiRemote implements IInspectionApiRemote {
                 HomeInspectionSummarized.fromJson(json as Map<String, dynamic>),
           )
           .toList();
+
       return inspections;
     } on DioException catch (e) {
+      debugPrint('debug: DioError: ${e.message}');
+      throw Exception(e);
+    } catch (e) {
+      debugPrint('debug: Exception: $e');
       throw Exception(e);
     }
   }
@@ -95,13 +104,16 @@ class InspectionApiRemote implements IInspectionApiRemote {
   ) async {
     try {
       final response = await _httpClient.get<Map<String, dynamic>>(
-        '/home-inspection/$id',
+        '/home-inspections/$id',
       );
+
       if (response.statusCode != 200) throw Exception();
       if (response.data == null) throw Exception();
       if (response.data?['data'] == null) throw Exception();
+
       final inspectionJson = response.data?['data'] as Map<String, dynamic>;
       final inspection = HomeInspectionDetailed.fromJson(inspectionJson);
+
       return inspection;
     } on DioException catch (e) {
       throw Exception(e);
@@ -111,6 +123,6 @@ class InspectionApiRemote implements IInspectionApiRemote {
 
 extension on DateTime {
   String toBackendString() {
-    return '$year-${month.toString().padLeft(2, '0')}-${day.toString().padLeft(2, '0')}T${hour.toString().padLeft(2, '0')}:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}.000000';
+    return '${day.toString().padLeft(2, '0')}-${month.toString().padLeft(2, '0')}-${year.toString().padLeft(4, '0')}';
   }
 }

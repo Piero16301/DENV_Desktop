@@ -10,6 +10,7 @@ part 'low_tank.g.dart';
 class LowTank extends Equatable {
   /// {@macro elevated_tank}
   const LowTank({
+    required this.id,
     required this.i,
     required this.p,
     required this.t,
@@ -22,6 +23,9 @@ class LowTank extends Equatable {
   /// Crea un [Map] a partir de una instancia de [LowTank]
   Map<String, dynamic> toJson() => _$LowTankToJson(this);
 
+  /// Id del tanque bajo
+  final int id;
+
   /// i
   final int i;
 
@@ -33,6 +37,7 @@ class LowTank extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         i,
         p,
         t,

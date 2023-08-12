@@ -10,6 +10,7 @@ part 'address.g.dart';
 class Address extends Equatable {
   /// {@macro address}
   const Address({
+    required this.id,
     required this.formattedAddress,
     required this.postalCode,
     required this.country,
@@ -29,6 +30,9 @@ class Address extends Equatable {
 
   /// Crea un [Map] a partir de una instancia de [Address]
   Map<String, dynamic> toJson() => _$AddressToJson(this);
+
+  /// Id de la dirección
+  final int id;
 
   /// Dirección formateada
   final String formattedAddress;
@@ -58,13 +62,14 @@ class Address extends Equatable {
   final String block;
 
   /// Lote
-  final int lot;
+  final String lot;
 
   /// Número
-  final int streetNumber;
+  final String streetNumber;
 
   @override
   List<Object?> get props => [
+        id,
         formattedAddress,
         postalCode,
         country,

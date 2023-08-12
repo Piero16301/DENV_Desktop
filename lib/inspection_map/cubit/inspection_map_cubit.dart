@@ -16,7 +16,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
     emit(state.copyWith(status: InspectionMapStatus.loading));
     try {
       final homeInspections =
-          await _inspectionRepository.getHomeInspectionSummarized(0);
+          await _inspectionRepository.getHomeInspectionSummarized();
       final mapType = isDarkMode ? 'CanvasDark' : 'CanvasLight';
       final bingUrlTemplate = await getBingUrlTemplate(
         'https://dev.virtualearth.net/REST/V1/Imagery/Metadata/$mapType?output=json&uriScheme=https&include=ImageryProviders&key=gKFcszH8QtTWZm2GzcK5~yzuCkObRWRXGBYVgmFKSmg~Ap0qOUWHnFqU8zP5N2483-pbxSPK0mVvvqeYUi2t5EDf9Ao_QZEsh7eItuQ-fLdh',
@@ -68,9 +68,7 @@ class InspectionMapCubit extends Cubit<InspectionMapState> {
   Future<List<HomeInspectionSummarized>> updateHomeInspections() async {
     try {
       final bufferHomeInspections =
-          await _inspectionRepository.getHomeInspectionSummarized(
-        state.homeInspections.length,
-      );
+          await _inspectionRepository.getHomeInspectionSummarized();
       emit(
         state.copyWith(
           bufferHomeInspections: bufferHomeInspections,

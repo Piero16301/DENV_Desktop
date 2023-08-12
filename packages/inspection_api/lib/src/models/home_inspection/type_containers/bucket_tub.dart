@@ -10,6 +10,7 @@ part 'bucket_tub.g.dart';
 class BucketTub extends Equatable {
   /// {@macro elevated_tank}
   const BucketTub({
+    required this.id,
     required this.i,
     required this.p,
     required this.t,
@@ -22,6 +23,9 @@ class BucketTub extends Equatable {
   /// Crea un [Map] a partir de una instancia de [BucketTub]
   Map<String, dynamic> toJson() => _$BucketTubToJson(this);
 
+  /// Id del tubo de cubeta
+  final int id;
+
   /// i
   final int i;
 
@@ -33,6 +37,7 @@ class BucketTub extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         i,
         p,
         t,

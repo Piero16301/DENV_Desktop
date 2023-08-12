@@ -279,8 +279,9 @@ class _InspectionMapWidgetState extends State<InspectionMapWidget>
                                   onTap: () async {
                                     await inspectionCubit
                                         .getSelectedInspectionDetails(
-                                      inspectionId:
-                                          widget.homeInspections[index].id,
+                                      inspectionId: widget
+                                          .homeInspections[index].id
+                                          .toString(),
                                     );
                                     _zoomPanBehavior
                                       ..focalLatLng = MapLatLng(
@@ -494,8 +495,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
                               title: 'Número'.padRight(_padRight),
-                              content:
-                                  inspection.address.streetNumber.toString(),
+                              content: inspection.address.streetNumber,
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
@@ -510,7 +510,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
                               title: 'Lote'.padRight(_padRight),
-                              content: inspection.address.lot.toString(),
+                              content: inspection.address.lot,
                             ),
                           ],
                         ),
@@ -549,7 +549,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
                               title: 'Vivienda cerrada'.padRight(_padRight),
-                              content: inspection.homeCondition.closedHome
+                              content: inspection.homeCondition.closedHouse
                                   .toString(),
                             ),
                             const SizedBox(height: 2.5),
@@ -587,7 +587,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                             TextScrollDetails(
                               title: 'Tanque elevado'.padRight(_padRight),
                               content:
-                                  'I=${inspection.typeContainers.elevatedTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.elevatedTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.elevatedTank.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.elevatedTank.i.toString().padLeft(2)}, P=${inspection.typeContainer.elevatedTank.p.toString().padLeft(2)}, T=${inspection.typeContainer.elevatedTank.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
@@ -595,7 +595,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                                 _padRight,
                               ),
                               content:
-                                  'I=${inspection.typeContainers.lowTank.i.toString().padLeft(2)}, P=${inspection.typeContainers.lowTank.p.toString().padLeft(2)}, T=${inspection.typeContainers.lowTank.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.lowTank.i.toString().padLeft(2)}, P=${inspection.typeContainer.lowTank.p.toString().padLeft(2)}, T=${inspection.typeContainer.lowTank.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
@@ -603,7 +603,7 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                                 _padRight,
                               ),
                               content:
-                                  'I=${inspection.typeContainers.cylinderBarrel.i.toString().padLeft(2)}, P=${inspection.typeContainers.cylinderBarrel.p.toString().padLeft(2)}, T=${inspection.typeContainers.cylinderBarrel.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.cylinderBarrel.i.toString().padLeft(2)}, P=${inspection.typeContainer.cylinderBarrel.p.toString().padLeft(2)}, T=${inspection.typeContainer.cylinderBarrel.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
@@ -611,13 +611,13 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                                 _padRight,
                               ),
                               content:
-                                  'I=${inspection.typeContainers.bucketTub.i.toString().padLeft(2)}, P=${inspection.typeContainers.bucketTub.p.toString().padLeft(2)}, T=${inspection.typeContainers.bucketTub.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.bucketTub.i.toString().padLeft(2)}, P=${inspection.typeContainer.bucketTub.p.toString().padLeft(2)}, T=${inspection.typeContainer.bucketTub.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
                               title: 'Llanta'.padRight(_padRight),
                               content:
-                                  'I=${inspection.typeContainers.tire.i.toString().padLeft(2)}, P=${inspection.typeContainers.tire.p.toString().padLeft(2)}, T=${inspection.typeContainers.tire.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.tire.i.toString().padLeft(2)}, P=${inspection.typeContainer.tire.p.toString().padLeft(2)}, T=${inspection.typeContainer.tire.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
@@ -625,19 +625,19 @@ class HomeInspectionDetailsPanel extends StatelessWidget {
                                 _padRight,
                               ),
                               content:
-                                  'I=${inspection.typeContainers.flower.i.toString().padLeft(2)}, P=${inspection.typeContainers.flower.p.toString().padLeft(2)}, T=${inspection.typeContainers.flower.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.flower.i.toString().padLeft(2)}, P=${inspection.typeContainer.flower.p.toString().padLeft(2)}, T=${inspection.typeContainer.flower.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
                               title: 'Inservibles'.padRight(_padRight),
                               content:
-                                  'I=${inspection.typeContainers.useless.i.toString().padLeft(2)}, P=${inspection.typeContainers.useless.p.toString().padLeft(2)}, T=${inspection.typeContainers.useless.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.useless.i.toString().padLeft(2)}, P=${inspection.typeContainer.useless.p.toString().padLeft(2)}, T=${inspection.typeContainer.useless.t.toString().padLeft(2)}',
                             ),
                             const SizedBox(height: 2.5),
                             TextScrollDetails(
                               title: 'Otros'.padRight(_padRight),
                               content:
-                                  'I=${inspection.typeContainers.others.i.toString().padLeft(2)}, P=${inspection.typeContainers.others.p.toString().padLeft(2)}, T=${inspection.typeContainers.others.t.toString().padLeft(2)}',
+                                  'I=${inspection.typeContainer.others.i.toString().padLeft(2)}, P=${inspection.typeContainer.others.p.toString().padLeft(2)}, T=${inspection.typeContainer.others.t.toString().padLeft(2)}',
                             ),
                           ],
                         ),

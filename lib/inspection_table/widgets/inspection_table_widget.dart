@@ -490,7 +490,7 @@ class InspectionTableDatagrid extends DataGridSource {
               ),
               DataGridCell(
                 columnName: 'closedHome',
-                value: e.homeCondition.closedHome,
+                value: e.homeCondition.closedHouse,
               ),
               DataGridCell(
                 columnName: 'uninhabitedHouse',
@@ -506,99 +506,99 @@ class InspectionTableDatagrid extends DataGridSource {
               ),
               DataGridCell(
                 columnName: 'elevatedTankI',
-                value: e.typeContainers.elevatedTank.i,
+                value: e.typeContainer.elevatedTank.i,
               ),
               DataGridCell(
                 columnName: 'elevatedTankP',
-                value: e.typeContainers.elevatedTank.p,
+                value: e.typeContainer.elevatedTank.p,
               ),
               DataGridCell(
                 columnName: 'elevatedTankT',
-                value: e.typeContainers.elevatedTank.t,
+                value: e.typeContainer.elevatedTank.t,
               ),
               DataGridCell(
                 columnName: 'lowTankI',
-                value: e.typeContainers.lowTank.i,
+                value: e.typeContainer.lowTank.i,
               ),
               DataGridCell(
                 columnName: 'lowTankP',
-                value: e.typeContainers.lowTank.p,
+                value: e.typeContainer.lowTank.p,
               ),
               DataGridCell(
                 columnName: 'lowTankT',
-                value: e.typeContainers.lowTank.t,
+                value: e.typeContainer.lowTank.t,
               ),
               DataGridCell(
                 columnName: 'cylinderBarrelI',
-                value: e.typeContainers.cylinderBarrel.i,
+                value: e.typeContainer.cylinderBarrel.i,
               ),
               DataGridCell(
                 columnName: 'cylinderBarrelP',
-                value: e.typeContainers.cylinderBarrel.p,
+                value: e.typeContainer.cylinderBarrel.p,
               ),
               DataGridCell(
                 columnName: 'cylinderBarrelT',
-                value: e.typeContainers.cylinderBarrel.t,
+                value: e.typeContainer.cylinderBarrel.t,
               ),
               DataGridCell(
                 columnName: 'bucketTubI',
-                value: e.typeContainers.bucketTub.i,
+                value: e.typeContainer.bucketTub.i,
               ),
               DataGridCell(
                 columnName: 'bucketTubP',
-                value: e.typeContainers.bucketTub.p,
+                value: e.typeContainer.bucketTub.p,
               ),
               DataGridCell(
                 columnName: 'bucketTubT',
-                value: e.typeContainers.bucketTub.t,
+                value: e.typeContainer.bucketTub.t,
               ),
               DataGridCell(
                 columnName: 'tireI',
-                value: e.typeContainers.tire.i,
+                value: e.typeContainer.tire.i,
               ),
               DataGridCell(
                 columnName: 'tireP',
-                value: e.typeContainers.tire.p,
+                value: e.typeContainer.tire.p,
               ),
               DataGridCell(
                 columnName: 'tireT',
-                value: e.typeContainers.tire.t,
+                value: e.typeContainer.tire.t,
               ),
               DataGridCell(
                 columnName: 'flowerI',
-                value: e.typeContainers.flower.i,
+                value: e.typeContainer.flower.i,
               ),
               DataGridCell(
                 columnName: 'flowerP',
-                value: e.typeContainers.flower.p,
+                value: e.typeContainer.flower.p,
               ),
               DataGridCell(
                 columnName: 'flowerT',
-                value: e.typeContainers.flower.t,
+                value: e.typeContainer.flower.t,
               ),
               DataGridCell(
                 columnName: 'uselessI',
-                value: e.typeContainers.useless.i,
+                value: e.typeContainer.useless.i,
               ),
               DataGridCell(
                 columnName: 'uselessP',
-                value: e.typeContainers.useless.p,
+                value: e.typeContainer.useless.p,
               ),
               DataGridCell(
                 columnName: 'uselessT',
-                value: e.typeContainers.useless.t,
+                value: e.typeContainer.useless.t,
               ),
               DataGridCell(
                 columnName: 'othersI',
-                value: e.typeContainers.others.i,
+                value: e.typeContainer.others.i,
               ),
               DataGridCell(
                 columnName: 'othersP',
-                value: e.typeContainers.others.p,
+                value: e.typeContainer.others.p,
               ),
               DataGridCell(
                 columnName: 'othersT',
-                value: e.typeContainers.others.t,
+                value: e.typeContainer.others.t,
               ),
               DataGridCell(
                 columnName: 'inspectedContainers',

@@ -10,6 +10,7 @@ part 'flower.g.dart';
 class Flower extends Equatable {
   /// {@macro elevated_tank}
   const Flower({
+    required this.id,
     required this.i,
     required this.p,
     required this.t,
@@ -20,6 +21,9 @@ class Flower extends Equatable {
 
   /// Crea un [Map] a partir de una instancia de [Flower]
   Map<String, dynamic> toJson() => _$FlowerToJson(this);
+
+  /// Id del florero
+  final int id;
 
   /// i
   final int i;
@@ -32,6 +36,7 @@ class Flower extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         i,
         p,
         t,

@@ -20,8 +20,8 @@ class HomeInspectionDetailed extends Equatable {
     required this.longitude,
     required this.photoUrl,
     required this.numberInhabitants,
+    required this.typeContainer,
     required this.homeCondition,
-    required this.typeContainers,
     required this.totalContainer,
     required this.aegyptiFocus,
     required this.larvicide,
@@ -35,7 +35,7 @@ class HomeInspectionDetailed extends Equatable {
   Map<String, dynamic> toJson() => _$HomeInspectionDetailedToJson(this);
 
   /// Id de la inspección
-  final String id;
+  final int id;
 
   /// Dirección
   final Address address;
@@ -61,11 +61,11 @@ class HomeInspectionDetailed extends Equatable {
   /// Número de habitantes
   final int numberInhabitants;
 
+  /// Tipo de contenedores
+  final TypeContainer typeContainer;
+
   /// Condición de la vivienda
   final HomeCondition homeCondition;
-
-  /// Tipo de contenedores
-  final TypeContainers typeContainers;
 
   /// Total de contenedores
   final TotalContainer totalContainer;
@@ -87,8 +87,8 @@ class HomeInspectionDetailed extends Equatable {
         longitude,
         photoUrl,
         numberInhabitants,
+        typeContainer,
         homeCondition,
-        typeContainers,
         totalContainer,
         aegyptiFocus,
         larvicide,

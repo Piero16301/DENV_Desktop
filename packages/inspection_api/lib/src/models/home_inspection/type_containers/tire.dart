@@ -10,6 +10,7 @@ part 'tire.g.dart';
 class Tire extends Equatable {
   /// {@macro elevated_tank}
   const Tire({
+    required this.id,
     required this.i,
     required this.p,
     required this.t,
@@ -20,6 +21,9 @@ class Tire extends Equatable {
 
   /// Crea un [Map] a partir de una instancia de [Tire]
   Map<String, dynamic> toJson() => _$TireToJson(this);
+
+  /// Id del llanta
+  final int id;
 
   /// i
   final int i;
@@ -32,6 +36,7 @@ class Tire extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         i,
         p,
         t,

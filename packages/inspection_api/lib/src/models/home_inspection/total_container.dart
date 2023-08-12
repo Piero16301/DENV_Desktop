@@ -10,6 +10,7 @@ part 'total_container.g.dart';
 class TotalContainer extends Equatable {
   /// {@macro total_container}
   const TotalContainer({
+    required this.id,
     required this.inspectedContainers,
     required this.containersSpotlights,
     required this.treatedContainers,
@@ -22,6 +23,9 @@ class TotalContainer extends Equatable {
 
   /// Crea un [Map] a partir de una instancia de [TotalContainer]
   Map<String, dynamic> toJson() => _$TotalContainerToJson(this);
+
+  /// Id del contenedor
+  final int id;
 
   /// Contenedores inspecionados
   final int inspectedContainers;
@@ -37,6 +41,7 @@ class TotalContainer extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         inspectedContainers,
         containersSpotlights,
         treatedContainers,

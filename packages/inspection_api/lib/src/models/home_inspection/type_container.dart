@@ -2,15 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'package:inspection_api/src/models/models.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'type_containers.g.dart';
+part 'type_container.g.dart';
 
 /// {@template type_containers}
 /// Modelo de tipo de contenedores
 /// {@endtemplate}
 @JsonSerializable(createToJson: false)
-class TypeContainers extends Equatable {
+class TypeContainer extends Equatable {
   /// {@macro type_containers}
-  const TypeContainers({
+  const TypeContainer({
+    required this.id,
     required this.elevatedTank,
     required this.lowTank,
     required this.cylinderBarrel,
@@ -21,12 +22,15 @@ class TypeContainers extends Equatable {
     required this.others,
   });
 
-  /// Crea una instancia de [TypeContainers] a partir de un [Map]
-  factory TypeContainers.fromJson(Map<String, dynamic> json) =>
-      _$TypeContainersFromJson(json);
+  /// Crea una instancia de [TypeContainer] a partir de un [Map]
+  factory TypeContainer.fromJson(Map<String, dynamic> json) =>
+      _$TypeContainerFromJson(json);
 
-  /// Crea un [Map] a partir de una instancia de [TypeContainers]
-  Map<String, dynamic> toJson() => _$TypeContainersToJson(this);
+  /// Crea un [Map] a partir de una instancia de [TypeContainer]
+  Map<String, dynamic> toJson() => _$TypeContainerToJson(this);
+
+  /// Id del tipo de contenedor
+  final int id;
 
   /// Tanque elevado
   final ElevatedTank elevatedTank;
@@ -54,6 +58,7 @@ class TypeContainers extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         elevatedTank,
         lowTank,
         cylinderBarrel,

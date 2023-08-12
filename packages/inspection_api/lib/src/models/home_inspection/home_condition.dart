@@ -10,9 +10,10 @@ part 'home_condition.g.dart';
 class HomeCondition extends Equatable {
   /// {@macro home_condition}
   const HomeCondition({
+    required this.id,
     required this.inspectedHome,
     required this.reluctantDwelling,
-    required this.closedHome,
+    required this.closedHouse,
     required this.uninhabitedHouse,
     required this.housingSpotlights,
     required this.treatedHousing,
@@ -25,6 +26,9 @@ class HomeCondition extends Equatable {
   /// Crea un [Map] a partir de una instancia de [HomeCondition]
   Map<String, dynamic> toJson() => _$HomeConditionToJson(this);
 
+  /// Id de la condición de vivienda
+  final int id;
+
   /// Vivienda inspeccionada
   final int inspectedHome;
 
@@ -32,7 +36,7 @@ class HomeCondition extends Equatable {
   final int reluctantDwelling;
 
   /// Vivienda cerrada
-  final int closedHome;
+  final int closedHouse;
 
   /// Vivienda deshabitada
   final int uninhabitedHouse;
@@ -45,9 +49,10 @@ class HomeCondition extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         inspectedHome,
         reluctantDwelling,
-        closedHome,
+        closedHouse,
         uninhabitedHouse,
         housingSpotlights,
         treatedHousing,

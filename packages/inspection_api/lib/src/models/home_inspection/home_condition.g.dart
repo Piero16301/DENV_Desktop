@@ -8,21 +8,23 @@ part of 'home_condition.dart';
 
 HomeCondition _$HomeConditionFromJson(Map<String, dynamic> json) {
   return HomeCondition(
-    inspectedHome: json['inspectedhome'] as int,
-    reluctantDwelling: json['reluctantdwelling'] as int,
-    closedHome: json['closedhome'] as int,
-    uninhabitedHouse: json['uninhabitedhouse'] as int,
-    housingSpotlights: json['housingspotlights'] as int,
-    treatedHousing: json['treatedhousing'] as int,
+    id: json['id'] as int? ?? 0,
+    inspectedHome: json['inspectedHome'] as int? ?? 0,
+    reluctantDwelling: json['reluctantDwelling'] as int? ?? 0,
+    closedHouse: json['closedHouse'] as int? ?? 0,
+    uninhabitedHouse: json['uninhabitedHouse'] as int? ?? 0,
+    housingSpotlights: json['housingSpotlights'] as int? ?? 0,
+    treatedHousing: json['treatedHousing'] as int? ?? 0,
   );
 }
 
 Map<String, dynamic> _$HomeConditionToJson(HomeCondition instance) =>
     <String, dynamic>{
-      'inspectedhome': instance.inspectedHome,
-      'reluctantdwelling': instance.reluctantDwelling,
-      'closedhome': instance.closedHome,
-      'uninhabitedhouse': instance.uninhabitedHouse,
-      'housingspotlights': instance.housingSpotlights,
-      'treatedhousing': instance.treatedHousing,
+      'id': instance.id,
+      'inspectedHome': instance.inspectedHome,
+      'reluctantDwelling': instance.reluctantDwelling,
+      'closedHouse': instance.closedHouse,
+      'uninhabitedHouse': instance.uninhabitedHouse,
+      'housingSpotlights': instance.housingSpotlights,
+      'treatedHousing': instance.treatedHousing,
     };

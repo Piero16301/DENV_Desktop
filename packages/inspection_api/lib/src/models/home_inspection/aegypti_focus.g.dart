@@ -8,14 +8,16 @@ part of 'aegypti_focus.dart';
 
 AegyptiFocus _$AegyptiFocusFromJson(Map<String, dynamic> json) {
   return AegyptiFocus(
-    larvae: json['larvae'] as int,
-    pupae: json['pupae'] as int,
-    adult: json['adult'] as int,
+    id: json['id'] as int? ?? 0,
+    larvae: json['larvae'] as int? ?? 0,
+    pupae: json['pupae'] as int? ?? 0,
+    adult: json['adult'] as int? ?? 0,
   );
 }
 
 Map<String, dynamic> _$AegyptiFocusToJson(AegyptiFocus instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'larvae': instance.larvae,
       'pupae': instance.pupae,
       'adult': instance.adult,

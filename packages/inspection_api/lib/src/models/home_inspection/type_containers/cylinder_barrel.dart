@@ -10,6 +10,7 @@ part 'cylinder_barrel.g.dart';
 class CylinderBarrel extends Equatable {
   /// {@macro elevated_tank}
   const CylinderBarrel({
+    required this.id,
     required this.i,
     required this.p,
     required this.t,
@@ -22,6 +23,9 @@ class CylinderBarrel extends Equatable {
   /// Crea un [Map] a partir de una instancia de [CylinderBarrel]
   Map<String, dynamic> toJson() => _$CylinderBarrelToJson(this);
 
+  /// Id del barril de cilindro
+  final int id;
+
   /// i
   final int i;
 
@@ -33,6 +37,7 @@ class CylinderBarrel extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         i,
         p,
         t,

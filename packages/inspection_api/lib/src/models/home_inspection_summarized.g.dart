@@ -10,10 +10,12 @@ HomeInspectionSummarized _$HomeInspectionSummarizedFromJson(
   Map<String, dynamic> json,
 ) {
   return HomeInspectionSummarized(
-    id: json['id'] as String,
-    latitude: (json['latitude'] as num).toDouble(),
-    longitude: (json['longitude'] as num).toDouble(),
-    dateTime: DateTime.parse(json['datetime'] as String).toLocal(),
-    photoUrl: json['photourl'] as String,
+    id: json['id'] as int? ?? 0,
+    latitude: (json['latitude'] as num?)?.toDouble() ?? 0.0,
+    longitude: (json['longitude'] as num?)?.toDouble() ?? 0.0,
+    dateTime: DateTime.parse(
+      json['datetime'] as String? ?? '0000-00-00T00:00:00-00:00',
+    ).toLocal(),
+    photoUrl: json['photoUrl'] as String? ?? '',
   );
 }

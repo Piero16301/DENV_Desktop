@@ -10,6 +10,7 @@ part 'useless.g.dart';
 class Useless extends Equatable {
   /// {@macro elevated_tank}
   const Useless({
+    required this.id,
     required this.i,
     required this.p,
     required this.t,
@@ -22,6 +23,9 @@ class Useless extends Equatable {
   /// Crea un [Map] a partir de una instancia de [Useless]
   Map<String, dynamic> toJson() => _$UselessToJson(this);
 
+  /// Id del desperdicio
+  final int id;
+
   /// i
   final int i;
 
@@ -33,6 +37,7 @@ class Useless extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         i,
         p,
         t,
