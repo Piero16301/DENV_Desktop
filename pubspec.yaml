@@ -35,7 +35,7 @@ dependencies:
   shared_preferences: ^2.2.0
   syncfusion_flutter_core: ^22.2.7
   syncfusion_flutter_datagrid: ^22.2.7
-  syncfusion_flutter_datagrid_export: ^22.2.7
+  syncfusion_flutter_datagrid_export: ^22.2.9
   syncfusion_flutter_maps: ^22.2.7
   syncfusion_flutter_pdf: ^22.2.7
   syncfusion_flutter_xlsio: ^22.2.7
