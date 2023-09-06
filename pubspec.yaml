@@ -37,7 +37,7 @@ dependencies:
   syncfusion_flutter_datagrid: ^22.2.7
   syncfusion_flutter_datagrid_export: ^22.2.7
   syncfusion_flutter_maps: ^22.2.7
-  syncfusion_flutter_pdf: ^22.2.7
+  syncfusion_flutter_pdf: ^22.2.12
   syncfusion_flutter_xlsio: ^22.2.7
   text_scroll: ^0.2.0
 
